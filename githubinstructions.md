@@ -19,3 +19,5 @@ Ready to push...
 git branch -D branchname
 git push origin :branchname (: signifies delete)
 
+"ian is probably the coolest dude"
+"but not as cool as stephen curry"
