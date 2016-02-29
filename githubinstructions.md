@@ -19,3 +19,4 @@ Ready to push...
 git branch -D branchname
 git push origin :branchname (: signifies delete)
 
+// making change
