@@ -66,4 +66,45 @@ describe('Members Route', function () {
 
 	});
 
+    // https://github.com/expressjs/session
+    describe('/numVisits', function () {
+
+        it('counts a client\'s visits to it', function (done) {
+            // should originally send back zero
+            // but should increment, thus returning one the next time around
+            var clientA = agent;
+            clientA
+                .get('/api/numVisits')
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    expect(res.body.number).to.equal(0);
+                    clientA
+                        .get('/api/numVisits')
+                        .expect(200)
+                        .end(function (err, res) {
+                            if (err) return done(err);
+                            expect(res.body.number).to.equal(1);
+                            done();
+                        });
+                });
+        });
+
+
+        it('distinguises between clients', function (done) {
+            // should be zero again for this client!
+            var clientB = supertest.agent(app);
+            clientB
+                .get('/api/numVisits')
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    expect(res.body.number).to.equal(0);
+                    done();
+                });
+
+        });
+
+    });
+
 });
