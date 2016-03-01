@@ -8,6 +8,10 @@ var productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    category: {
+        type: String,
+        required: true
+    },
 	description: {
         type: String,
         required: true
@@ -21,5 +25,4 @@ var productSchema = new mongoose.Schema({
 
 });
 
-
-module.exports = mongoose.model('Product', productSchema);
+mongoose.model('Product', productSchema);
