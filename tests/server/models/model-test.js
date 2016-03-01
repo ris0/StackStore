@@ -3,9 +3,9 @@ var mongoose = require('mongoose'),
     helper = require('./helper'),
     expect = require('chai').expect,
     Promise = require('bluebird'),
-    models = require('../models');
+    models = require('../../../server/db/models');
 
-var Product = models('Product');
+var Product = models.Product;
 
 // TODO: Make certain to implement changes to variable declarations to specify the model that we are working with
 
