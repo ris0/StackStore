@@ -28,20 +28,6 @@ describe('testing /api routes', function () {
         return dropAll();
     });
 
-    it('serves up static files on /files route', function (done) {
-        agent
-            .get('/files/index.html')
-            .expect(200)
-            .end(function (err, res) {
-                if (err) return done(err);
-                fs.readFile(__dirname + '/public/static/index.html', function (err, contents) {
-                    if (err) return done(err);
-                    expect(res.text).to.equal(contents.toString());
-                    done();
-                });
-            });
-    });
-
     it('handles internal server errors', function (done) {
         // in an actual application, this route wouldn't exist
         // it's here just to test how you handle errors in an express app
@@ -66,8 +52,9 @@ describe('testing /api routes', function () {
 
             before(function (done) {
                 Product.create({
-                    firstName: 'Testy',
-                    lastName: 'McTesterson'
+                    title: 'Testy',
+                    description: 'McTesterson',
+                    price: 100
                 }, function (err, a) {
                     if (err) return done(err);
                     author = a;
@@ -76,7 +63,7 @@ describe('testing /api routes', function () {
             });
             // add more model/schemas if desired
             //before(function (done) {
-            //    Product.create({
+            //    Review.create({
             //        title: 'First',
             //        text: 'Once upon a time, the end.',
             //        number: 1
@@ -86,7 +73,7 @@ describe('testing /api routes', function () {
             //        done();
             //    });
             //});
-            //
+
             //before(function (done) {
             //    Book.create([{
             //        title: 'Best Book Ever',
