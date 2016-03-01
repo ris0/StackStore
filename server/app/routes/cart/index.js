@@ -2,73 +2,66 @@
 var router = require('express').Router();
 module.exports = router;
 
-// CHANGE REQ / RES and use SINGLE QUOTES
+var Cart = mongoose.model('Cart');
+var Product = mongoose.model('Product');
 
-// if there is no user, send back 401 response so frond end angular can manipulate it
-// look for third part local storage library for angular
-// use json stringify or json parse
-
-// price must be stored in the cart as a ref until the order is completed, then the price is set in stone
-var Cart = mongoose.model("Cart");
-var Product = mongoose.model("Product");
-
-router.use("/", function (request, response, next) {
-    if (request.user) {
+router.use('/', function (req, res, next) {
+    if (req.user) {
         next();
     }
     else {
-        response.sendStatus(401);
+        res.sendStatus(401);
     }
 })
 
-router.get("/", function (request, response) {
-        Cart.findOne({ user : request.user.Id })
+router.get('/', function (req, res) {
+        Cart.findOne({ user : req.user.Id })
         .then(function (oneCart) {
-            response.status(200).json(oneCart);
+            res.status(200).json(oneCart);
         })
 })
 
-router.get("/all", function (request, response) {
+router.get('/all', function (req, res) {
     Cart.find({}).exec()
     .then(function (allCarts) {
-        response.status(200).json()
+        res.status(200).json()
     })
 })
 
-router.post("/:productId", function (request, response) {
-    Cart.findOne({ user : request.user.Id }).exec()
+router.post('/:productId', function (req, res) {
+    Cart.findOne({ user : req.user.Id }).exec()
     .then(function (foundCart) {
         foundCart.contents.push({
-            quantity: request.body.quantity,
-            product: request.product
+            quantity: req.body.quantity,
+            product: req.product
         });
         return foundCart.save();
     })
     .then(function (savedCart) {
-        response.status(200).send(savedCart);
+        res.status(200).send(savedCart);
     })
 })
 
-router.put("/:productId", function (request, response) {
-    Cart.findOne({ user : request.user.Id }).exec()
+router.put('/:productId', function (req, res) {
+    Cart.findOne({ user : req.user.Id }).exec()
     .then(function (foundCart) {
-        var productId = request.product._id;
+        var productId = req.product._id;
         foundCart.contents.forEach(function (element) {
             if (element.product._id === productId) {
-                element.quantity = request.body.quantity;
+                element.quantity = req.body.quantity;
             }
         })
         return foundCart.save();
     })
     .then(function (savedCart) {
-        response.status(200).send(savedCart);
+        res.status(200).send(savedCart);
     })
 })
 
-router.delete("/:productId", function (request, response) {
-    Cart.findOne({ user : request.user.Id }).exec()
+router.delete('/:productId', function (req, res) {
+    Cart.findOne({ user : req.user.Id }).exec()
     .then(function (foundCart, foundProduct) {
-        var productId = request.product._id;
+        var productId = req.product._id;
         foundCart.contents.forEach(function (element, index, contents) {
             if (element.product._id === productId) {
                 contents.splice(index, 1);
@@ -77,6 +70,6 @@ router.delete("/:productId", function (request, response) {
         return foundCart.save();
     })
     .then(function (savedCart) {
-        response.status(200).send(savedCart);
+        res.status(200).send(savedCart);
     })
 })

@@ -1,7 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
-
-// BROWSER API LocalStorage
+var Product = mongoose.model('Product');
 
 var schema = new mongoose.Schema({
     user: {
@@ -19,10 +18,12 @@ var schema = new mongoose.Schema({
     }
 });
 
+// finds the number of unique products in cart
 schema.virtual("numUniqueProducts").get(function () {
     return this.contents.length;
 })
 
+// finds the number of total products in cart
 schema.virtual("numAllProducts").get(function () {
     var quantity = 0;
     this.contents.forEach(function (element) {
@@ -31,22 +32,27 @@ schema.virtual("numAllProducts").get(function () {
     return quantity;
 })
 
+// finds the total cost of cart
 schema.virtual("totalPrice").get(function () {
-  var totalPrice = 0;
-  this.contents.forEach(function (element) {
-    totalPrice += element.quantity * element.product.price;
-  })
-  return totalPrice;
+    var totalPrice = 0;
+    this.contents.forEach(function (element) {
+        totalPrice += element.quantity * element.product.price;
+    })
+    return totalPrice;
 })
 
-// order checkout route on submit, prices all set in stone
-
-// no back end guest cart, put it on localstorage
-// guest cart on localstorage
-// if no req user, send back 401 so that the local storage knows to manipulate it
-
-// mongoose pre-hook?
-// if there is a req user, create a cart with a ref to User
-// otherwise create a cart for the sessionId
+// this presave hook writes in the current price, setting it in stone for future reference
+schema.pre("save", function (next) {
+    var self = this;
+    if (self.pending === false) {
+        self.contents = self.contents.map(function (element) {
+            Product.findById(element.product._id).exec()
+            .then(function (foundProduct) {
+                element.product.price = foundProduct.price;
+            })
+        })
+    }
+    next();
+}
 
 mongoose.model('Cart', schema);
