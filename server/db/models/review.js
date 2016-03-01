@@ -1,8 +1,6 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var User = require('./user');
-var Product = require('./product');
 
 var schema = new mongoose.Schema({
     content: {
@@ -11,11 +9,11 @@ var schema = new mongoose.Schema({
     },
     user: {
         type: mongoose.Schema.ObjectId,
-        ref: User
+        ref: 'User'
     },
     product: {
         type: mongoose.Schema.ObjectId,
-        ref: Product
+        ref: 'Product'
     }
 });
 
