@@ -1,7 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const _ = require('lodash');
-const Product = require('../models/product');
+var express = require('express');
+var router = express.Router();
+var _ = require('lodash');
+var mongoose = require('mongoose');
+var Product = mongoose.model('Product');
 // definie reviewRouter later: routes plural... schema singular
 
 router.param('productId', function (req, res, next, productId) {
@@ -45,6 +46,8 @@ router.delete('/:productId', function (req, res, next) {
 });
 
 // check with andrew to make certain that these routes will pass router.param!
-router.use('/reviews', reviewRouter);
+// these are commented out to do manual tests
+// router.use('/reviews', reviewRouter);
+// router.use('/cart', cartRouter);
 
 module.exports = router;
