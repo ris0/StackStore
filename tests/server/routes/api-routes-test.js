@@ -1,14 +1,16 @@
-var app = require('./app');
-var models = require('./models'),
-    Author = models.Author,
-    Book = models.Book,
-    Chapter = models.Chapter;
+var app = require('../../../server/start.js');
+var models = require('../../../server/db/models'),
+    Product = models.Product,
+    Review = models.Review,
+    User = models.User,
+    Cart = models.Cart;
 var expect = require('chai').expect;
 var supertest = require('supertest');
 var agent = supertest.agent(app);
 var fs = require('fs');
 
-describe('testing /api routes', function () {
+// Andrew: These tests are pending until they've been tailored to StackStore
+xdescribe('testing /api routes', function () {
 
     function dropAll () {
         return Product.remove({})
@@ -208,6 +210,9 @@ describe('testing /api routes', function () {
                         done();
                     });
             });
+        });
+    });
+});
         //   !! ** SKELETON FOR MORE TESTS IF NEEDED ** !!
         //    describe('chapters', function () {
         //
@@ -337,7 +342,3 @@ describe('testing /api routes', function () {
         //    });
         //
         //});
-
-    });
-
-});
