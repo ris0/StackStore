@@ -3,7 +3,6 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
 
-// TODO: Do we want to require salt? Do we want to specify isAdmin? Require this?
 var userSchema = new mongoose.Schema({
 
     email: {
@@ -17,17 +16,17 @@ var userSchema = new mongoose.Schema({
     salt: {
         type: String
     },
-    twitter: {
+    facebook: {
         id: String,
         username: String,
         token: String,
         tokenSecret: String
     },
-    facebook: {
-        id: String
-    },
     google: {
-        id: String
+        id: String,
+        username: String,
+        token: String,
+        tokenSecret: String
     },
     isAdmin: {
         type: Boolean,

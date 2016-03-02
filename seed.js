@@ -27,12 +27,14 @@ var Chance = require ('chance')(),
     Product = require('./server/db/models/user.js'),
     Review = require('./server/db/models/user.js');
 
+
+// creating a new instance of chance and defining vars that will limit the amount of users/reviews generated
 var chance = new Chance();
 var numUsers = 20;
-var emails = chance.unique(chance.email({ domain: 'gmail.com' }), numUsers);
-// user => email, pw, salt, fb, google?
+var numReviews = 20;
+var emails = chance.unique(chance.email, numUsers);
 
-var randUser = function () {
+function randUser () {
     return new User({
         email: emails.pop(),
         password: chance.word(),
@@ -40,23 +42,45 @@ var randUser = function () {
     });
 };
 
+function randReview (allUsers) {
+    var user = chance.pick(allUsers);
+    var numPars = chance.natural({
+        min: 3,
+        max: 20
+    });
+    return new Review({
+        user: user,
+        content: chance.n(chance.paragraph, numPars)
+    });
+}
 
-var seedUsers = function () {
+function generateAll () {
+    var users = _.times(numUsers, randUser);
+    users.push(new User({
+        email: 'david@fsa.com',
+        password: '123',
+        isAdmin: true
+    }));
+    users.push(new User({
+        email: 'nimit@fsa.com',
+        password: '123',
+        isAdmin: true
+    }));
+    var reviews = _.times(numReviews, function () {
+        return randReview(users);
+    });
+    return users.concat(reviews);
+}
 
-    var users = [
-        {
-            email: 'testing@fsa.com',
-            password: 'password'
-        },
-        {
-            email: 'obama@gmail.com',
-            password: 'potus'
-        }
-    ];
+function seed () {
+    var docs = generateAll();
+    return Promise.map(docs, function (doc) {
+        return doc.save();
+    });
+}
 
-    return User.createAsync(users);
-
-};
+// likely to cause an error here
+connectToDb.drop = Promise.promisify(connectToDb.db.dropDatabase.bind(connectToDb.db));
 
 connectToDb.then(function () {
     User.findAsync({}).then(function (users) {

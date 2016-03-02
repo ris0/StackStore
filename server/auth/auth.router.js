@@ -3,7 +3,7 @@
 var router = require('express').Router();
 
 var HttpError = require('../utils/HttpError');
-var User = require('../db/models/users/user.js');
+var User = require('../db/models/user.js');
 
 router.post('/login', function (req, res, next) {
     User.findOne(req.body).exec()
@@ -36,9 +36,6 @@ router.delete('/me', function (req, res, next) {
 });
 
 router.use('/google', require('./google.oauth'));
-
-router.use('/twitter', require('./twitter.oauth'));
-
-router.use('/github', require('./github.oauth'));
+router.use('/twitter', require('./facebook.oauth'));
 
 module.exports = router;
