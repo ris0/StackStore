@@ -17,6 +17,12 @@ var schema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'Product',
         required: true
+    },
+    rating: {
+        type: Number,
+        min: 1,
+        max: 5,
+        required: true
     }
 });
 
