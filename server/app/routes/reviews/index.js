@@ -11,7 +11,7 @@ router.get('/:productId', function (req, res, next) {
 });
 
 router.post('/:productId', function (req, res, next) {
-    Review.create({ req.body })
+    Review.create( req.body )
     .then(res.status(201).json)
     .then(null, next);
 });

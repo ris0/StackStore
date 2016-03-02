@@ -7,7 +7,8 @@ var Product = require('./product');
 var schema = new mongoose.Schema({
     content: {
         type: String,
-        minlength: 15
+        minlength: 15,
+        required: true
     },
     user: {
         type: mongoose.Schema.ObjectId,

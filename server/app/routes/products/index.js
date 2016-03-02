@@ -3,6 +3,7 @@ var router = express.Router();
 var _ = require('lodash');
 var mongoose = require('mongoose');
 var Product = mongoose.model('Product');
+var reviewRouter = require('../reviews');
 
 router.param('productId', function (req, res, next, productId) {
     Product.findOne({_id:productId})
