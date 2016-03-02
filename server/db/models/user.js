@@ -3,13 +3,12 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
 
-
 // TODO: Do we want to require salt? Do we want to specify isAdmin? Require this?
 var schema = new mongoose.Schema({
+
     email: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     password: {
         type: String,
@@ -33,11 +32,11 @@ var schema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
-    }
+
 });
 
 // method to remove sensitive information from user objects before sending them out
-schema.methods.sanitize =  function () {
+userSchema.methods.sanitize =  function () {
     return _.omit(this.toJSON(), ['password', 'salt']);
 };
 
@@ -54,22 +53,25 @@ var encryptPassword = function (plainText, salt) {
     return hash.digest('hex');
 };
 
-schema.pre('save', function (next) {
+userSchema.pre('save', function (next) {
 
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
         this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
-
     next();
 
 });
 
-schema.statics.generateSalt = generateSalt;
-schema.statics.encryptPassword = encryptPassword;
+userSchema.statics.generateSalt = generateSalt;
+userSchema.statics.encryptPassword = encryptPassword;
 
-schema.method('correctPassword', function (candidatePassword) {
+userSchema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 
+<<<<<<< HEAD
 mongoose.model('User', schema);
+=======
+mongoose.model('User', userSchema);
+>>>>>>> master
