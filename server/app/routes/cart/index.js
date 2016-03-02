@@ -10,10 +10,11 @@ router.use('/', function (req, res, next) {
 })
 
 router.get('/:cartId', function (req, res) {
-    Cart.findById(req.params.cartId)
-    .then(function (foundCart) {
-        res.status(200).json(foundCart);
-    })
+        Cart.findById(req.params.cartId)
+        .then(function (foundCart) {
+            res.status(200).json(foundCart);
+        })
+    }
 })
 
 router.get('/current', function (req, res) {
@@ -31,10 +32,11 @@ router.get('/past', function (req, res) {
 })
 
 router.get('/all', function (req, res) {
-    Cart.find({})
-    .then(function (allCarts) {
-        res.status(200).json()
-    })
+        Cart.find({})
+        .then(function (allCarts) {
+            res.status(200).json()
+        })
+    }
 })
 
 router.post('/', function (req, res) {
@@ -70,11 +72,11 @@ router.put('/', function (req, res) {
 router.delete('/', function (req, res) {
     Cart.findOne({ user : req.user.Id })
     .then(function (foundCart) {
-        foundCart.contents.forEach(function (element, index, contents) {
-            if (element.product._id === req.body.productId) {
-                contents.splice(index, 1);
+        for (var i = foundCart.contents.length - 1; i >= 0; i--) {
+            if (foundCart.contents[i].product._id === req.body.productId) {
+                foundCart.contents.splice(i, 1)
             }
-        })
+        }
         return foundCart.save();
     })
     .then(function (savedCart) {
