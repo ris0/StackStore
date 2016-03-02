@@ -32,7 +32,7 @@ var userSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
-
+    }
 });
 
 // method to remove sensitive information from user objects before sending them out
