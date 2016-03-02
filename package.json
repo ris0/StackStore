@@ -6,12 +6,7 @@
   "scripts": {
     "start": "nodemon --watch server -e js,html server/start.js",
     "postinstall": "gulp build",
-<<<<<<< HEAD
     "test": "nodemon ./node_modules/.bin/mocha --reporter spec ./tests/server/models/*.js"
-=======
-    "test": "nodemon ./node_modules/.bin/mocha --reporter spec ./tests/server/routes/product-test.js"
-
->>>>>>> master
   },
   "engines": {
     "node": ">=4.0.0"
