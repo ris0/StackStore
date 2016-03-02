@@ -17,11 +17,29 @@ name in the environment files.
 
 */
 
-var mongoose = require('mongoose');
-var Promise = require('bluebird');
-var chalk = require('chalk');
-var connectToDb = require('./server/db');
-var User = Promise.promisifyAll(mongoose.model('User'));
+var Chance = require ('chance')(),
+    _ = require ('lodash'),
+    mongoose = require('mongoose'),
+    Promise = require('bluebird'),
+    chalk = require('chalk'),
+    connectToDb = require('./server/db'),
+    User = require('./server/db/models/user.js'),
+    Product = require('./server/db/models/user.js'),
+    Review = require('./server/db/models/user.js');
+
+var chance = new Chance();
+var numUsers = 20;
+var emails = chance.unique(chance.email({ domain: 'gmail.com' }), numUsers);
+// user => email, pw, salt, fb, google?
+
+var randUser = function () {
+    return new User({
+        email: emails.pop(),
+        password: chance.word(),
+        isAdmin: false
+    });
+};
+
 
 var seedUsers = function () {
 
