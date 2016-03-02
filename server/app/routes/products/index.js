@@ -6,13 +6,14 @@ var Product = mongoose.model('Product');
 // definie reviewRouter later: routes plural... schema singular
 
 router.param('productId', function (req, res, next, productId) {
-    Product.findById(productId).exec()
+    Product.findOne({_id:productId})
         .then(function (product) {
             req.product = product;
+            console.log(req.product);
             next();
         }) // 1st arg: success || 2nd: failure
         .then(null, function (err) {
-            if (!err.status) err.status = '404';
+            if(!err.status) err.status = '404';
             next(err);
         });
 });
@@ -28,7 +29,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/:productId', function (req, res, next) {
-    res.send(req.product)
+    res.json(req.product)
 });
 
 router.put('/:productId', function (req, res, next) {
@@ -41,7 +42,9 @@ router.put('/:productId', function (req, res, next) {
 
 router.delete('/:productId', function (req, res, next) {
     req.product.remove()
-        .then(function () { res.status(204).end(); })
+        .then(function () { 
+            res.status(204).end(); 
+        })
         .then(null, next);
 });
 

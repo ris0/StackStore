@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 
 var productSchema = new mongoose.Schema({
-
     title: {
         type: String,
         required: true
