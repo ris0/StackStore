@@ -14,19 +14,19 @@ var userSchema = new mongoose.Schema({
     },
     salt: {
         type: String
+    },
+    twitter: {
+        id: String,
+        username: String,
+        token: String,
+        tokenSecret: String
+    },
+    facebook: {
+        id: String
+    },
+    google: {
+        id: String
     }
-    //twitter: {
-    //    id: String,
-    //    username: String,
-    //    token: String,
-    //    tokenSecret: String
-    //},
-    //facebook: {
-    //    id: String
-    //},
-    //google: {
-    //    id: String
-    //}
 });
 
 // method to remove sensitive information from user objects before sending them out
