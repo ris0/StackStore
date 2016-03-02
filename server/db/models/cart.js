@@ -63,7 +63,4 @@ schema.pre("save", function (next) {
     }
 })
 
-var testing = mongoose.model('Cart', schema);
-testing.on('error', function (error) {
-    contole.log(error)
-});
+mongoose.model('Cart', schema);
