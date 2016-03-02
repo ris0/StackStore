@@ -1,20 +1,22 @@
 'use strict';
 var mongoose = require('mongoose');
-var Product = mongoose.model('Product');
+// var Product = mongoose.model('Product');
 
 var schema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     },
-    contents: {
-        type: Array,
-        default: []
-    },
+    contents:
+        [{
+            quantity: Number,
+            product: { type : String, ref: 'Product' }
+        }],
     pending: {
         type: Boolean,
-        required: true,
-        default: true
+        default: true,
+        required: true
     }
 });
 
@@ -34,6 +36,7 @@ schema.virtual("numAllProducts").get(function () {
 
 // finds the total cost of cart
 schema.virtual("totalPrice").get(function () {
+    // QUESTION: do async stuff to get full price?
     var totalPrice = 0;
     this.contents.forEach(function (element) {
         totalPrice += element.quantity * element.product.price;
@@ -41,18 +44,26 @@ schema.virtual("totalPrice").get(function () {
     return totalPrice;
 })
 
-// this presave hook writes in the current price, setting it in stone for future reference
+// this presave hook writes in the current product documents, setting it in stone for future reference
 schema.pre("save", function (next) {
     var self = this;
     if (self.pending === false) {
-        self.contents = self.contents.map(function (element) {
-            Product.findById(element.product._id).exec()
-            .then(function (foundProduct) {
-                element.product.price = foundProduct.price;
+        Promise.all(self.contents.map(function (element) {
+            return Product.findById(element.product._id)
+        }))
+        .then(function (arrayProducts) {
+            self.contents.forEach(function (element, index) {
+                element.product = arrayProducts[index];
             })
+            next();
         })
     }
-    next();
-}
+    else {
+        next();
+    }
+})
 
-mongoose.model('Cart', schema);
+var testing = mongoose.model('Cart', schema);
+testing.on('error', function (error) {
+    contole.log(error)
+});
