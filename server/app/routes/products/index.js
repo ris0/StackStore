@@ -3,12 +3,12 @@ var router = express.Router();
 var _ = require('lodash');
 var mongoose = require('mongoose');
 var Product = mongoose.model('Product');
+var reviewRouter = require('../reviews');
 
 router.param('productId', function (req, res, next, productId) {
     Product.findOne({_id:productId})
         .then(function (product) {
             req.product = product;
-            console.log(req.product);
             next();
         })
         .then(null, function (err) {
@@ -26,7 +26,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/:productId', function (req, res, next) {
-    res.json(req.product)
+    res.json(req.product);
 });
 
 router.put('/:productId', function (req, res, next) {
@@ -45,6 +45,6 @@ router.delete('/:productId', function (req, res, next) {
         .then(null, next);
 });
 
-router.use('/reviews', reviewRouter);
+router.use('/:productId/reviews', reviewRouter);
 
 module.exports = router;
