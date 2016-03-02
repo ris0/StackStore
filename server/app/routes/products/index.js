@@ -45,6 +45,6 @@ router.delete('/:productId', function (req, res, next) {
         .then(null, next);
 });
 
-router.use('/reviews', reviewRouter);
+// router.use('/reviews', reviewRouter);
 
 module.exports = router;
