@@ -1,5 +1,6 @@
 'use strict';
 var router = require('express').Router();
+var mongoose = require('mongoose');
 module.exports = router;
 
 var Cart = mongoose.model('Cart');
@@ -10,11 +11,10 @@ router.use('/', function (req, res, next) {
 })
 
 router.get('/:cartId', function (req, res) {
-        Cart.findById(req.params.cartId)
-        .then(function (foundCart) {
-            res.status(200).json(foundCart);
-        })
-    }
+    Cart.findById(req.params.cartId)
+    .then(function (foundCart) {
+        res.status(200).json(foundCart);
+    })
 })
 
 router.get('/current', function (req, res) {
@@ -32,11 +32,10 @@ router.get('/past', function (req, res) {
 })
 
 router.get('/all', function (req, res) {
-        Cart.find({})
-        .then(function (allCarts) {
-            res.status(200).json()
-        })
-    }
+    Cart.find({})
+    .then(function (allCarts) {
+        res.status(200).json()
+    })
 })
 
 router.post('/', function (req, res) {
