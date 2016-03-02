@@ -23,6 +23,7 @@ Auth.isSelf = function (req) {
 
 Auth.assert = function (assertion, status) {
 	return function (req, res, next) {
+		console.log(req.user, 'req.user');
 		if (assertion(req)) next();
 		else next(new HttpError(status || 403));
 	};

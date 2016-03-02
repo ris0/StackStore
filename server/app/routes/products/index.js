@@ -4,6 +4,7 @@ var _ = require('lodash');
 var mongoose = require('mongoose');
 var Product = mongoose.model('Product');
 var reviewRouter = require('../reviews');
+var Auth = require('../../../utils/auth.middleware.js');
 
 router.param('productId', function (req, res, next, productId) {
     Product.findOne({_id:productId})
@@ -18,18 +19,20 @@ router.param('productId', function (req, res, next, productId) {
 });
 
 router.get('/', function (req, res, next) {
-    Product.find({}).then(products => res.json(products));
+    Product.find( req.query ).then(products => res.json(products));
 });
 
-router.post('/', function (req, res, next) {
-    Product.create( req.body ).then(product => res.status(201).json(product));
+router.post('/', Auth.assertAdmin, function (req, res, next) {
+    Product.create( req.body ).then(function (product) {
+        res.status(201).json(product);
+    }); 
 });
 
 router.get('/:productId', function (req, res, next) {
     res.json(req.product);
 });
 
-router.put('/:productId', function (req, res, next) {
+router.put('/:productId', Auth.assertAdmin, function (req, res, next) {
     _.merge(req.product, req.body);
 
     req.product.save()
@@ -37,7 +40,7 @@ router.put('/:productId', function (req, res, next) {
         .then(null, next);
 });
 
-router.delete('/:productId', function (req, res, next) {
+router.delete('/:productId', Auth.assertAdmin, function (req, res, next) {
     req.product.remove()
         .then(function () {
             res.status(204).end();

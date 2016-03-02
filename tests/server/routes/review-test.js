@@ -1,6 +1,8 @@
 var app = require('../../../server/app/index.js');
 var mongoose = require('mongoose');
 var Review = mongoose.model('Review');
+var Product = mongoose.model('Product');
+var User = mongoose.model('User');
 var expect = require('chai').expect;
 var supertest = require('supertest');
 var agent = supertest.agent(app);
@@ -21,14 +23,60 @@ describe('/api/reviews/', function () {
     });
 
     describe('review', function () {
-
         var review;
+        var createdProduct;
+        var agent;
+        var createdUser;
+        var userInfo = {
+            email: 'joe@gmail.com',
+            password: 'shoopdawoop',
+            isAdmin: true
+        };
+
+        beforeEach(function(done) {
+            Product.create({
+                title: 'Testy',
+                categories: ['Zombie'],
+                description: 'McTesterson',
+                quantity: 3,
+                price: 100
+            }).then(function(product) {
+                createdProduct = product;
+                done();
+            }).then(null, function(err) {
+                done(err);
+            });
+        });
+
+        beforeEach(function(done) {
+            User.create(userInfo, done)
+            .then(function(user) {
+                createdUser = user;
+            });
+        });
+
+        beforeEach(function(done) {
+            User.findOne({email: 'joe@gmail.com'})
+            .then(function (user) {
+                user.isAdmin = true;
+                return user.save();
+            })
+            .then(function (user) {
+                done();
+            });
+        });
+
+        beforeEach(function(done) {
+            agent = supertest.agent(app);
+            agent.post('/login').send(userInfo).end(done);
+        });
 
         beforeEach(function (done) {
             Review.create({
                 content: 'Wow! This is the greatest product of all time.',
-                product: '8080',
-                User: 'Leon Kennedy'
+                product: createdProduct._id,
+                user: createdUser._id,
+                rating: 5
             }).then(function(){
                 done();
             }).then(null, function(err){
@@ -38,13 +86,14 @@ describe('/api/reviews/', function () {
 
         it('GET all', function (done) {
             agent
-                .get('/api/reviews/8080')
+                .get('/api/products/' + createdProduct._id + '/reviews')
                 .expect(200)
                 .end(function (err, res) {
                     if (err) return done(err);
                     expect(res.body).to.be.instanceof(Array);
                     // length should equal the number of reviews
                     expect(res.body).to.have.length(1);
+                    console.log("RES.BODY: ", res.body);
                     done();
                 });
         });
@@ -53,17 +102,17 @@ describe('/api/reviews/', function () {
     // change schema definition
         it('POST one', function (done) {
             agent
-                .post('/api/reviews/8080')
+                .post('/api/products/' + createdProduct._id + '/reviews')
                 .send({
                     content: 'Wow! This is the worst product of all time.',
-                    product: '8080',
-                    User: 'Krauser'
+                    product: createdProduct._id,
+                    user: createdUser._id,
+                    rating: 1
                 })
                 .expect(201)
                 .end(function (err, res) {
                     if (err) return done(err);
-                    expect(res.body.product).to.equal('8080');
-                    createdProduct = res.body;
+                    expect(res.body.content).to.equal('Wow! This is the worst product of all time.');
                     done();
                 });
         });
