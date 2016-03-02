@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 
 // TODO: Do we want to require salt? Do we want to specify isAdmin? Require this?
-var schema = new mongoose.Schema({
+var userSchema = new mongoose.Schema({
 
     email: {
         type: String,
@@ -70,8 +70,4 @@ userSchema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 
-<<<<<<< HEAD
-mongoose.model('User', schema);
-=======
 mongoose.model('User', userSchema);
->>>>>>> master
