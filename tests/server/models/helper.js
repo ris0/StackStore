@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 
 
 exports.clearDb = function () {
-    return mongoose.model('Cart').remove().exec();
+    return mongoose.model('Product').remove().exec();
+
 };
 
 exports.clearMongoose = function () {
