@@ -17,8 +17,8 @@ describe('/api/products', function () {
 		})
 		.then(null, function(err){
 			done(err);
-		})
-	})
+		});
+	});
 
     describe('product', function () {
 
@@ -34,7 +34,7 @@ describe('/api/products', function () {
             	done()
             }).then(null, function(err){
             	done(err)
-            })
+            });
         });
 
         it('GET all', function (done) {
