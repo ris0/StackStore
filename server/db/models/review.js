@@ -10,11 +10,13 @@ var schema = new mongoose.Schema({
     },
     user: {
         type: mongoose.Schema.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     product: {
         type: mongoose.Schema.ObjectId,
-        ref: 'Product'
+        ref: 'Product',
+        required: true
     }
 });
 
