@@ -9,7 +9,6 @@ router.param('productId', function (req, res, next, productId) {
     Product.findOne({_id:productId})
         .then(function (product) {
             req.product = product;
-            console.log(req.product);
             next();
         })
         .then(null, function (err) {
@@ -27,7 +26,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/:productId', function (req, res, next) {
-    res.json(req.product)
+    res.json(req.product);
 });
 
 router.put('/:productId', function (req, res, next) {
