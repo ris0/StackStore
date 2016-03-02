@@ -9,8 +9,6 @@ require('../../../server/db/models');
 // Require in all models.
 var Product = mongoose.model('Product');
 describe('Product model', function () {
-
-    console.log(Product);
     beforeEach('Establish DB connection', function (done) {
         if (mongoose.connection.db) return done();
         mongoose.connect(dbURI, done);
@@ -25,7 +23,6 @@ describe('Product model', function () {
         var product;
         beforeEach(function() {
             product = new Product();
-            console.log(product);
         });
         it('errors without title', function(done) {
             product.validate(function (err) {
