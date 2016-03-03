@@ -6,36 +6,36 @@ module.exports = router;
 var Cart = mongoose.model('Cart');
 
 router.use('/', function (req, res, next) {
-    console.log("WOOPWOOPWOOPWOOPWOOPWOOPWOOPWOOPWOOPWOOP\n", req.user)
     if (req.user) next();
     else res.sendStatus(401);
 })
 
-router.get('/:cartId', function (req, res) {
-    Cart.findById(req.params.cartId)
-    .then(function (foundCart) {
-        res.status(200).json(foundCart);
-    })
-})
 
 router.get('/current', function (req, res) {
-    Cart.find({ user : req.user._id, pending : true })
+    Cart.findOne({ user : req.user._id, pending : true })
     .then(function (oneCart) {
-        res.status(200).json(oneCart);
+        res.json(oneCart);
     })
 })
 
 router.get('/past', function (req, res) {
-    Cart.find({ user : req.user._id, pending : false })
+    Cart.findOne({ user : req.user._id, pending : false })
     .then(function (carts) {
-        res.status(200).json(carts);
+        res.json(carts);
     })
 })
 
 router.get('/all', function (req, res) {
     Cart.find({})
     .then(function (allCarts) {
-        res.status(200).json()
+        res.json()
+    })
+})
+
+router.get('/:cartId', function (req, res) {
+    Cart.findById(req.params.cartId)
+    .then(function (foundCart) {
+        res.json(foundCart);
     })
 })
 
@@ -49,7 +49,7 @@ router.post('/', function (req, res) {
         return foundCart.save();
     })
     .then(function (savedCart) {
-        res.status(200).json(savedCart);
+        res.json(savedCart);
     })
 })
 
@@ -65,7 +65,7 @@ router.put('/', function (req, res) {
         return foundCart.save()
     })
     .then(function (savedCart) {
-        res.status(200).json(savedCart);
+        res.json(savedCart);
     })
 })
 

@@ -9,34 +9,36 @@ var agent = supertest.agent(app);
 var fs = require('fs');
 
 
-describe('/api/cart', function () {
+describe('Cart Routes', function () {
 
-  before(function (done){
-    return mongoose.model('Cart')
-    .remove()
-    .then(function(){
-      done()
-    })
-    .then(null, function(err){
-      done(err);
-    });
-  });
+  // before(function (done){
+  //   return mongoose.model('Cart')
+  //   .remove()
+  //   .then(function(){
+  //     done()
+  //   })
+  //   .then(null, function(err){
+  //     done(err);
+  //   });
+  // });
 
-    describe('Cart Routes', function () {
+    describe('/api/cart', function () {
         var userInfo = {
             email: 'joe@gmail.com',
             password: 'shoopdawoop'
         };
         var cart;
-        var product1 = { 
+        var product1 = {
+            quantity: 4,
+            categories: ["zombie"], 
             title: "Egg", 
-            category: "Apoc1", 
             description: "An Egg", 
             price: 30 
         };
         var product2 = { 
+            quantity: 2,
+            categories: ["nuclear"],
             title: "Chicken", 
-            category: "Apoc2", 
             description: "A Chicken", 
             price: 10 
         };
@@ -93,9 +95,8 @@ describe('/api/cart', function () {
                 .expect(200)
                 .end(function (err, res) {
                     if (err) return done(err);
-                    // expect(res.body).to.be.instanceof(Array);
-                    // length should equal the number of products
-                    // expect(res.body).to.have.length(1);
+                    expect(res.body.contents).to.be.instanceof(Array);
+                    expect(res.body.contents).to.have.length(2);
                     done();
                 });
         });

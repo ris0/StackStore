@@ -31,14 +31,16 @@ describe('Cart Model', function () {
     describe('virtuals', function () {
         var cart;
         var product1 = { 
-            title: "Egg", 
-            category: "Apoc1", 
+            quantity: 4,
+            categories: ["zombie"], 
+            title: "Egg",  
             description: "An Egg", 
             price: 30 
         };
         var product2 = { 
+            quantity: 2,
+            categories: ["nuclear"], 
             title: "Chicken", 
-            category: "Apoc2", 
             description: "A Chicken", 
             price: 10 
         };
@@ -89,8 +91,9 @@ describe('Cart Model', function () {
     describe('pre-save hook', function () {
         var cart;
         var myProd = { 
+            quantity: 2,
             title: "Egg", 
-            category: "Apoc1", 
+            categories: ["zombie"], 
             description: "An Egg", 
             price: 30 
         }
