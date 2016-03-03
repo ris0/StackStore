@@ -12,18 +12,18 @@ app.factory('CartFactory', function ($http) {
 
     CartFactory.getCurrentCart = function (data) {
         return $http.get('/api/cart/current', data)
-        .then(cart => cart.data)
-        .catch(function (err) {
-            console.error(err);
-        });
+            .then(cart => cart.data)
+            .catch(function (err) {
+                console.error(err);
+            });
     };
 
     CartFactory.getPastCarts = function (data) {
         return $http.get('/api/cart/past', data)
-        .then(carts => carts.data)
-        .catch(function (err) {
-            console.error(err);
-        });
+            .then(carts => carts.data)
+            .catch(function (err) {
+                console.error(err);
+            });
     };
 
     CartFactory.getCartById = function (cartId) {
@@ -42,16 +42,16 @@ app.factory('CartFactory', function ($http) {
             });
     };
 
-    CartFactory.addProduct = function (productId, quantity) {
-        return $http.post('/api/cart' + productId + '/' + quantity)
+    CartFactory.addProduct = function (productId, quantity, data) {
+        return $http.post('/api/cart' + productId + '/' + quantity, data)
             .then(cart => cart.data)
             .catch(function (err) {
                 console.error(err);
             });
     };
 
-    CartFactory.updateProduct = function (productId, quantity) {
-        return $http.put('/api/cart/' + productId + '/' + quantity)
+    CartFactory.updateProduct = function (productId, quantity, data) {
+        return $http.put('/api/cart/' + productId + '/' + quantity, data)
             .then(cart => cart.data)
             .catch(function (err) {
                 console.error(err);
@@ -59,7 +59,7 @@ app.factory('CartFactory', function ($http) {
     };
 
     CartFactory.clearCurrentCart = function (userId) {
-        return $http.delete('/clear-cart/' + userId)
+        return $http.delete('/api/cart/clear-cart/' + userId)
             .then(null, function (err) {
                 console.error(err);
             });

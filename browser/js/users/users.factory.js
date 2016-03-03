@@ -2,12 +2,16 @@ app.factory('UsersFactory', function ($http) {
 
     var UsersFactory = {};
 
+    // BUG possibility: do we need to send data payload
+    // to authenticate the user as an admin?
     UsersFactory.getAllUsers = function () {
         return $http.get('/api/users')
         .then(users => users.data)
         .catch(function(err) { console.error(err); });
     };
 
+    // BUG possibility: do we need to send data payload
+    // to authenticate the user as an admin?
     UsersFactory.getUserById = function (userId) {
         return $http.get('/api/users/' + userId)
         .then(user => user.data)
