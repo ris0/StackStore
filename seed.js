@@ -47,8 +47,8 @@ function randReview (allUsers, allProducts) {
     var product = chance.pick(allProducts);
     // returns a natural #
     var numPars = chance.natural({
-        min: 2,
-        max: 3
+        min: 3,
+        max: 4
     });
     return new Review({
         content: chance.n(chance.paragraph, numPars),
