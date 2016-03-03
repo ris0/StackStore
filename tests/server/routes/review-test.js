@@ -93,7 +93,6 @@ describe('/api/reviews/', function () {
                     expect(res.body).to.be.instanceof(Array);
                     // length should equal the number of reviews
                     expect(res.body).to.have.length(1);
-                    console.log("RES.BODY: ", res.body);
                     done();
                 });
         });
