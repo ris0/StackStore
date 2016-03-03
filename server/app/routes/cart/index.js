@@ -13,48 +13,53 @@ router.use('/', function (req, res, next) {
 })
 
 // find the current cart
-router.get('/current', Auth.assertAdminOrSelf, function (req, res) {
+router.get('/current', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.findOne({ user : req.user._id, pending : true })
     .then(function (oneCart) {
         res.json(oneCart);
     })
+    .then(null, next)
 })
 
 // find the past orders
-router.get('/past', Auth.assertAdminOrSelf, function (req, res) {
+router.get('/past', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.findOne({ user : req.user._id, pending : false })
     .then(function (carts) {
         res.json(carts);
     })
+    .then(null, next)
 })
 
 // ADMIN get all carts
-router.get('/', Auth.assertAdmin, function (req, res) {
+router.get('/', Auth.assertAdmin, function (req, res, next) {
     Cart.find({})
     .then(function (allCarts) {
         res.json(allCarts)
     })
+    .then(null, next)
 })
 
 // ADMIN get card by cartId
-router.get('/:cartId', Auth.assertAdmin, function (req, res) {
+router.get('/:cartId', Auth.assertAdmin, function (req, res, next) {
     Cart.findById(req.params.cartId)
     .then(function (foundCart) {
         res.json(foundCart);
     })
+    .then(null, next)
 })
 
 
 // creates a new cart for the active user
-router.post('/', Auth.assertAdminOrSelf, function (req, res) {
+router.post('/', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.create({ user : req.user._id })
     .then(function (createdCart) {
         res.json(createdCart);
     })
+    .then(null, next)
 })
 
 // adds a product with quantity to the cart
-router.post('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res) {
+router.post('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.findOne({ user : req.user._id })
     .then(function (foundCart) {
         foundCart.contents.push({
@@ -66,10 +71,11 @@ router.post('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res) {
     .then(function (savedCart) {
         res.json(savedCart);
     })
+    .then(null, next)
 })
 
 // updates a product with quantity to the cart
-router.put('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res) {
+router.put('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.findOne({ user : req.user._id })
     .then(function (foundCart) {
         foundCart.contents.forEach(function (element, index, contents) {
@@ -83,10 +89,11 @@ router.put('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res) {
     .then(function (savedCart) {
         res.json(savedCart);
     })
+    .then(null, next)
 })
 
 // deletes a product from the cart
-router.delete('/:prodId', Auth.assertAdminOrSelf, function (req, res) {
+router.delete('/:prodId', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.findOne({ user : req.user._id })
     .then(function (foundCart) {
         foundCart.contents = foundCart.contents.filter(function (element) {
@@ -97,4 +104,5 @@ router.delete('/:prodId', Auth.assertAdminOrSelf, function (req, res) {
     .then(function (savedCart) {
         res.status(200).json(savedCart);
     })
+    .then(null, next)
 })
