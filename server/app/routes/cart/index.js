@@ -93,6 +93,18 @@ router.put('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
 })
 
 // deletes a product from the cart
+router.delete('/clear-cart/:userId', Auth.assertAdminOrSelf, function (req, res, next) {
+    Cart.findOne({ user : req.params.userId })
+    .then(function (foundCart) {
+        foundCart.contents.length = 0;
+        return foundCart.save();
+    })
+    .then(function (savedCart) {
+        res.status(204).json(savedCart);
+    })
+    .then(null, next)
+})
+
 router.delete('/:prodId', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.findOne({ user : req.user._id })
     .then(function (foundCart) {
@@ -106,3 +118,6 @@ router.delete('/:prodId', Auth.assertAdminOrSelf, function (req, res, next) {
     })
     .then(null, next)
 })
+
+
+
