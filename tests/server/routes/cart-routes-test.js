@@ -110,6 +110,21 @@ describe('Cart Routes', function () {
                 });
         });
 
+        it('GET all', function (done) {
+            Cart.find({})
+            .then(function (found) {
+            })
+            agent
+                .get('/api/cart/all')
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    expect(res.body).to.be.instanceof(Array);
+                    expect(res.body).to.have.length(1);
+                    done();
+                });
+        });
+
         it('POST a new cart', function (done) {
                 agent
                     .post('/api/cart/')
@@ -170,105 +185,19 @@ describe('Cart Routes', function () {
             });
         });
 
-
-
-// needs to be a presave hook for creating a new cart in the User Document???
-
-        // var createdProduct;
-    // // change schema definition
-    //     it('POST one', function (done) {
-    //         agent
-    //             .post('/api/products')
-    //             .send({
-    //                 title: 'Golden Chainsaw',
-    //               category: 'Zombie',
-    //               description: 'Wao',
-    //               price: 300
-    //             })
-    //             .expect(201)
-    //             .end(function (err, res) {
-    //                 if (err) return done(err);
-    //                 expect(res.body.title).to.equal('Golden Chainsaw');
-    //                 createdProduct = res.body;
-    //                 done();
-    //             });
-    //     });
-
-    //     it('GET one', function (done) {
-    //         agent
-    //             .get('/api/products/' + createdProduct._id)
-    //             .expect(200)
-    //             .end(function (err, res) {
-    //                 if (err) return done(err);
-    //                 expect(res.body.title).to.equal(createdProduct.title);
-    //                 done();
-    //             });
-    //     });
-
-    //     // error handling tested
-    //     it('GET one that doesn\'t exist', function (done) {
-    //       var objectId = new mongoose.Schema.ObjectId;
-    //       console.log(JSON.stringify(objectId));
-    //         agent
-    //             .get('/api/products/' + new mongoose.Schema.ObjectId)
-    //             .expect(404)
-    //             .end(done);
-    //     });
-
-    //     it('PUT one', function (done) {
-    //         agent
-    //             .put('/api/products/' + createdProduct._id)
-    //             .send({
-    //                 title: 'Garlic'
-    //             })
-    //             .expect(200)
-    //             .end(function (err, res) {
-    //                 if (err) return done(err);
-    //                 expect(res.body.title).to.equal('Garlic');
-    //                 done();
-    //             });
-    //     });
-
-    //     it('PUT one that doesn\'t exist', function (done) {
-    //         agent
-    //             .put('/api/products/123abcnotamongoid')
-    //             .send({title: 'Attempt To Update Book Title'})
-    //             .expect(404)
-    //             .end(done);
-    //     });
-
-    //     it('DELETE one', function (done) {
-    //         agent
-    //             .delete('/api/products/' + createdProduct._id)
-    //             .expect(204)
-    //             .end(function (err, res) {
-    //                 if (err) return done(err);
-    //                 Product.findById(createdProduct._id, function (err, b) {
-    //                     if (err) return done(err);
-    //                     expect(b).to.be.null;
-    //                     done();
-    //                 });
-    //             });
-    //     });
-
-    //     it('DELETE one that doesn\'t exist', function (done) {
-    //         agent
-    //             .delete('/api/products/123abcnotamongoid')
-    //             .expect(404)
-    //             .end(done);
-    //     });
-
-    //     // it('GET with query string filter', function (done) {
-    //     //     agent
-    //     //     // remember that in query strings %20 means a single whitespace character
-    //     //         .get('/api/products?title=Best%20Book%20Ever')
-    //     //         .expect(200)
-    //     //         .end(function (err, res) {
-    //     //             if (err) return done(err);
-    //     //             expect(res.body).to.be.instanceof(Array);
-    //     //             expect(res.body).to.have.length();
-    //     //             done();
-    //     //         });
-    //     // });
+        it('DELETE a specific product from contents', function (done) {
+            Cart.find({})
+            .then(function (array) {
+                agent
+                    .delete('/api/cart/' + array[0].contents[0].product)
+                    .expect(200)
+                    .end(function (err, res) {
+                        if (err) return done(err);
+                        expect(res.body.contents).to.be.instanceof(Array);
+                        expect(res.body.contents).to.have.length(1);
+                        done();
+                    });
+            });
+        });
     });
 });
