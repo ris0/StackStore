@@ -39,16 +39,4 @@ productSchema.pre('save', function (next) {
     next();
 });
 
-//lets delete this, yeah?
-
-// productSchema.methods.addCategory = function (category) {
-//     this.categories.push(category);
-// };
-
-// productSchema.methods.removeCategory = function (category) {
-//     this.categories = this.categories.filter(function (element) {
-//         return element !== category;
-//     });
-// };
-
 mongoose.model('Product', productSchema);
