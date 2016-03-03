@@ -102,8 +102,8 @@ router.delete('/clear-cart/:userId', Auth.assertAdminOrSelf, function (req, res,
     .then(function (savedCart) {
         res.status(204).json(savedCart);
     })
-    .then(null, next)
-})
+    .then(null, next);
+});
 
 router.delete('/:prodId', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.findOne({ user : req.user._id })
