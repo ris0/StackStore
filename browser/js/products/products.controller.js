@@ -5,9 +5,9 @@ app.controller('ProductsCtrl', function ($scope, $log, ProductsFactory, allProdu
 
 });
 
-app.controller('singleProductCtrl', function ($scope, $log, ProductsFactory, singleProduct) {
+app.controller('singleProductCtrl', function ($scope, $log, ProductsFactory, singleProduct, productReview) {
 
     $scope.product = singleProduct;
-    // ProductsFactory.getProductById('56d8bbfb37091f7413fb0250');
+    $scope.review = productReview;
 
 });

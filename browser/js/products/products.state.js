@@ -18,6 +18,9 @@ app.config(function ($stateProvider) {
         resolve: {
             singleProduct: function (ProductsFactory, $stateParams) {
                 return ProductsFactory.getProductById($stateParams.productId);
+            },
+            productReview: function (ReviewsFactory, $stateParams) {
+            	return ReviewsFactory.getReviewsByProductId($stateParams.productId);
             }
         }
     });

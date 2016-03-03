@@ -3,8 +3,9 @@ app.factory('ReviewsFactory', function ($http, ProductsFactory) {
     var ReviewsFactory = {};
 
     ReviewsFactory.getReviewsByProductId = function (productId) {
-        return $http.get('/api/products/' + productId+ '/reviews')
+        return $http.get('/api/products/' + productId + '/reviews')
         .then(function(res){
+            console.log(res.data);
             return res.data;
         }).catch(function(err) { if (err) console.error(err) });
     };
