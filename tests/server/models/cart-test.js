@@ -14,10 +14,7 @@ var Cart = mongoose.model('Cart');
 var User = mongoose.model('User');
 var Product = mongoose.model('Product');
 
-// TODO: Make certain to implement changes to variable declarations to specify the model that we are working with
-
 describe('Cart Model', function () {
-
     beforeEach('Establish DB connection', function (done) {
         if (mongoose.connection.db) return done();
         mongoose.connect(dbURI, done);
@@ -31,10 +28,7 @@ describe('Cart Model', function () {
         expect(Cart).to.be.a('function');
     });
 
-    // TODO: define tests that are appropriate for our project
-    describe('virtuals', function() {
-
-
+    describe('virtuals', function () {
         var cart;
         var product1 = { 
             title: "Egg", 
@@ -57,9 +51,7 @@ describe('Cart Model', function () {
             })
         })
 
-
-        beforeEach(function(done){
-
+        beforeEach(function (done){
             var user = new User();
             var createProd1 = Product.create(product1);
             var createProd2 = Product.create(product2);
@@ -81,22 +73,20 @@ describe('Cart Model', function () {
             }, done)
         });
 
-        it('returns the amount of unique products in the cart', function() {
+        it('returns the amount of unique products in the cart', function () {
             expect(cart.numUniqueProducts).to.equal(2);
         });
 
-        it('returns the amount of total products in the cart', function() {
+        it('returns the amount of total products in the cart', function () {
             expect(cart.numAllProducts).to.equal(6);
         });
 
-        it('returns total value of all items in the cart', function() {
+        it('returns total value of all items in the cart', function () {
             expect(cart.totalPrice).to.equal(100);
         });
     });
 
-    // TODO: define tests that are appropriate for our project
-    describe('pre-save hook', function(){
-
+    describe('pre-save hook', function () {
         var cart;
         var myProd = { 
             title: "Egg", 
@@ -113,7 +103,7 @@ describe('Cart Model', function () {
             })
         })
 
-        beforeEach(function(done){
+        beforeEach(function (done) {
             var user = new User();
             var product = Product.create(myProd);
             var currentCart;

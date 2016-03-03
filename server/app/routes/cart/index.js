@@ -6,6 +6,7 @@ module.exports = router;
 var Cart = mongoose.model('Cart');
 
 router.use('/', function (req, res, next) {
+    console.log("WOOPWOOPWOOPWOOPWOOPWOOPWOOPWOOPWOOPWOOP\n", req.user)
     if (req.user) next();
     else res.sendStatus(401);
 })
@@ -18,14 +19,14 @@ router.get('/:cartId', function (req, res) {
 })
 
 router.get('/current', function (req, res) {
-    Cart.find({ user : req.user.Id, pending : true })
+    Cart.find({ user : req.user._id, pending : true })
     .then(function (oneCart) {
         res.status(200).json(oneCart);
     })
 })
 
 router.get('/past', function (req, res) {
-    Cart.find({ user : req.user.Id, pending : false })
+    Cart.find({ user : req.user._id, pending : false })
     .then(function (carts) {
         res.status(200).json(carts);
     })
@@ -39,7 +40,7 @@ router.get('/all', function (req, res) {
 })
 
 router.post('/', function (req, res) {
-    Cart.findOne({ user : req.user.Id })
+    Cart.findOne({ user : req.user._id })
     .then(function (foundCart) {
         foundCart.contents.push({
             quantity: req.body.quantity,
@@ -53,7 +54,7 @@ router.post('/', function (req, res) {
 })
 
 router.put('/', function (req, res) {
-    Cart.findOne({ user : req.user.Id })
+    Cart.findOne({ user : req.user._id })
     .then(function (foundCart) {
         foundCart.contents.forEach(function (element, index, contents) {
             if (element.product._id === req.body.productId) {
@@ -69,7 +70,7 @@ router.put('/', function (req, res) {
 })
 
 router.delete('/', function (req, res) {
-    Cart.findOne({ user : req.user.Id })
+    Cart.findOne({ user : req.user._id })
     .then(function (foundCart) {
         for (var i = foundCart.contents.length - 1; i >= 0; i--) {
             if (foundCart.contents[i].product._id === req.body.productId) {
