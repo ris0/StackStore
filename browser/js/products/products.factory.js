@@ -4,24 +4,26 @@ app.factory('ProductsFactory', function ($http, ReviewsFactory) {
 
     ProductsFactory.getAllProducts = function () {
         return $http.get('/api/products')
-            .then(products => products.data)
+            .then(function(product) {
+                return product.data;
+            })
             .catch(function(err) { if (err) console.error(err) })
     };
 
     ProductsFactory.getProductById = function (productId) {
+        var productToReturn;
         return $http.get('/api/products/' + productId)
-            .then(response => response.data)
+            .then(product => product.data)
             .then(function(product) {
-                //ReviewsFactory.getReviewsByProductId(productId)
-                //.then(function(res){
-                //    product.reviews = res.data;
-                //    return product;
-                //})
-                //var review = ReviewsFactory.getReviewsByProductId(productId)
-                //product.review = review
-                //return product
+                console.log(product);
+                productToReturn = product;
+                return ReviewsFactory.getReviewsByProductId(productId);
             })
-            .then(productWithReview => productWithReview.data)
+            .then(review => {
+                productToReturn.review = review.data;
+                console.log(productToReturn);
+                return productToReturn;
+            })
             .catch(function(err) { if (err) console.error(err) })
     };
 
