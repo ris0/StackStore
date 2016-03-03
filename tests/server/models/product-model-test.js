@@ -31,10 +31,10 @@ describe('Product model', function () {
                 done();
             });
         });
-        it('errors without category', function(done) {
+        it('errors without categories', function(done) {
             product.validate(function (err) {
                 expect(err).to.not.equal(undefined);
-                err.errors.category.should.be.an('object');
+                err.errors.categories.should.be.an('object');
                 done();
             });
         });

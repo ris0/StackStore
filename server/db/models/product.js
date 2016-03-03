@@ -34,4 +34,9 @@ var productSchema = new mongoose.Schema({
 
 });
 
+productSchema.pre('save', function (next) {
+    if (this.quantity === 0) this.availability = false;
+    next();
+});
+
 mongoose.model('Product', productSchema);
