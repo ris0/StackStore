@@ -11,17 +11,6 @@ var fs = require('fs');
 
 describe('Cart Routes', function () {
 
-  // before(function (done){
-  //   return mongoose.model('Cart')
-  //   .remove()
-  //   .then(function(){
-  //     done()
-  //   })
-  //   .then(null, function(err){
-  //     done(err);
-  //   });
-  // });
-
     describe('/api/cart', function () {
         var userInfo = {
             email: 'joe@gmail.com',
@@ -89,7 +78,7 @@ describe('Cart Routes', function () {
             .then(null, done);
         });
 
-        it('GET', function (done) {
+        it('GET current', function (done) {
             agent
                 .get('/api/cart/current')
                 .expect(200)
@@ -101,19 +90,89 @@ describe('Cart Routes', function () {
                 });
         });
 
-        // it('POST one', function (done) {
-        //     agent
-        //         .post('/api/cart/')
-        //         .expect(200)
-        //         .end(function (err, res) {
-        //             if (err) return done(err);
-        //             // expect(res.body).to.be.instanceof(Array);
-        //             // length should equal the number of products
-        //             // expect(res.body).to.have.length(1);
-        //             done();
-        //         });
-        // });
+        it('GET past', function (done) {
+            Cart.find({})
+            .then(function (array) {
+                array[0].pending = false;
+                return array[0].save()
+            })
+            .then(function (savedCart) {
+            })
+            agent
+                .get('/api/cart/past')
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    expect(res.body.contents).to.be.instanceof(Array);
+                    expect(res.body.contents).to.have.length(2);
+                    expect(res.body.finalOrder).to.have.length(2);
+                    done();
+                });
+        });
 
+        it('POST a new cart', function (done) {
+                agent
+                    .post('/api/cart/')
+                    .expect(200)
+                    .end(function (err, res) {
+                        if (err) return done(err);
+                        expect(res.body.contents).to.be.instanceof(Array);
+                        expect(res.body.contents).to.have.length(0);
+                        done();
+                    });
+        });  
+
+        it('POST a product', function (done) {
+            var prod = {
+                quantity: 22,
+                categories: ["wombat"], 
+                title: "Doorknob", 
+                description: "Opens Doors", 
+                price: 100 
+            };
+
+            Product.create(prod)
+            .then(function (createdProduct) {
+                agent
+                    .post('/api/cart/' + createdProduct._id + '/2')
+                    .send(createdProduct)
+                    .expect(200)
+                    .end(function (err, res) {
+                        if (err) return done(err);
+                        expect(res.body.contents).to.be.instanceof(Array);
+                        expect(res.body.contents).to.have.length(3);
+                        done();
+                    });
+            });
+        });
+
+        it('PUT updates a cart contents', function (done) {
+            var prod = {
+                quantity: 22,
+                categories: ["wombat"], 
+                title: "Doorknob", 
+                description: "Opens Doors", 
+                price: 100 
+            };
+
+            Product.create(prod)
+            .then(function (createdProduct) {
+                agent
+                    .put('/api/cart/' + createdProduct._id + '/0')
+                    .send(createdProduct)
+                    .expect(200)
+                    .end(function (err, res) {
+                        if (err) return done(err);
+                        expect(res.body.contents).to.be.instanceof(Array);
+                        expect(res.body.contents).to.have.length(2);
+                        done();
+                    });
+            });
+        });
+
+
+
+// needs to be a presave hook for creating a new cart in the User Document???
 
         // var createdProduct;
     // // change schema definition

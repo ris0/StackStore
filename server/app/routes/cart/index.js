@@ -40,11 +40,18 @@ router.get('/:cartId', function (req, res) {
 })
 
 router.post('/', function (req, res) {
+    Cart.create({ user : req.user._id })
+    .then(function (createdCart) {
+        res.json(createdCart);
+    })
+})
+
+router.post('/:prodId/:qty', function (req, res) {
     Cart.findOne({ user : req.user._id })
     .then(function (foundCart) {
         foundCart.contents.push({
-            quantity: req.body.quantity,
-            product: req.body.productId
+            quantity: req.params.qty,
+            product: req.params.productId
         });
         return foundCart.save();
     })
@@ -53,13 +60,13 @@ router.post('/', function (req, res) {
     })
 })
 
-router.put('/', function (req, res) {
+router.put('/:prodId/:qty', function (req, res) {
     Cart.findOne({ user : req.user._id })
     .then(function (foundCart) {
         foundCart.contents.forEach(function (element, index, contents) {
-            if (element.product._id === req.body.productId) {
-                if (req.body.quantity === 0) contents.splice(index, 1);
-                else element.quantity = req.body.quantity;
+            if (element.product._id === req.params.prodId) {
+                if (req.qty === 0) contents.splice(index, 1);
+                else element.quantity = req.params.qty;
             }
         })
         return foundCart.save()
@@ -69,11 +76,11 @@ router.put('/', function (req, res) {
     })
 })
 
-router.delete('/', function (req, res) {
+router.delete('/:prodId', function (req, res) {
     Cart.findOne({ user : req.user._id })
     .then(function (foundCart) {
         for (var i = foundCart.contents.length - 1; i >= 0; i--) {
-            if (foundCart.contents[i].product._id === req.body.productId) {
+            if (foundCart.contents[i].product._id === req.params.prodId) {
                 foundCart.contents.splice(i, 1)
             }
         }
