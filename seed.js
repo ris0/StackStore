@@ -47,13 +47,14 @@ function randReview (allUsers, allProducts) {
     var product = chance.pick(allProducts);
     // returns a natural #
     var numPars = chance.natural({
-        min: 2,
-        max: 3
+        min: 3,
+        max: 4
     });
     return new Review({
         content: chance.n(chance.paragraph, numPars),
         user: user,
-        product: product
+        product: product,
+        rating: chance.integer({ min: 1, max: 5 })
     });
 }
 
@@ -128,7 +129,7 @@ function generateAll () {
 
     return Product.create(sampleProducts)
         .then(function (products) {
-            _.times(numReviews, function () {
+            return _.times(numReviews, function () {
                 return randReview(users, products);
             });
         })
