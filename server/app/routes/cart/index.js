@@ -29,7 +29,7 @@ router.get('/past', Auth.assertAdminOrSelf, function (req, res) {
 })
 
 // ADMIN get all carts
-router.get('/all', Auth.assertAdmin, function (req, res) {
+router.get('/', Auth.assertAdmin, function (req, res) {
     Cart.find({})
     .then(function (allCarts) {
         res.json(allCarts)
