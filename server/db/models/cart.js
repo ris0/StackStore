@@ -1,6 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
-// var Product = mongoose.model('Product');
+var Product = mongoose.model('Product');
 
 var schema = new mongoose.Schema({
     user: {
@@ -11,13 +11,14 @@ var schema = new mongoose.Schema({
     contents:
         [{
             quantity: Number,
-            product: { type : String, ref: 'Product' }
+            product: { type : mongoose.Schema.Types.ObjectId, ref: 'Product' }
         }],
     pending: {
         type: Boolean,
         default: true,
         required: true
-    }
+    },
+    finalOrder: []
 });
 
 // finds the number of unique products in cart
@@ -49,12 +50,10 @@ schema.pre("save", function (next) {
     var self = this;
     if (self.pending === false) {
         Promise.all(self.contents.map(function (element) {
-            return Product.findById(element.product._id)
+            return Product.findById(element.product)
         }))
         .then(function (arrayProducts) {
-            self.contents.forEach(function (element, index) {
-                element.product = arrayProducts[index];
-            })
+            self.finalOrder = arrayProducts;
             next();
         })
     }
