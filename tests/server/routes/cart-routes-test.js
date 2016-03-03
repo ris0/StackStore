@@ -115,7 +115,7 @@ describe('Cart Routes', function () {
             .then(function (found) {
             })
             agent
-                .get('/api/cart/all')
+                .get('/api/cart/')
                 .expect(200)
                 .end(function (err, res) {
                     if (err) return done(err);
