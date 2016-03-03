@@ -3,19 +3,17 @@ app.factory('ProductsFactory', function ($http) {
     var ProductsFactory = {};
 
     ProductsFactory.getAllProducts = function () {
-        return $http.get('/api/products').then(products => products);
+        return $http.get('/api/products').then(products => console.log(products.data));
     };
 
-    ProductsFactory.getProductById = function () {
-        return $http.get('/api/:productId').then(product => product)
+    // TODO: :productId vs .../products + :productId ?
+    ProductsFactory.getProductById = function (productId) {
+        return $http.get('/api/products/' + productId).then(product => product.data)
+            .catch(function(err) { if (err) console.error(err) })
     };
 
-    // TODO: Should we define functions that will get specific information about a products (i.e desc, price, etc)
-    // I think that everything should be defined on the scope as an object. Should be able to filter through...
 
-    //ProductsFactory.= function () {};
 
     return ProductsFactory
 
 });
-
