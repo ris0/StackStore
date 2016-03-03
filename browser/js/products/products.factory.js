@@ -1,4 +1,4 @@
-app.factory('ProductsFactory', function ($http) {
+app.factory('ProductsFactory', function ($http, ReviewsFactory) {
 
     var ProductsFactory = {};
 
@@ -10,7 +10,18 @@ app.factory('ProductsFactory', function ($http) {
 
     ProductsFactory.getProductById = function (productId) {
         return $http.get('/api/products/' + productId)
-            .then(product => product.data)
+            .then(response => response.data)
+            .then(function(product) {
+                //ReviewsFactory.getReviewsByProductId(productId)
+                //.then(function(res){
+                //    product.reviews = res.data;
+                //    return product;
+                //})
+                //var review = ReviewsFactory.getReviewsByProductId(productId)
+                //product.review = review
+                //return product
+            })
+            .then(productWithReview => productWithReview.data)
             .catch(function(err) { if (err) console.error(err) })
     };
 
