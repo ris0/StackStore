@@ -12,11 +12,9 @@ require('../../../server/db/models');
 
 var Cart = mongoose.model('Cart');
 var User = mongoose.model('User');
+var Product = mongoose.model('Product');
 
-// TODO: Make certain to implement changes to variable declarations to specify the model that we are working with
-
-describe('Cart', function () {
-
+describe('Cart Model', function () {
     beforeEach('Establish DB connection', function (done) {
         if (mongoose.connection.db) return done();
         mongoose.connect(dbURI, done);
@@ -30,89 +28,126 @@ describe('Cart', function () {
         expect(Cart).to.be.a('function');
     });
 
-    // TODO: define tests that are appropriate for our project
-    describe('virtuals', function() {
-
+    describe('virtuals', function () {
         var cart;
         var product1 = { 
-            _id: "8080", 
-            title: "Egg", 
-            category: "Apoc1", 
+            quantity: 4,
+            categories: ["zombie"], 
+            title: "Egg",  
             description: "An Egg", 
             price: 30 
         };
         var product2 = { 
-            _id: "1337", 
+            quantity: 2,
+            categories: ["nuclear"], 
             title: "Chicken", 
-            category: "Apoc2", 
             description: "A Chicken", 
             price: 10 
         };
 
-        beforeEach(function(done){
-            var user = new User();
+        beforeEach(function (done) {
+            var promiseArr = [ Product.remove({}), Cart.remove({}) ]
+            Promise.all(promiseArr)
+            .then(function () {
+                done();
+            })
+        })
 
-            Cart.create({ 
+        beforeEach(function (done){
+            var user = new User();
+            var createProd1 = Product.create(product1);
+            var createProd2 = Product.create(product2);
+
+            Promise.all([ user, createProd1, createProd2 ])
+            .then(function (array) {
+                var user = array[0];
+                var oneProd = array[1];
+                var twoProd = array[2];
+            return Cart.create({ 
                 user: user._id, 
-                contents: [{ quantity: 2, product: product1 }, { quantity: 4, product: product2 }],
+                contents: [{ quantity: 2, product: oneProd }, { quantity: 4, product: twoProd }],
                 pending: true  
                 })
+            })
             .then(function (createdCart) {
                 cart = createdCart;
                 done();
             }, done)
         });
 
-        it('returns the amount of unique products in the cart', function() {
+        it('returns the amount of unique products in the cart', function () {
             expect(cart.numUniqueProducts).to.equal(2);
         });
 
-        it('returns the amount of total products in the cart', function() {
+        it('returns the amount of total products in the cart', function () {
             expect(cart.numAllProducts).to.equal(6);
         });
 
-        it('returns total value of all items in the cart', function() {
+        it('returns total value of all items in the cart', function () {
             expect(cart.totalPrice).to.equal(100);
         });
     });
 
-    // TODO: define tests that are appropriate for our project
-    // describe('pre-save hook', function(){
+    describe('pre-save hook', function () {
+        var cart;
+        var myProd = { 
+            quantity: 2,
+            title: "Egg", 
+            categories: ["zombie"], 
+            description: "An Egg", 
+            price: 30 
+        }
 
-    //     var cart;
-    //     // need to write a Product dummy for testing purposes
+        beforeEach(function (done) {
+            var promiseArr = [ Product.remove({}), Cart.remove({}) ]
+            Promise.all(promiseArr)
+            .then(function () {
+                done();
+            })
+        })
 
-    //     beforeEach(function(done){
-    //        // make a parent `study` task
-    //        var user = new User();
+        beforeEach(function (done) {
+            var user = new User();
+            var product = Product.create(myProd);
+            var currentCart;
 
-    //         cart = new Cart({
-    //             user: user._id,
-    //             quantity: 2, 
-    //             product: { 
-    //                 _id: "8080", 
-    //                 title: "Egg", 
-    //                 category: "Apoc1", 
-    //                 description: "An Egg", 
-    //                 price: 30 
-    //             },
-    //             pending: true
-    //         })
-    //         .then(function () {
-    //             done();
-    //         }, done 
-    //     });
+            Promise.all([ user, product ])
+            .then(function (array) {
+                return Cart.create({
+                    user: array[0]._id,
+                    contents: [{ quantity: 2, product: array[1] }],
+                    pending: true
+                })
+            })
+            .then(function (createdCart) {
+                currentCart = createdCart;
+                return Product.find({});
+            })
+            .then(function (foundProd) {
+                foundProd[0].price = 5000;
+                return foundProd[0].save()
+            })
+            .then(function (newProduct) {
+                return currentCart.save();
+            })
+            .then(function () {
+                done();
+            })
+            .then(null, done);
+        });
 
-    //     it('checks to see if presave hook works', function (done) {
-    //         cart.save()
-    //         .then(function (savedCard) {
-
-
-
-    //             // done()
-    //         })
-    //         .then(null, done)
-    //     })
-    // });
+        it('checks to see if presave hook works', function (done) {
+            Cart.find({})
+            .then(function (theCart) {
+                theCart[0].pending = false;
+                return theCart[0].save()
+            })
+            .then(function (savedCart) {
+                expect(savedCart.finalOrder[0].price).to.equal(5000);
+                done();
+            })
+            .then(null, done)
+        })
+    });
 
 });
