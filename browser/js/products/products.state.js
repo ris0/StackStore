@@ -15,11 +15,8 @@ app.config(function ($stateProvider) {
         controller: 'singleProductCtrl',
         templateUrl: '/js/products/templates/products.template.html',
         resolve: {
-            singleProduct: function (ProductsFactory, $stateParams) {
+            allProduct: function (ProductsFactory, $stateParams) {
                 return ProductsFactory.getProductById($stateParams.productId);
-            },
-            productReviews: function (ReviewsFactory, $stateParams) {
-            	return ReviewsFactory.getReviewsByProductId($stateParams.productId);
             }
         }
     });
