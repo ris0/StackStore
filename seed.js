@@ -1,21 +1,21 @@
 /*
 
-This seed file is only a placeholder. It should be expanded and altered
-to fit the development of your application.
+ This seed file is only a placeholder. It should be expanded and altered
+ to fit the development of your application.
 
-It uses the same file the server uses to establish
-the database connection:
---- server/db/index.js
+ It uses the same file the server uses to establish
+ the database connection:
+ --- server/db/index.js
 
-The name of the database used is set in your environment files:
---- server/env/*
+ The name of the database used is set in your environment files:
+ --- server/env/*
 
-This seed file has a safety check to see if you already have users
-in the database. If you are developing multiple applications with the
-fsg scaffolding, keep in mind that fsg always uses the same database
-name in the environment files.
+ This seed file has a safety check to see if you already have users
+ in the database. If you are developing multiple applications with the
+ fsg scaffolding, keep in mind that fsg always uses the same database
+ name in the environment files.
 
-*/
+ */
 var Chance = require ('chance'),
     _ = require ('lodash'),
     mongoose = require('mongoose'),
@@ -24,7 +24,8 @@ var Chance = require ('chance'),
     connectToDb = require('./server/db'),
     User = mongoose.model('User'),
     Product = mongoose.model('Product'),
-    Review = mongoose.model('Review');
+    Review = mongoose.model('Review'),
+    Category = mongoose.model('Category');
 
 
 var chance = new Chance();
@@ -39,6 +40,27 @@ function randUser () {
         password: chance.word(),
         isAdmin: false
     })
+}
+
+function generateCategory () {
+
+    var zombies = new Category({
+        name: 'Zombies'
+    })
+
+    var rogueAI = new Category({
+        name: 'Rogue AI'
+    })
+
+    var wombats = new Category({
+        name: 'Wombats'
+    })
+
+    var nuclear = new Category({
+        name: 'Nuclear Winter'
+    })
+
+    return [zombies, rogueAI, wombats, nuclear];
 }
 
 function randReview (allUsers, allProducts) {
@@ -75,10 +97,12 @@ function generateAll () {
         isAdmin: true
     }));
 
+    var categories = generateCategory();
+
     var sampleProducts = [
         {
             title: 'Templar Knight Helmet',
-            categories: ['Helmet', 'Armor'],
+            categories: [ categories[0]._id ],
             description: 'Protect your head, Protect your mind, Protect yourself with this shiny helmet!',
             quantity: 1000,
             availability: true,
@@ -87,7 +111,7 @@ function generateAll () {
         },
         {
             title: 'Katana',
-            categories: ['Swords', 'Weapons'],
+            categories: [ categories[1]._id ],
             description: 'Perfect for close range combat and keeping a small profile. Destroy your enemies with one blow',
             quantity: 1000,
             availability: true,
@@ -98,7 +122,7 @@ function generateAll () {
 
         {
             title: 'Evil Spiked Mace',
-            categories: ['Mace', 'Weapons'],
+            categories: [ categories[2]._id ],
             description: 'Perfect for close range combat and keeping a small profile. Destroy your enemies with one blow',
             quantity: 1000,
             availability: true,
@@ -108,7 +132,7 @@ function generateAll () {
 
         {
             title: 'Tomahawk',
-            categories: ['Axe', 'Weapons'],
+            categories: [ categories[3]._id ],
             description: 'Perfect for close range combat and keeping a small profile. Destroy your enemies with one blow',
             quantity: 1000,
             availability: true,
@@ -118,7 +142,7 @@ function generateAll () {
 
         {
             title: 'Machine Gun',
-            categories: ['Guns', 'Weapons'],
+            categories: [ categories[1]._id ],
             description: 'Choppa Choppa Choppa Choppa Choppa Choppa Choppa Choppa Choppa Choppa Choppa Choppa',
             quantity: 1000,
             availability: true,
@@ -144,12 +168,12 @@ function generateAll () {
 function seed () {
     var docs = generateAll();
     return Promise.map(docs, function (doc) {
-        // currently generated an error as Product.create already saves, could be avoided via new Product({})
         return doc.save();
     });
 }
 
 connectToDb.then(function () {
+    mongoose.connection.db.dropDatabase();
     User.find({}).then(function (users) {
         if (users.length === 0) {
             return seed();
