@@ -19,13 +19,18 @@ router.param('productId', function (req, res, next, productId) {
 });
 
 router.get('/', function (req, res, next) {
-    Product.find( req.query ).then(products => res.json(products));
+    Product.find( req.query )
+        .then(products => res.json(products))
+        .then(null, next);
 });
 
 router.post('/', Auth.assertAdmin, function (req, res, next) {
-    Product.create( req.body ).then(function (product) {
-        res.status(201).json(product);
-    }); 
+    Product.create( req.body )
+        .then(function (product) {
+            res.status(201).json(product);
+        })
+        .then(null, next);
+
 });
 
 router.get('/:productId', function (req, res, next) {

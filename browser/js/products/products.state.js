@@ -1,10 +1,26 @@
 app.config(function ($stateProvider) {
-
-    // Register our *about* state.
-    $stateProvider.state('about', {
-        url: '/api/products', // api ? necessary?
-        controller: 'ProductCtrl',
-        templateUrl: 'js/products/templates/products.template.html'
+    $stateProvider.state('products', {
+        url: '/products',
+        controller: 'ProductsCtrl',
+        templateUrl: '/js/products/templates/products.template.html',
+        resolve: {
+            allProducts: function (ProductsFactory) {
+                return ProductsFactory.getAllProducts();
+            }
+        }
     });
 
+    $stateProvider.state('product', {
+        url: '/products/:productId',
+        controller: 'singleProductCtrl',
+        templateUrl: '/js/products/templates/products.template.html',
+        resolve: {
+            singleProduct: function (ProductsFactory, $stateParams) {
+                return ProductsFactory.getProductById($stateParams.productId);
+            },
+            productReviews: function (ReviewsFactory, $stateParams) {
+            	return ReviewsFactory.getReviewsByProductId($stateParams.productId);
+            }
+        }
+    });
 });
