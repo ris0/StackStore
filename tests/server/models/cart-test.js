@@ -48,7 +48,6 @@ describe('Cart Model', function () {
                     name: 'zombie'
                 })
                 .then(function (category) {
-                    console.log("W000000000000T", category);
                     category1 = category;
                     return Category.create({
                         name: 'nuclear'
