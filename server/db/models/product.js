@@ -8,22 +8,25 @@ var productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    categories: {
-        type: [String],
-        required: true
-    },
+    categories: [
+        {
+            category: {
+                type: mongoose.Schema.ObjectId,
+                ref: 'Category'
+            }
+        }
+    ],
     description: {
         type: String,
         required: true
     },
     quantity: {
         type: Number,
-        required: true,
+        default: 0,
         min: 0
     },
     availability: {
         type: Boolean,
-        required: true,
         default: true
     },
     price: {
