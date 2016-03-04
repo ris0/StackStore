@@ -19,7 +19,7 @@ app.config(function ($stateProvider) {
             singleProduct: function (ProductsFactory, $stateParams) {
                 return ProductsFactory.getProductById($stateParams.productId);
             },
-            productReview: function (ReviewsFactory, $stateParams) {
+            productReviews: function (ReviewsFactory, $stateParams) {
             	return ReviewsFactory.getReviewsByProductId($stateParams.productId);
             }
         }

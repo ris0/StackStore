@@ -5,9 +5,9 @@ app.controller('ProductsCtrl', function ($scope, $log, ProductsFactory, allProdu
 
 });
 
-app.controller('singleProductCtrl', function ($scope, $log, ProductsFactory, singleProduct, productReview) {
+app.controller('singleProductCtrl', function ($scope, $log, ProductsFactory, singleProduct, productReviews) {
 
     $scope.product = singleProduct;
-    $scope.review = productReview;
+    $scope.reviews = productReviews;
 
 });
