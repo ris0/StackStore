@@ -8,7 +8,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background:;
+  background-color: #292929;
   position: relative;
   font-weight:400px;
 }
@@ -53,7 +53,7 @@ a#scrollUp {
   right: 10px;
   padding: 5px 10px;
   background: #FE980F;
-  color: #FFF;
+  color: #292929;
   -webkit-animation: bounce 2s ease infinite;
   animation: bounce 2s ease infinite;
 }
@@ -68,7 +68,7 @@ a#scrollUp i{
 **************************/
 
 .header_top {
-  background: none repeat scroll 0 0 #F0F0E9;
+  background: none repeat scroll 0 0 #9B9B96;
 }
 
 .contactinfo ul li:first-child{
@@ -77,7 +77,7 @@ a#scrollUp i{
 
 .contactinfo ul li a{
   font-size: 12px;
-  color: #696763;
+  color: #716E6B;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -90,7 +90,7 @@ a#scrollUp i{
 .social-icons ul li a {
   border: 0 none;
   border-radius: 0;
-  color: #696763;
+  color: #716E6B;
   padding:0px;
 }
 
@@ -108,7 +108,7 @@ a#scrollUp i{
 }
 
 .social-icons ul li a i:hover{
-  color: #fff;
+  color: #292929;
    transition: all 0.9s ease 0s;
   -moz-transition: all 0.9s ease 0s;
   -webkit-transition: all 0.9s ease 0s;
@@ -137,7 +137,7 @@ a#scrollUp i{
 }
 
 .header-middle .container .row {
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid #FCA32C;
   margin-left: 0;
   margin-right: 0;
   padding-bottom: 20px;
@@ -163,7 +163,7 @@ a#scrollUp i{
 
 .usa:hover {
 	background:#FE980F;
-	color:#fff;
+	color:#292929;
 	border-color:#FE980F;
 }
 
@@ -180,7 +180,7 @@ a#scrollUp i{
 
 .dropdown-menu  li  a:hover, .dropdown-menu  li  a:focus {
   background-color: #FE980F;
-  color: #FFFFFF;
+  color: #292929;
   font-family: 'Roboto', sans-serif;
   text-decoration: none;
 }
@@ -198,8 +198,8 @@ a#scrollUp i{
 
 
 .shop-menu ul li a {
-  background: #FFFFFF;
-  color: #696763;
+  background: #292929;
+  color: #716E6B;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 300;
@@ -216,7 +216,7 @@ a#scrollUp i{
 
 .shop-menu ul li a:hover {
 	color:#fe980f;
-	background:#fff;
+	background:#292929;
 }
 
 
@@ -239,7 +239,7 @@ a#scrollUp i{
 }
 
 .mainmenu ul li a {
-	color: #696763;
+	color: #716E6B;
 	font-family: 'Roboto', sans-serif;
 	font-size: 17px;
 	font-weight: 300;
@@ -253,7 +253,7 @@ a#scrollUp i{
 }
 
 .search_box input {
-  background: #F0F0E9;
+  background: #ECECE5;
   border: medium none;
   color: #B2B2B2;
   font-family: 'roboto';
@@ -273,7 +273,7 @@ a#scrollUp i{
 
 .navbar-header 
 .navbar-toggle .icon-bar {
-    background-color: #fff;
+    background-color: #292929;
 }
 
 
@@ -316,7 +316,7 @@ ul.sub-menu {
 }
 
 .navbar-nav li ul.sub-menu li a{
-  color: #fff;
+  color: #292929;
 }
 
 .navbar-nav li ul.sub-menu li a:hover{
@@ -346,7 +346,7 @@ ul.sub-menu {
 **************************/
 
 #footer {
-  background: #F0F0E9;
+  background: #9B9B96;
 }
 
 
@@ -407,7 +407,7 @@ ul.sub-menu {
   height: 61px;
   background: #FE980F;
   border-radius: 3px;
-  color: #FFF;
+  color: #292929;
   font-size: 20px;
   line-height: 0;
   display: block;
@@ -470,7 +470,7 @@ ul.sub-menu {
 }
 
 .footer-widget .container {
-  border-top: 1px solid #FFFFFF;
+  border-top: 1px solid #292929;
   padding-top: 15px;
 }
 
@@ -527,7 +527,7 @@ ul.sub-menu {
 }
 
 .searchform button i {
-  color: #FFFFFF;
+  color: #292929;
   font-size: 20px;
 }
 
@@ -550,7 +550,7 @@ ul.sub-menu {
 }
 
 .footer-bottom p {
-  color: #363432;
+  color: #F0F0E6;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   margin-left: 15px;
@@ -572,6 +572,24 @@ ul.sub-menu {
   padding-bottom: 45px;
 }
 
+/*ADDED BY JAI*/
+.carousel-image {
+  width: 100%;
+  z-index: 0;
+}
+
+.carousel-inner{
+  width:100%;
+  max-height: 400px;
+  /*TODO: fix the carousel's image responsivenes;*/
+}
+.text-overlay {
+  position: absolute;
+  text-align: center;
+
+}
+/*END ADDED BY JAI*/
+
 .carousel-indicators li {
   background: #C4C4BE;
 }
@@ -581,9 +599,8 @@ ul.sub-menu {
 }
 
 .item {
-  padding-left: 100px;
+  padding-left: 0px;
 }
-
 
 .pricing {
   position: absolute;
@@ -596,7 +613,7 @@ ul.sub-menu {
 }
 
 .item h1 {
-  color: #B4B1AB;
+  color: #d9d9d9;
   font-family: abel;
   font-size: 48px;
   margin-top: 115px;
@@ -607,16 +624,25 @@ ul.sub-menu {
 }
 
 .item h2 {
-  color: #363432;
-  font-family: 'Roboto', sans-serif;
+  color: #F0F0E6;
+  font-family: abel, sans-serif;
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 400;
+  margin-bottom: 22px;
+  margin-top: 10px;
+}
+
+.item h3 {
+  color: #F0F0E6;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
   margin-bottom: 22px;
   margin-top: 10px;
 }
 
 .item  p {
-	color:#363432;
+	color:#F0F0E6;
 	font-size:16px;
 	font-weight:300;
 	font-family: 'Roboto', sans-serif;
@@ -626,7 +652,7 @@ ul.sub-menu {
   background: #FE980F;
   border: 0 none;
   border-radius: 0;
-  color: #FFFFFF;
+  color: #292929;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 300;
@@ -654,7 +680,7 @@ ul.sub-menu {
 }
 
 .category-products {
-  border: 1px solid #F7F7F0;
+  border: 1px solid #7A7774;
   margin-bottom: 35px;
   padding-bottom: 20px;
   padding-top: 15px;
@@ -674,7 +700,7 @@ ul.sub-menu {
 .left-sidebar h2:after, h2.title:after{
 	content: " ";
 	position: absolute;
-	border: 1px solid #f5f5f5;
+	border: 1px solid #FCA32C;
 	bottom:8px;
 	left: 0;
 	width: 100%;
@@ -685,7 +711,7 @@ ul.sub-menu {
 .left-sidebar h2:before{
 	content: " ";
 	position: absolute;
-	background: #fff;
+	background: #292929;
 	bottom: -6px;
 	width: 130px;
 	height: 30px;
@@ -697,7 +723,7 @@ ul.sub-menu {
 h2.title:before{
 	content: " ";
 	position: absolute;
-	background: #fff;
+	background: #292929;
 	bottom: -6px;
 	width: 220px;
 	height: 30px;
@@ -707,7 +733,7 @@ h2.title:before{
 }
 
 .category-products .panel {
-	background-color: #FFFFFF;
+	background-color: #292929;
 	border: 0px;
 	border-radius: 0px;
 	box-shadow:none;
@@ -715,14 +741,14 @@ h2.title:before{
 }
 
 .category-products .panel-default .panel-heading {
-  background-color: #FFFFFF;
+  background-color: #292929;
   border: 0 none;
-  color: #FFFFFF;
+  color: #292929;
   padding: 5px 20px;
 }
 
 .category-products .panel-default .panel-heading .panel-title a {
-  color: #696763;
+  color: #716E6B;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   text-decoration: none;
@@ -736,7 +762,7 @@ h2.title:before{
 .category-products .badge {
   background:none;
   border-radius: 10px;
-  color: #696763;
+  color: #716E6B;
   display: inline-block;
   font-size: 12px;
   font-weight: bold;
@@ -754,22 +780,22 @@ h2.title:before{
 
 
 .panel-body ul li a {
-  color: #696763;
+  color: #716E6B;
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
   text-transform: uppercase;
 }
 
 .brands-name {
-  border: 1px solid #F7F7F0;
+  border: 1px solid #7A7774;
   padding-bottom: 20px;
   padding-top: 15px;
 }
 
 
 .brands-name .nav-stacked li a {
-  background-color: #FFFFFF;
-  color: #696763;
+  background-color: #292929;
+  color: #716E6B;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   padding: 5px 25px;
@@ -778,8 +804,8 @@ h2.title:before{
 }
 
 .brands-name .nav-stacked li a:hover{
-  background-color: #fff;
-  color: #696763;
+  background-color: #292929;
+  color: #716E6B;
 }
 
 .shipping {
@@ -796,8 +822,8 @@ h2.title:before{
 }
 
 .well {
-  background-color: #FFFFFF;
-  border: 1px solid #F7F7F0;
+  background-color: #292929;
+  border: 1px solid #7A7774;
   border-radius: 4px;
   box-shadow: none;
   margin-bottom: 20px;
@@ -809,7 +835,7 @@ h2.title:before{
 .tooltip-inner {
   background-color: #FE980F;
   border-radius: 4px;
-  color: #FFFFFF;
+  color: #292929;
   max-width: 200px;
   padding: 3px 8px;
   text-align: center;
@@ -846,7 +872,7 @@ h2.title {
 }
 
 .product-image-wrapper{
-	border:1px solid #F7F7F5;
+	border:1px solid #7C7A79;
 	overflow: hidden;
 	margin-bottom:30px;
 }
@@ -868,7 +894,7 @@ h2.title {
 	font-weight: 700;
 }
 .product-overlay h2{
-	color: #fff;
+	color: #292929;
 	font-family: 'Roboto', sans-serif;
 	font-size: 24px;
 	font-weight: 700;
@@ -879,7 +905,7 @@ h2.title {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  color: #696763;
+  color: #716E6B;
 }
 
 .productinfo img{
@@ -917,7 +943,7 @@ h2.title {
 }
 
 .product-overlay .add-to-cart {
-  background:#fff;
+  background:#292929;
   border: 0 none;
   border-radius: 0;
   color: #FE980F;
@@ -927,7 +953,7 @@ h2.title {
 }
 
 .product-overlay .add-to-cart:hover {
-  background:#fff;
+  background:#292929;
   color: #FE980F;
 }
 
@@ -936,7 +962,7 @@ h2.title {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  color: #fff;
+  color: #292929;
 }
 
 
@@ -945,7 +971,7 @@ h2.title {
   background:#F5F5ED;
   border: 0 none;
   border-radius: 0;
-  color: #696763;
+  color: #716E6B;
   font-family: 'Roboto', sans-serif;
   font-size: 15px;
   margin-bottom: 25px;
@@ -955,7 +981,7 @@ h2.title {
   background: #FE980F;
   border: 0 none;
   border-radius: 0;
-  color: #FFFFFF;
+  color: #292929;
 }
 
 .add-to{
@@ -968,11 +994,11 @@ h2.title {
 
 .add-to-cart:hover {
   background: #FE980F;
-  color: #FFFFFF;
+  color: #292929;
 }
 
 .choose {
-  border-top: 1px solid #F7F7F0;
+  border-top: 1px solid #7A7774;
 }
 
 .choose ul li a {
@@ -1017,7 +1043,7 @@ h2.title {
 
 .category-tab ul  li  a:hover{
 	background:#FE980F;
-	color:#fff;
+	color:#292929;
 }
 
 .nav-tabs  li.active  a, .nav-tabs  li.active  a:hover, .nav-tabs  li.active  a:focus {
@@ -1027,7 +1053,7 @@ h2.title {
   -moz-border-top-colors: none;
   background-color: #FE980F;
   border:0px;
-  color: #FFFFFF;
+  color: #292929;
   cursor: default;
   margin-right:0;
   margin-left:0;
@@ -1055,7 +1081,7 @@ h2.title {
 
 .recommended-item-control i {
   background: none repeat scroll 0 0 #FE980F;
-  color: #FFFFFF;
+  color: #292929;
   font-size: 20px;
   padding: 4px 10px;
 }
@@ -1072,7 +1098,7 @@ h2.title {
 }
 
 .our_partners ul {
-  background: #F7F7F0;
+  background: #7A7774;
   margin-bottom: 50px;
 }
 
@@ -1115,13 +1141,13 @@ h2.title {
 .pagination  .active  a, .pagination  .active  span, .pagination  .active  a:hover, .pagination  .active  span:hover, .pagination  .active  a:focus, .pagination  .active  span:focus {
   background-color: #FE980F;
   border-color: #FE980F;
-  color: #FFFFFF;
+  color: #292929;
   cursor: default;
   z-index: 2;
 }
 
 .pagination  li  a, .pagination  li  span {
-  background-color: #f0f0e9;
+  background-color: #9B9B96;
   border: 0;
   float: left;
   line-height: 1.42857;
@@ -1135,7 +1161,7 @@ h2.title {
 
 .pagination  li  a:hover{
 	background:#FE980F;
-	color:#fff;
+	color:#292929;
 }
 
 
@@ -1172,7 +1198,7 @@ h2.title {
 }
 
 .view-product img {
-  border: 1px solid #F7F7F0;
+  border: 1px solid #7A7774;
   height: 380px;
   width: 100%;
 }
@@ -1180,7 +1206,7 @@ h2.title {
 .view-product h3 {
   background: #FE980F;
   bottom: 0;
-  color: #FFFFFF;
+  color: #292929;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 700;
@@ -1205,7 +1231,7 @@ h2.title {
 }
 .item-control i {
   background: #FE980F;
-  color: #FFFFFF;
+  color: #292929;
   font-size: 20px;
   padding: 5px 10px;
 }
@@ -1215,7 +1241,7 @@ h2.title {
 }
 
 .product-information {
-  border: 1px solid #F7F7F0;
+  border: 1px solid #7A7774;
   overflow: hidden;
   padding-bottom: 60px;
   padding-left: 60px;
@@ -1230,14 +1256,14 @@ h2.title {
 }
 
 .product-information h2 {
-  color: #363432;
+  color: #F0F0E6;
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
   margin-top: 0;
 }
 
 .product-information p {
-  color: #696763;
+  color: #716E6B;
   font-family: 'Roboto', sans-serif;
   margin-bottom: 5px;
 }
@@ -1259,7 +1285,7 @@ h2.title {
 }
 .product-information span input {
   border: 1px solid #DEDEDC;
-  color: #696763;
+  color: #716E6B;
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
   font-weight: 700;
@@ -1270,7 +1296,7 @@ h2.title {
 }
 
 .product-information span label {
-  color: #696763;
+  color: #716E6B;
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
   margin-right: 5px;
@@ -1285,7 +1311,7 @@ h2.title {
   background: #FE980F;
   border: 0 none;
   border-radius: 0;
-  color: #FFFFFF;
+  color: #292929;
   font-family: 'Roboto', sans-serif;
   font-size: 15px;
   margin-bottom: 10px;
@@ -1294,7 +1320,7 @@ h2.title {
 
 
 .shop-details-tab {
-  border: 1px solid #F7F7F0;
+  border: 1px solid #7A7774;
   margin-bottom: 75px;
   margin-left: 15px;
   margin-right: 15px;
@@ -1307,7 +1333,7 @@ h2.title {
 
 
 #reviews ul {
-  background: #FFFFFF;
+  background: #292929;
   border: 0 none;
   list-style: none outside none;
   margin: 0 0 20px;
@@ -1319,7 +1345,7 @@ h2.title {
 }
 
 #reviews ul li a {
-  color: #696763;
+  color: #716E6B;
   display: block;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
@@ -1332,12 +1358,12 @@ h2.title {
 }
 
 #reviews ul li a:hover{
-	background:#fff;
+	background:#292929;
 	color:#FE980F;
 }
 
 #reviews p{
-	color:#363432;
+	color:#F0F0E6;
 }
 
 #reviews  form span {
@@ -1345,7 +1371,7 @@ h2.title {
 }
 
 #reviews form span input {
-  background:#F0F0E9;
+  background:#9B9B96;
   border: 0 none;
   color: #A6A6A1;
   font-family: 'Roboto', sans-serif;
@@ -1359,7 +1385,7 @@ h2.title {
 }
 
 #reviews textarea {
-  background: #F0F0E9;
+  background: #9B9B96;
   border: medium none;
   color: #A6A6A1;
   height: 195px;
@@ -1376,7 +1402,7 @@ h2.title {
   background: #FE980F;
   border: 0 none;
   border-radius: 0;
-  color: #FFFFFF;
+  color: #292929;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
 }
@@ -1391,7 +1417,7 @@ h2.title {
 }
 
 .content-404 h1 {
-  color: #363432;
+  color: #F0F0E6;
   font-family: 'Roboto', sans-serif;
   font-size: 41px;
   font-weight: 300;
@@ -1402,7 +1428,7 @@ h2.title {
 }
 
 .content-404 p {
-  color: #363432;
+  color: #F0F0E6;
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
 }
@@ -1413,7 +1439,7 @@ h2.title {
 
 .content-404 h2 a {
   background: #FE980F;
-  color: #FFFFFF;
+  color: #292929;
   font-family: 'Roboto', sans-serif;
   font-size: 44px;
   font-weight: 300;
@@ -1441,7 +1467,7 @@ h2.title {
 }
 
 .login-form h2, .signup-form h2 {
-  color: #696763;
+  color: #716E6B;
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
   font-weight: 300;
@@ -1450,9 +1476,9 @@ h2.title {
 
 
 .login-form form input, .signup-form form input {
-  background: #F0F0E9;
+  background: #9B9B96;
   border: medium none;
-  color: #696763;
+  color: #716E6B;
   display: block;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
@@ -1483,7 +1509,7 @@ h2.title {
   background: #FE980F;
   border: medium none;
   border-radius: 0;
-  color: #FFFFFF;
+  color: #292929;
   display: block;
   font-family: 'Roboto', sans-serif;
   padding: 6px 25px;
@@ -1507,7 +1533,7 @@ h2.title {
 .or{
 	background: #FE980F;
 	border-radius: 40px;
-	color: #FFFFFF;
+	color: #292929;
 	font-family: 'Roboto', sans-serif;
 	font-size: 16px;
 	height: 50px;
@@ -1538,7 +1564,7 @@ h2.title {
 
 .breadcrumbs .breadcrumb li a {
   background:#FE980F;
-  color: #FFFFFF;
+  color: #292929;
   padding: 3px 7px;
 }
 
@@ -1567,7 +1593,7 @@ h2.title {
 
 #cart_items .cart_info .cart_menu {
   background: #FE980F;
-  color: #fff;
+  color: #292929;
   font-size: 16px;
   font-family: 'Roboto', sans-serif;
   font-weight: normal;
@@ -1579,7 +1605,7 @@ h2.title {
 
 
 #cart_items .cart_info .table.table-condensed tr {
-  border-bottom: 1px solid#F7F7F0
+  border-bottom: 1px solid#7A7774
 }
 
 #cart_items .cart_info .table.table-condensed tr:last-child {
@@ -1602,7 +1628,7 @@ h2.title {
 }
 
 #cart_items .cart_info .cart_description h4 a {
-  color: #363432;
+  color: #F0F0E6;
   font-family: 'Roboto',sans-serif;
   font-size: 20px;
   font-weight: normal;
@@ -1610,12 +1636,12 @@ h2.title {
 }
 
 #cart_items .cart_info .cart_description p {
-  color:#696763
+  color:#716E6B
 }
 
 
 #cart_items .cart_info .cart_price p {
-  color:#696763;
+  color:#716E6B;
   font-size: 18px
 }
 
@@ -1631,8 +1657,8 @@ h2.title {
 }
 
 .cart_quantity_button a {
-  background:#F0F0E9;
-  color: #696763;
+  background:#9B9B96;
+  color: #716E6B;
   display: inline-block;
   font-size: 16px;
   height: 28px;
@@ -1644,7 +1670,7 @@ h2.title {
 
 
 .cart_quantity_input {
-  color: #696763;
+  color: #716E6B;
   float: left;
   font-size: 16px;
   text-align: center;
@@ -1661,8 +1687,8 @@ h2.title {
 
 
 .cart_delete a {
-  background:#F0F0E9;
-  color: #FFFFFF;
+  background:#9B9B96;
+  color: #292929;
   padding: 5px 7px;
   font-size: 16px
 }
@@ -1679,7 +1705,7 @@ h2.title {
 }
 
 .heading h3 {
-  color: #363432;
+  color: #F0F0E6;
   font-size: 20px;
   font-family: 'Roboto', sans-serif;
 }
@@ -1697,7 +1723,7 @@ h2.title {
 
 #do_action .total_area, #do_action .chose_area {
   border: 1px solid #E6E4DF;
-  color: #696763;
+  color: #716E6B;
   padding: 30px 25px 30px 0;
   margin-bottom: 80px;
 }
@@ -1708,14 +1734,14 @@ h2.title {
 
 .total_area ul li {
   background:#E6E4DF;
-  color: #696763;
+  color: #716E6B;
   margin-top: 10px;
   padding: 7px 20px;
 }
 
 
 .user_option label {
-  color: #696763;
+  color: #716E6B;
   font-weight: normal;
   margin-left: 10px;
 }
@@ -1729,7 +1755,7 @@ h2.title {
 }
 
 .user_info label {
-  color: #696763;
+  color: #716E6B;
   display: block;
   font-size: 15px;
   font-weight: normal;
@@ -1742,7 +1768,7 @@ h2.title {
 
 .user_info .single_field.zip-field input {
   background: transparent;
-  border: 1px solid#F0F0E9
+  border: 1px solid#9B9B96
 }
 
 .user_info > li {
@@ -1754,9 +1780,9 @@ h2.title {
 }
 
 .user_info input, select, textarea {
-  background: #F0F0E9;
+  background: #9B9B96;
   border:0;
-  color: #696763;
+  color: #716E6B;
   padding: 5px;
   width: 100%;
   border-radius: 0;
@@ -1775,7 +1801,7 @@ h2.title {
 .update, .check_out {
   background: #FE980F;
   border-radius: 0;
-  color: #FFFFFF;
+  color: #292929;
   margin-top: 18px;
   border: none;
   padding: 5px 15px;
@@ -1799,8 +1825,8 @@ h2.title {
 }
 
 .register-req, .step-one .heading {
-  background: none repeat scroll 0 0 #F0F0E9;
-  color: #363432;
+  background: none repeat scroll 0 0 #9B9B96;
+  color: #F0F0E6;
   font-size: 20px;
   margin-bottom: 35px;
   padding: 10px 25px;
@@ -1813,7 +1839,7 @@ h2.title {
 
 
 .checkout-options h3 {
-  color: #363432;
+  color: #F0F0E6;
   font-size: 20px;
   margin-bottom: 0;
   font-weight: normal;
@@ -1829,7 +1855,7 @@ h2.title {
 .checkout-options .nav li {
   float: left;
   margin-right: 45px;
-  color: #696763;
+  color: #716E6B;
   font-size: 18px;
   font-family: 'Roboto', sans-serif;
   font-weight: normal;
@@ -1855,7 +1881,7 @@ h2.title {
   border-radius: 50%;
   padding: 5px;
   background: #FE980F;
-  color:#fff;
+  color:#292929;
   font-size: 14px;
   padding: 2px 3px;
 }
@@ -1878,7 +1904,7 @@ h2.title {
 .shopper-info p, 
 .bill-to p, 
 .order-message p {
-  color: #696763;
+  color: #716E6B;
   font-size: 20px;
   font-weight: 300
 }
@@ -1903,7 +1929,7 @@ h2.title {
 .form-two > form > select, 
 .form-two > form > input, 
 .form-one > form > input {
-  background:#F0F0E9;
+  background:#9B9B96;
   border: 0 none;
   margin-bottom:10px;
   padding: 10px;
@@ -1929,7 +1955,7 @@ h2.title {
 
 .order-message label {
   font-weight:300;
-  color: #696763;
+  color: #716E6B;
   font-family: 'Roboto', sans-serif;
   margin-left: 10px;
   font-size: 14px
@@ -1937,7 +1963,7 @@ h2.title {
 
 
 .review-payment h2 {
-  color: #696763;
+  color: #716E6B;
   font-size: 20px;
   font-weight: 300;
   margin-top: 45px;
@@ -1950,7 +1976,7 @@ h2.title {
 }
 
 .payment-options span label {
-  color: #696763;
+  color: #716E6B;
   font-size: 14px;
   font-weight: 300;
   margin-right: 30px;
@@ -1960,7 +1986,7 @@ h2.title {
 .table.table-condensed.total-result {
   margin-bottom: 10px;
   margin-top: 35px;
-  color: #696763
+  color: #716E6B
 }
 
 #cart_items .cart_info 
@@ -1978,7 +2004,7 @@ h2.title {
 #cart_items .cart_info 
 .table.table-condensed.total-result 
 .shipping-cost {
-  border-bottom: 1px solid #F7F7F0;
+  border-bottom: 1px solid #7A7774;
 }
 
 
@@ -1992,7 +2018,7 @@ h2.title {
 
 .blog-post-area 
 .single-blog-post h3 {
-  color: #696763;
+  color: #716E6B;
   font-size: 16px;
   font-family: 'Roboto',sans-serif;
   text-transform: uppercase;
@@ -2005,14 +2031,14 @@ h2.title {
 
 .blog-post-area 
 .single-blog-post a img {
-  border: 1px solid #F7F7F0;
+  border: 1px solid #7A7774;
   width: 100%;
   margin-bottom: 30px
 }
 
 .blog-post-area  
 .single-blog-post p {
-  color: #363432
+  color: #F0F0E6
 }
 
 .blog-post-area 
@@ -2030,7 +2056,7 @@ h2.title {
 
 .blog-post-area 
 .post-meta ul li {
-  background:#F0F0E9;
+  background:#9B9B96;
   float: left;
   margin-right: 10px;
   padding: 0 5px;
@@ -2042,7 +2068,7 @@ h2.title {
 .blog-post-area 
 .post-meta ul li i {
   background:#FE980F;
-  color: #FFFFFF;
+  color: #292929;
   margin-left: -4px;
   margin-right: 7px;
   padding: 4px 7px;
@@ -2083,7 +2109,7 @@ h2.title {
   background:#FE980F;
   border: medium none;
   border-radius: 0;
-  color: #FFFFFF;
+  color: #292929;
   margin-top: 17px;
 }
 
@@ -2095,10 +2121,10 @@ h2.title {
 
 .pagination-area 
 .pagination li a {
-  background:#F0F0E9;
+  background:#9B9B96;
   border: 0 none;
   border-radius: 0;
-  color: #696763;
+  color: #716E6B;
   margin-right: 5px;
   padding: 4px 12px;
 }
@@ -2108,7 +2134,7 @@ h2.title {
 .pagination-area 
 .pagination li .active {
   background:#FE980F;
-  color: #fff
+  color: #292929
 }
 
 
@@ -2122,10 +2148,10 @@ h2.title {
 }
 
 .pager-area .pager li a {
-  background:#F0F0E9;
+  background:#9B9B96;
   border: 0 none;
   border-radius: 0;
-  color: #696763;
+  color: #716E6B;
   font-size: 12px;
   font-weight: 700;
   padding: 4px;
@@ -2136,11 +2162,11 @@ h2.title {
 .pager-area 
 .pager li a:hover {
   background: #FE980F;
-  color: #fff
+  color: #292929
 }
 
 .rating-area {
-  border: 1px solid #F7F7F0;
+  border: 1px solid #7A7774;
   direction: block;
   overflow: hidden;
 }
@@ -2164,7 +2190,7 @@ h2.title {
 }
 
 .rating-area .rate-this {
-  color: #363432;
+  color: #F0F0E6;
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -2187,7 +2213,7 @@ h2.title {
   padding: 5px 2px;
 }
 .rating-area .tag li span {
-  color: #363432;
+  color: #F0F0E6;
 }
 
 
@@ -2204,7 +2230,7 @@ h2.title {
 }
 
 .commnets {
-  border: 1px solid #F7F7F0;
+  border: 1px solid #7A7774;
   padding: 18px 18px 18px 0;
   margin-bottom: 50px
 }
@@ -2220,7 +2246,7 @@ h2.title {
 }
 
 .media-heading {
-  color: #363432;
+  color: #F0F0E6;
   font-size: 14px;
   font-weight: 700;
   font-family: 'Roboto', sans-serif;
@@ -2257,11 +2283,11 @@ h2.title {
   display: block;
   font-size: 10px;
   padding: 1px;
-  background:#F0F0E9;
+  background:#9B9B96;
 }
 
 .blog-socials ul li a:hover {
-  color: #fff;
+  color: #292929;
   background:#FE980F
 }
 
@@ -2271,7 +2297,7 @@ h2.title {
   background:#FC9A11;
   border: 0 none;
   border-radius: 0;
-  color: #FFFFFF;
+  color: #292929;
   float: left;
   font-size: 10px;
   padding: 1px 7px;
@@ -2279,13 +2305,13 @@ h2.title {
 }
 
 .response-area h2 {
-  color: #363432;
+  color: #F0F0E6;
   font-size: 20px;
   font-weight: 700;
 }
 
 .response-area .media {
-  border: 1px solid #F7F7F0;
+  border: 1px solid #7A7774;
   padding: 18px 18px 18px 0;
   margin-bottom: 27px
 }
@@ -2314,8 +2340,8 @@ h2.title {
 
 
 .sinlge-post-meta li {
-  background:#F0F0E9;
-  color: #363432;
+  background:#9B9B96;
+  color: #F0F0E6;
   float: left;
   font-size: 10px;
   font-weight: 700;
@@ -2327,7 +2353,7 @@ h2.title {
 
 .sinlge-post-meta li i {
   background:#FE980F;
-  color: #FFFFFF;
+  color: #292929;
   margin-right: 10px;
   padding: 8px 10px;
 }
@@ -2347,14 +2373,14 @@ h2.title {
 .replay-box h2 {
   font-weight: 700;
   font-size: 20px;
-  color: #363432;
+  color: #F0F0E6;
   margin-top: 0;
   margin-bottom: 45px
 }
 
 .replay-box label {
   background:#FE980F;
-  color: #FFFFFF;
+  color: #292929;
   margin-bottom: 15px;
   padding: 3px 15px;
   float: left;
@@ -2369,7 +2395,7 @@ h2.title {
 }
 
 .replay-box form input {
-  border: 1px solid #F7F7F0;
+  border: 1px solid #7A7774;
   color: #ADB2B2;
   font-size: 12px;
   margin-bottom: 22px;
@@ -2388,7 +2414,7 @@ h2.title {
 
 .text-area textarea {
   background: transparent;
-  border: 1px solid#F7F7F0
+  border: 1px solid#7A7774
 }
 
 .btn.btn-primary {
@@ -2441,9 +2467,9 @@ h2.title {
 }
 
 #contact-page .form-control {
-  background-color: #fff;
+  background-color: #292929;
   border: 1px solid #ddd;
-  color: #696763;
+  color: #716E6B;
   height: 46px;
   padding: 6px 12px;
   width: 100%;
@@ -2480,7 +2506,7 @@ h2.title {
 
 #contact-page .contact-info p {
   margin-bottom: 0;
-  color: #696763;
+  color: #716E6B;
   font-size: 16px;
   line-height: 25px;
 }
