@@ -1,9 +1,26 @@
 app.config(function ($stateProvider) {
+    $stateProvider.state('products', {
+        url: '/products',
+        controller: 'ProductsCtrl',
+        templateUrl: '/js/products/templates/products.template.html',
+        resolve: {
+            allProducts: function (ProductsFactory) {
+                return ProductsFactory.getAllProducts();
+            }
+        }
+    });
 
-    // Register our *about* state.
     $stateProvider.state('product', {
-        url: '/product',
-        controller: 'ProductCtrl',
-        templateUrl: 'js/products/templates/products.template.html'
+        url: '/products/:productId',
+        controller: 'singleProductCtrl',
+        templateUrl: '/js/products/templates/products.template.html',
+        resolve: {
+            singleProduct: function (ProductsFactory, $stateParams) {
+                return ProductsFactory.getProductById($stateParams.productId);
+            },
+            productReviews: function (ReviewsFactory, $stateParams) {
+            	return ReviewsFactory.getReviewsByProductId($stateParams.productId);
+            }
+        }
     });
 });
