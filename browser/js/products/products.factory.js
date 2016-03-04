@@ -4,9 +4,7 @@ app.factory('ProductsFactory', function ($http) {
 
     ProductsFactory.getAllProducts = function () {
         return $http.get('/api/products')
-            .then(function(product) {
-                return product.data;
-            })
+            .then(product => product.data)
             .catch(function(err) { if (err) console.error(err) })
     };
 
@@ -18,14 +16,14 @@ app.factory('ProductsFactory', function ($http) {
     };
 
     // for admins // TODO: Do we need $log?
-    ProductsFactory.createProduct = function () {
+    ProductsFactory.createProduct = function (data) {
         return $http.post('/api/products', data)
             .then(newProduct => newProducts.data)
             .catch(function(err) { if (err) console.error(err) })
     };
 
     // put
-    ProductsFactory.updateProduct = function (productId) {
+    ProductsFactory.updateProduct = function (productId, data) {
         return $http.product('/api/products' + productId, data)
             .then(updatedProduct => updatedProduct.data) // TODO: Do we want to return something?
             .catch(function(err) { if (err) console.error(err) })
@@ -38,6 +36,6 @@ app.factory('ProductsFactory', function ($http) {
             .catch(function(err) { if (err) console.error(err) })
     };
 
-    return ProductsFactory
+    return ProductsFactory;
 
 });
