@@ -3,7 +3,8 @@ app.directive('homeProduct', function () {
         restrict: 'E',
         templateUrl: 'js/home/home-product.html',
         scope: {
-            product: '='
+            product: '=',
+            addToCart: '='
         }
     }
 });
