@@ -1,5 +1,10 @@
-app.controller('CartCtrl', function ($scope, $log, CartFactory, onceCart) {
+app.controller('CartCtrl', function ($scope, $log, CartFactory, oneCart) {
 
-    $scope.onceCart = oneCart;
+    $scope.oneCart = oneCart;
+    console.log(oneCart);
+
+    $scope.makeCart = CartFactory.createCart;
+
+    
 
 });

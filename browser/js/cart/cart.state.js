@@ -7,19 +7,19 @@ app.config(function ($stateProvider) {
         //    // allCarts: function (CartFactory) {
         //    //     return CartFactory.getAllCarts();
         //    // },
-
+          // makeCart: function (CartFactory, data) {
+          //     return CartFactory.createCart(data);
+          // },
           oneCart: function (CartFactory) {
               return CartFactory.getCurrentCart();
-          },
+          }
 
         //    // cartById: function (CartFactory, $stateParams) {
         //    //     // TODO: Are we passing in the right data?
         //    //     return CartFactory.getCartById($stateParams.cartId);
         //    // },
 
-           makeCart: function (CartFactory, data) {
-               return CartFactory.createCart(data);
-           }
-        }
+        },
+        controller: 'CartCtrl'
     });
 });
