@@ -8,11 +8,13 @@ var schema = new mongoose.Schema({
         ref: "User",
         required: true
     },
-    contents:
-        [{
-            quantity: Number,
-            product: { type : mongoose.Schema.Types.ObjectId, ref: 'Product' }
-        }],
+    contents: [{
+        quantity: Number,
+        product: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Product'
+        }
+    }],
     pending: {
         type: Boolean,
         default: true,
@@ -50,14 +52,13 @@ schema.pre("save", function (next) {
     var self = this;
     if (self.pending === false) {
         Promise.all(self.contents.map(function (element) {
-            return Product.findById(element.product)
-        }))
-        .then(function (arrayProducts) {
-            self.finalOrder = arrayProducts;
-            next();
-        })
-    }
-    else {
+                return Product.findById(element.product)
+            }))
+            .then(function (arrayProducts) {
+                self.finalOrder = arrayProducts;
+                next();
+            })
+    } else {
         next();
     }
 })

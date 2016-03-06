@@ -1,6 +1,7 @@
 var app = require('../../../server/app/index.js');
 var mongoose = require('mongoose');
 var Cart = mongoose.model('Cart');
+var Category = mongoose.model('Category');
 var Product = mongoose.model('Product');
 var User = mongoose.model('User');
 var expect = require('chai').expect;
@@ -17,20 +18,32 @@ describe('Cart Routes', function () {
             password: 'shoopdawoop'
         };
         var cart;
-        var product1 = {
-            quantity: 4,
-            categories: ["zombie"], 
-            title: "Egg", 
-            description: "An Egg", 
-            price: 30 
-        };
-        var product2 = { 
-            quantity: 2,
-            categories: ["nuclear"],
-            title: "Chicken", 
-            description: "A Chicken", 
-            price: 10 
-        };
+        var product1;
+        var product2;
+
+        beforeEach('create product categories', function (done){
+            Category.create( {name: "zombie"} )
+            .then(function (category) {
+                product1 = {
+                quantity: 4,
+                categories: [category._id], 
+                title: "Egg", 
+                description: "An Egg", 
+                price: 30 
+                };
+                return Category.create( {name: "nuclear"} );
+            }).then(function (category){
+                product2 = { 
+                    quantity: 2,
+                    categories: [category._id],
+                    title: "Chicken", 
+                    description: "A Chicken", 
+                    price: 10 
+                };
+                done();
+            });
+
+        });
 
         beforeEach('clear the Product, Cart, and User DBs', function (done) {
             var promiseArr = [ Product.remove({}), Cart.remove({}), User.remove({}) ]
@@ -138,15 +151,8 @@ describe('Cart Routes', function () {
         });  
 
         it('POST a product', function (done) {
-            var prod = {
-                quantity: 22,
-                categories: ["wombat"], 
-                title: "Doorknob", 
-                description: "Opens Doors", 
-                price: 100 
-            };
-
-            Product.create(prod)
+ 
+            Product.create(product1)
             .then(function (createdProduct) {
                 agent
                     .post('/api/cart/' + createdProduct._id + '/2')
@@ -162,15 +168,8 @@ describe('Cart Routes', function () {
         });
 
         it('PUT updates a cart contents', function (done) {
-            var prod = {
-                quantity: 22,
-                categories: ["wombat"], 
-                title: "Doorknob", 
-                description: "Opens Doors", 
-                price: 100 
-            };
 
-            Product.create(prod)
+            Product.create(product1)
             .then(function (createdProduct) {
                 agent
                     .put('/api/cart/' + createdProduct._id + '/0')

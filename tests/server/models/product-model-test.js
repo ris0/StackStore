@@ -19,38 +19,4 @@ describe('Product model', function () {
     it('should exist', function () {
         expect(Product).to.be.a('function');
     });
-    describe('Validations', function() {
-        var product;
-        beforeEach(function() {
-            product = new Product();
-        });
-        it('errors without title', function(done) {
-            product.validate(function (err) {
-                expect(err).to.not.equal(undefined);
-                err.errors.title.should.be.an('object');
-                done();
-            });
-        });
-        it('errors without categories', function(done) {
-            product.validate(function (err) {
-                expect(err).to.not.equal(undefined);
-                err.errors.categories.should.be.an('object');
-                done();
-            });
-        });
-        it('errors without description', function(done) {
-            product.validate(function (err) {
-                expect(err).to.not.equal(undefined);
-                err.errors.description.should.be.an('object');
-                done();
-            });
-        });
-        it('errors without price', function(done) {
-            product.validate(function (err) {
-                expect(err).to.not.equal(undefined);
-                err.errors.price.should.be.an('object');
-                done();
-            });
-        });
-    });
 });
