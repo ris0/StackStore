@@ -13,7 +13,7 @@ router.use('/', function (req, res, next) {
 });
 
 // find the current cart
-router.get('/current', Auth.assertAdminOrSelf, function (req, res, next) {
+router.get('/current', /*Auth.assertAdminOrSelf,*/ function (req, res, next) {
     Cart.findOne({ user : req.user._id, pending : true })
     .then(function (oneCart) {
         res.json(oneCart);
