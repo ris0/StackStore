@@ -30,17 +30,17 @@
                 <p>Web ID: {{ item.product._id }}</p>
               </td>
               <td class="cart_price">
-                <p>{{ item.product.price }}</p>
+                <p>{{ item.product.price | currency }}</p>
               </td>
               <td class="cart_quantity">
                 <div class="cart_quantity_button">
-                  <a class="cart_quantity_up" href=""> + </a>
+                  <!-- <a class="cart_quantity_up" href=""> + </a> -->
                   <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                  <a class="cart_quantity_down" href=""> - </a>
+                  <a class="cart_quantity_down" href=""> update </a>
                 </div>
               </td>
               <td class="cart_total">
-                <p class="cart_total_price">{{ computeTotal(item.product.price, item.quantity) }}</p>
+                <p class="cart_total_price">{{ item.product.price * item.quantity | currency }}</p>
               </td>
               <td class="cart_delete">
                 <a class="cart_quantity_delete" href=""><i class="fa fa-times" ng-click="deleteProduct(item.product._id)"></i></a>
