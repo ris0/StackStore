@@ -10,16 +10,16 @@ app.config(function ($stateProvider) {
 
           oneCart: function (CartFactory) {
               return CartFactory.getCurrentCart();
-          }
+          },
 
         //    // cartById: function (CartFactory, $stateParams) {
         //    //     // TODO: Are we passing in the right data?
         //    //     return CartFactory.getCartById($stateParams.cartId);
         //    // },
 
-        //    // makeCart: function (CartFactory, data) {
-        //    //     return CartFactory.createCart(data);
-        //    // }
+           makeCart: function (CartFactory, data) {
+               return CartFactory.createCart(data);
+           }
         }
     });
 });
