@@ -1,10 +1,32 @@
-app.controller('CartCtrl', function ($scope, $log, CartFactory, oneCart) {
+app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, oneCart) {
 
-    $scope.oneCart = oneCart;
-    console.log(oneCart);
+    function getCart () {
+      CartFactory.getCurrentCart()
+      .then(function (cart) {
+        $scope.cart = cart;
+        console.log(cart);
+      })
+    }
 
-    $scope.makeCart = CartFactory.createCart;
+    // maipulates the $scope's cart, rather than making more api calls and assigning to 
+    // $scope through getCart()
+    function deleteItem (productId) {
+      CartFactory.deleteProduct(productId)
+      .then(function () {
+        $scope.cart.contents = $scope.cart.contents.filter(function (element) {
+          return element.product._id !== productId;
+        })
+        console.log("Item Deleted")
+        console.log($scope.cart)
+      })
+    }
 
+    getCart();
     
+    $scope.deleteProduct = deleteItem;
+
+    $scope.computeTotal = function (itemPrice, itemQty) {
+      return '$' + (itemPrice * itemQty);
+    }
 
 });

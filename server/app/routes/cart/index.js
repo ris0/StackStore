@@ -12,9 +12,10 @@ router.use('/', function (req, res, next) {
     else res.sendStatus(401);
 });
 
-// find the current cart
-router.get('/current', /*Auth.assertAdminOrSelf,*/ function (req, res, next) {
+// find the current cart, with porducts populated
+router.get('/current', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.findOne({ user : req.user._id, pending : true })
+    .populate('contents.product')
     .then(function (oneCart) {
         res.json(oneCart);
     })
@@ -64,7 +65,7 @@ router.post('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
     .then(function (foundCart) {
         foundCart.contents.push({
             quantity: req.params.qty,
-            product: req.params.productId
+            product: req.params.prodId
         });
         return foundCart.save();
     })
