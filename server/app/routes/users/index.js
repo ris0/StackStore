@@ -28,9 +28,10 @@ router.get('/', Auth.assertAdmin, function (req, res, next) {
 	.then(null, next);
 });
 
-router.post('/', Auth.assertAdmin, function (req, res, next) {
+router.post('/', function (req, res, next) {
 	User.create(req.body)
 	.then(function (user) {
+		console.log(user);
 		res.status(201).json(user);
 	})
 	.then(null, next);
