@@ -19,6 +19,7 @@ app.config(function ($stateProvider) {
 
            makeCart: function (CartFactory, data) {
                return CartFactory.createCart(data);
-           },
+           }
+        }
     });
 });

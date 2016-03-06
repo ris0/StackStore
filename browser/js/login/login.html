@@ -16,14 +16,19 @@
 </form> -->
 
 <section id="form"><!--form-->
-        <div class="container">
+        <div class="container" ng-controller="LoginCtrl">
             <div class="row">
                 <div class="col-sm-4 col-sm-offset-1">
                     <div class="login-form"><!--login form-->
                         <h2>Login to your account</h2>
-                        <form action="#">
-                            <input type="text" placeholder="Name" />
-                            <input type="email" placeholder="Email Address" />
+                        <form name ='loginForm' ng-submit='loginForm.$valid && sendLogin(login)'>
+
+                        <alert type="danger" ng-show="error">
+                            {{ error }}
+                        </alert>
+
+                            <input type="text" ng-model="login.email" placeholder="Email" />
+                            <input type="password" ng-model="login.password" placeholder="Password" />
                             <span>
                                 <input type="checkbox" class="checkbox"> 
                                 Keep me signed in
