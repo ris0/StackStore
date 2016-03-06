@@ -1,20 +1,3 @@
-<!-- <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
-
-    <alert type="danger" ng-show="error">
-        {{ error }}
-    </alert>
-
-    <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="text" ng-model="login.email" class="form-control" id="email" placeholder="Enter email">
-    </div>
-    <div class="form-group">
-        <label for="login-password">Password</label>
-        <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-</form> -->
-
 <section id="form"><!--form-->
         <div class="container" ng-controller="LoginCtrl">
             <div class="row">
@@ -23,12 +6,17 @@
                         <h2>Login to your account</h2>
                         <form name ='loginForm' ng-submit='loginForm.$valid && sendLogin(login)'>
 
-                        <alert type="danger" ng-show="error">
-                            {{ error }}
+                        <alert type="danger" ng-show="loginForm.email.$error.required && loginForm.email.$touched || loginForm.password.$error.required && loginForm.password.$touched">
+                            <div ng-messages="loginForm.email.$error" ng-if="loginForm.email.$touched">
+                                <p ng-message="required">A valid email address is required.</p>
+                            </div>
+                            <div ng-messages="loginForm.password.$error" ng-if="loginForm.password.$touched">
+                                <p ng-message="required">A valid password is required.</p>
+                            </div>
                         </alert>
 
-                            <input type="text" ng-model="login.email" placeholder="Email" />
-                            <input type="password" ng-model="login.password" placeholder="Password" />
+                            <input type="email" name="email" ng-model="login.email" placeholder="Email" required/>
+                            <input type="password" name="password" ng-model="login.password" placeholder="Password" required />
                             <span>
                                 <input type="checkbox" class="checkbox"> 
                                 Keep me signed in
@@ -43,14 +31,24 @@
                 <div class="col-sm-4">
                     <div class="signup-form"><!--sign up form-->
                         <h2>New User Signup!</h2>
-                        <form action="#">
-                            <input type="text" placeholder="Name"/>
-                            <input type="email" placeholder="Email Address"/>
-                            <input type="password" placeholder="Password"/>
+                        <form name="signupForm" ng-submit="signupForm.$valid && sendSignup(signup)">
+
+                        <alert type="danger" ng-show="signupForm.email.$error.required && signupForm.email.$touched || signupForm.password.$error.required && signupForm.password.$touched">
+                            <div ng-messages="signupForm.email.$error" ng-if="signupForm.email.$touched">
+                                <p ng-message="required">A valid email address is required.</p>
+                            </div>
+                            <div ng-messages="signupForm.password.$error" ng-if="signupForm.password.$touched">
+                                <p ng-message="required">A valid password is required.</p>
+                            </div>
+                        </alert>
+
+                            <input type="email" name="email" ng-model="signup.email" required placeholder="Email Address"/>
+                            <input type="password" name="password" ng-model="signup.password" required placeholder="Password"/>
                             <button type="submit" class="btn btn-default">Signup</button>
+
                         </form>
                     </div><!--/sign up form-->
                 </div>
             </div>
         </div>
-    </section><!--/form-->
+    </section><!--/form
