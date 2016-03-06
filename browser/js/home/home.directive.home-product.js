@@ -8,6 +8,3 @@ app.directive('homeProduct', function () {
         }
     }
 });
-
-
-

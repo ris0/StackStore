@@ -43,7 +43,7 @@ app.factory('CartFactory', function ($http) {
     };
 
     CartFactory.addProduct = function (productId, quantity, data) {
-        return $http.post('/api/cart' + productId + '/' + quantity, data)
+        return $http.post('/api/cart/' + productId + '/' + quantity, data)
             .then(cart => cart.data)
             .catch(function (err) {
                 console.error(err);

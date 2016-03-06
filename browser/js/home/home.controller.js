@@ -2,10 +2,6 @@ app.controller('HomeCtrl', function ($scope, $log, ProductsFactory, CartFactory,
 
     $scope.products = allProducts;
 
-    $scope.addToCart = function () {
-      console.log("GOT HERE YO")
-      return CartFactory.addProduct;  
-    }
-
+    $scope.addToCart = CartFactory.addProduct;  
 
 });
