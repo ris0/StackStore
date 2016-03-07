@@ -55,15 +55,15 @@ User management:
  - Trigger password reset for a user: * We don't have anything defined to trigger this.
 
  */
-    //$stateProvider.state('admin', {
-    //    url: '/admin',
-    //    controller: 'UsersCtrl',
-    //    templateUrl: 'js/users/templates/users.template.html',
-    //    resolve: {
-    //        allUsers: function (UsersFactory, $stateParams) {
-    //            return UsersFactory.deleteUser($stateParams.userId)
-    //        }
-    //    }
-    //});
+    $stateProvider.state('admin', {
+       url: '/admin',
+       controller: 'UsersCtrl',
+       templateUrl: 'js/users/templates/users.template.html',
+       resolve: {
+           allUsers: function (UsersFactory, $stateParams) {
+               return UsersFactory.deleteUser($stateParams.userId)
+           }
+       }
+    });
 
 });
