@@ -44,6 +44,12 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: none;
 }
 
+.btn-sq {
+  width: 30px;
+  height: 30`px;
+  padding:2px;
+}
+
 .navbar-toggle {
   background-color: #000;
 }
@@ -1660,11 +1666,11 @@ h2.title {
   background:#9B9B96;
   color: #716E6B;
   display: inline-block;
-  font-size: 16px;
+  font-size: 14px;
   height: 28px;
   overflow: hidden;
   text-align: center;
-  width: 35px;
+  width: 60px;
   float: left;
 }
 

@@ -1,10 +1,46 @@
-app.controller('CartCtrl', function ($scope, $log, CartFactory, oneCart) {
+app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, oneCart) {
 
-    $scope.oneCart = oneCart;
-    console.log(oneCart);
+    function getCart () {
+      CartFactory.getCurrentCart()
+      .then(function (cart) {
+        $scope.cart = cart;
+        console.log(cart);
+      })
+    }
 
-    $scope.makeCart = CartFactory.createCart;
+    // maipulates the $scope's cart, rather than making more api calls and assigning to 
+    // $scope through getCart()
+    function deleteItem (productId) {
+      CartFactory.deleteProduct(productId)
+      .then(function () {
+        $scope.cart.contents = $scope.cart.contents.filter(function (element) {
+          return element.product._id !== productId;
+        })
+        console.log("Item Deleted")
+        console.log($scope.cart)
+      })
+    }
 
+    getCart();
     
+    $scope.deleteProduct = deleteItem;
+
+    $scope.updateProduct = CartFactory.updateProduct;
+
+    $scope.totalCost = function (contents) {
+      var totalCost = 0;
+      contents.forEach(function (element) {
+        totalCost += element.product.price * element.quantity;
+      })
+      return totalCost;
+    }
+
+    $scope.totalTax = function (contents) {
+      var totalCost = 0;
+      contents.forEach(function (element) {
+        totalCost += element.product.price * element.quantity;
+      })
+      return totalCost * 0.08;
+    }
 
 });

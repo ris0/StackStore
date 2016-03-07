@@ -12,9 +12,10 @@ router.use('/', function (req, res, next) {
     else res.sendStatus(401);
 });
 
-// find the current cart
-router.get('/current', /*Auth.assertAdminOrSelf,*/ function (req, res, next) {
+// find the current cart, with porducts populated
+router.get('/current', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.findOne({ user : req.user._id, pending : true })
+    .populate('contents.product')
     .then(function (oneCart) {
         res.json(oneCart);
     })
@@ -62,10 +63,21 @@ router.post('/', Auth.assertAdminOrSelf, function (req, res, next) {
 router.post('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.findOne({ user : req.user._id })
     .then(function (foundCart) {
-        foundCart.contents.push({
-            quantity: req.params.qty,
-            product: req.params.productId
-        });
+        var found = false;
+        // if the product is already in there, update qty
+        foundCart.contents.forEach(function (element) {
+            if (element.product == req.params.prodId) {
+                element.quantity += Number(req.params.qty);
+                found = true;
+            }
+        })
+        // else do normal
+        if (!found) {
+            foundCart.contents.push({
+                quantity: req.params.qty,
+                product: req.params.prodId
+            });
+        }
         return foundCart.save();
     })
     .then(function (savedCart) {
@@ -79,8 +91,8 @@ router.put('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.findOne({ user : req.user._id })
     .then(function (foundCart) {
         foundCart.contents.forEach(function (element, index, contents) {
-            if (element.product._id === req.params.prodId) {
-                if (req.qty === 0) contents.splice(index, 1);
+            if (element.product.toString() === req.params.prodId.toString()) {
+                if (req.params.qty === 0) contents.splice(index, 1);
                 else element.quantity = req.params.qty;
             }
         });

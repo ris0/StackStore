@@ -34,7 +34,11 @@ router.post('/', Auth.assertAdmin, function (req, res, next) {
 });
 
 router.get('/:productId', function (req, res, next) {
-    res.json(req.product);
+    Product.findById({ _id: req.params.productId })
+    .then(function (foundProduct) {
+        res.json(foundProduct);
+    })
+    // res.json(req.product);
 });
 
 router.put('/:productId', Auth.assertAdmin, function (req, res, next) {
