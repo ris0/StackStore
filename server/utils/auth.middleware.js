@@ -13,7 +13,7 @@ Auth.isAdmin = function (req) {
 };
 
 Auth.isSelf = function (req) {
-	return req.user.equals(req.requestedUser);
+	return Auth.isAuthenticated(req);
 };
 
 // Andrew: reserve for multitenancy?
