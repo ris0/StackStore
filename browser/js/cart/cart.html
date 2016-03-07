@@ -34,9 +34,12 @@
               </td>
               <td class="cart_quantity">
                 <div class="cart_quantity_button">
-                  <input class="cart_quantity_input" type="text" name="quantity" value="{{ item.quantity }}" autocomplete="off" size="2" ng-model="item.quantity">
+                  <form name="form" class="css-form" novalidate>
+                    <input class="cart_quantity_input" type="text" name="quantity" value="{{ item.quantity }}" autocomplete="off" size="2" ng-model="item.quantity">
                   <button class="btn btn-sm cart_quantity_down" href="" ng-click="updateProduct(item.product._id, item.quantity)"> update </button>
+                </form>
                 </div>
+                <!-- <h1>{{ form | json }}</h1> -->
               </td>
               <td class="cart_total">
                 <p class="cart_total_price">{{ item.product.price * item.quantity | currency }}</p>
