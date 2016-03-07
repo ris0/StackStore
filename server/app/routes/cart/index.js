@@ -52,9 +52,24 @@ router.get('/:cartId', Auth.assertAdmin, function (req, res, next) {
 
 // creates a new cart for the active user
 router.post('/', Auth.assertAdminOrSelf, function (req, res, next) {
-    Cart.create({ user : req.user._id })
+    var found = false;
+
+    console.log('POOPPOPOPOPO');
+
+    Cart.find({ user : req.user._id})
+    .then(function(cartsArr){
+        console.log('WOWOWOWOWOW', cartsArr)
+        cartsArr.forEach(function(cart){
+            if(cart.pending){
+                found = true;
+                console.log(cart.pending)
+                res.json(cart).end();
+            }
+        });
+        if(!found) return Cart.create({ user : req.user._id })
+    })
     .then(function (createdCart) {
-        res.status(201).json(createdCart);
+        if(createdCart) res.status(201).json(createdCart);
     })
     .then(null, next);
 });

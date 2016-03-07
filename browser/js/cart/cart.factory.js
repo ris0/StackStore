@@ -34,8 +34,8 @@ app.factory('CartFactory', function ($http) {
             });
     };
 
-    CartFactory.createCart = function (data) {
-        return $http.post('/api/cart', data)
+    CartFactory.createCart = function () {
+        return $http.post('/api/cart')
             .then(cart => cart.data)
             .catch(function (err) {
                 console.error(err);
