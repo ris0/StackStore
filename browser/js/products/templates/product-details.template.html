@@ -132,8 +132,8 @@
                                     <span>{{ product.price | currency }}</span>
                             <span></span>
                             <label>Quantity:</label>
-                            <input type="text" value="3" />
-                            <button type="button" class="btn btn-fefault cart">
+                            <input type="text" placeholder="1" ng-model="quantity" />
+                            <button type="button" class="btn btn-fefault cart" ng-click="addToCart(product._id, quantity)">
                                 <i class="fa fa-shopping-cart"></i> Add to cart
                             </button>
                             </span>
@@ -150,7 +150,7 @@
                             <li><a href="#details" data-toggle="tab">Description</a></li>
                             <!-- <li><a href="#tag" data-toggle="tab">Categories</a></li>
  -->
-                            <li class="active"><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
+                            <li class="active"><a href="#reviews" data-toggle="tab">Reviews ({{ reviews.length }})</a></li>
                         </ul>
                     </div>
                     <div class="tab-content">

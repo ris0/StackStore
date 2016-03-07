@@ -5,7 +5,7 @@ app.controller('ProductsCtrl', function ($scope, $log, ProductsFactory, allProdu
 
 });
 
-app.controller('singleProductCtrl', function ($scope, $log, ProductsFactory, ReviewsFactory, singleProduct, productReviews, AuthService) {
+app.controller('singleProductCtrl', function ($scope, $log, ProductsFactory, ReviewsFactory, singleProduct, productReviews, AuthService, CartFactory) {
 
     $scope.product = singleProduct;
     $scope.reviews = productReviews;
@@ -24,5 +24,9 @@ app.controller('singleProductCtrl', function ($scope, $log, ProductsFactory, Rev
                 rating: $scope.rating
             })
             .then(review => $scope.reviews.push(review));
+    };
+    $scope.addToCart = function (productId, quantity) {
+        CartFactory.addProduct(productId, quantity);
+        $state.go('cart');
     };
 });

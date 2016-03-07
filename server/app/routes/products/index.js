@@ -41,7 +41,6 @@ router.get('/:productId', function (req, res, next) {
         })
         // .populate('categories')
         .then(function (foundProduct) {
-            console.log("CATEGORIES", foundProduct.categories);
             res.json(foundProduct);
         });
     // res.json(req.product);
