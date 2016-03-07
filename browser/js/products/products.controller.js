@@ -12,12 +12,17 @@ app.controller('singleProductCtrl', function ($scope, $log, ProductsFactory, Rev
     $scope.isLoggedIn = function () {
         return AuthService.isAuthenticated();
     };
-    $scope.user = Promise.resolve(AuthService.getLoggedInUser());
+    AuthService.getLoggedInUser()
+        .then(function (user) {
+            $scope.user = user;
+        });
     $scope.submitReview = function () {
         ReviewsFactory.createReview(singleProduct._id, {
-            content: $scope.content,
-            user: user,
-            rating: $scope.rating
-        });
+                content: $scope.content,
+                user: $scope.user,
+                product: singleProduct._id,
+                rating: $scope.rating
+            })
+            .then(review => $scope.reviews.push(review));
     };
 });

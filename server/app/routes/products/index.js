@@ -7,25 +7,27 @@ var reviewRouter = require('../reviews');
 var Auth = require('../../../utils/auth.middleware.js');
 
 router.param('productId', function (req, res, next, productId) {
-    Product.findOne({_id:productId})
+    Product.findOne({
+            _id: productId
+        })
         .then(function (product) {
             req.product = product;
             next();
         })
         .then(null, function (err) {
-            if(!err.status) err.status = '404';
+            if (!err.status) err.status = '404';
             next(err);
         });
 });
 
 router.get('/', function (req, res, next) {
-    Product.find( req.query )
+    Product.find(req.query)
         .then(products => res.json(products))
         .then(null, next);
 });
 
 router.post('/', Auth.assertAdmin, function (req, res, next) {
-    Product.create( req.body )
+    Product.create(req.body)
         .then(function (product) {
             res.status(201).json(product);
         })
@@ -34,10 +36,14 @@ router.post('/', Auth.assertAdmin, function (req, res, next) {
 });
 
 router.get('/:productId', function (req, res, next) {
-    Product.findById({ _id: req.params.productId })
-    .then(function (foundProduct) {
-        res.json(foundProduct);
-    })
+    Product.findOne({
+            _id: req.params.productId
+        })
+        // .populate('categories')
+        .then(function (foundProduct) {
+            console.log("CATEGORIES", foundProduct.categories);
+            res.json(foundProduct);
+        });
     // res.json(req.product);
 });
 
@@ -58,6 +64,5 @@ router.delete('/:productId', Auth.assertAdmin, function (req, res, next) {
 });
 
 router.use('/:productId/reviews', reviewRouter);
-
 
 module.exports = router;

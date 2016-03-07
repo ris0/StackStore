@@ -16,8 +16,8 @@
  name in the environment files.
 
  */
-var Chance = require ('chance'),
-    _ = require ('lodash'),
+var Chance = require('chance'),
+    _ = require('lodash'),
     mongoose = require('mongoose'),
     Promise = require('bluebird'),
     chalk = require('chalk'),
@@ -27,14 +27,13 @@ var Chance = require ('chance'),
     Review = mongoose.model('Review'),
     Category = mongoose.model('Category');
 
-
 var chance = new Chance();
 var numUsers = 20;
 var numReviews = 20;
 // picks a unique email address => chance.email will generate a random e-mail;
 var emails = chance.unique(chance.email, numUsers);
 
-function randUser () {
+function randUser() {
     return new User({
         email: emails.pop(),
         password: chance.word(),
@@ -42,7 +41,7 @@ function randUser () {
     })
 }
 
-function generateCategory () {
+function generateCategory() {
 
     var zombies = new Category({
         name: 'Zombies'
@@ -63,7 +62,7 @@ function generateCategory () {
     return [zombies, rogueAI, wombats, nuclear];
 }
 
-function randReview (allUsers, allProducts) {
+function randReview(allUsers, allProducts) {
     // randomly pick one from an array that is resolved in generateAll
     var user = chance.pick(allUsers);
     var product = chance.pick(allProducts);
@@ -76,12 +75,15 @@ function randReview (allUsers, allProducts) {
         content: chance.n(chance.paragraph, numPars),
         user: user,
         product: product,
-        rating: chance.integer({ min: 1, max: 5 })
+        rating: chance.integer({
+            min: 1,
+            max: 5
+        })
     });
 }
 
 // take note: I removed reviews from productsSchema...deal with it :)
-function generateAll () {
+function generateAll() {
 
     // arg1 = n; arg2 = fn => returns array of result; invokes the fn (n) times;
     var users = _.times(numUsers, randUser);
@@ -99,19 +101,17 @@ function generateAll () {
 
     var categories = generateCategory();
 
-    var sampleProducts = [
-        {
+    var sampleProducts = [{
             title: 'Templar Knight Helmet',
-            categories: [ categories[0]._id ],
+            categories: [categories[0]._id],
             description: 'Protect your head, Protect your mind, Protect yourself with this shiny helmet!',
             quantity: 1000,
             availability: true,
             price: 1000,
             image: "http://www.trueswords.com/images/prod/c/templar_knight_metal_helmet2_250.jpg"
-        },
-        {
+        }, {
             title: 'Katana',
-            categories: [ categories[1]._id ],
+            categories: [categories[1]._id],
             description: 'Perfect for close range combat and keeping a small profile. Destroy your enemies with one blow',
             quantity: 1000,
             availability: true,
@@ -119,10 +119,9 @@ function generateAll () {
             image: "http://www.trueswords.com/images/prod/c/shinwa-blue-knight-damascus-katana-kz747ndz_250.jpg"
         },
 
-
         {
             title: 'Evil Spiked Mace',
-            categories: [ categories[2]._id ],
+            categories: [categories[2]._id],
             description: 'Perfect for close range combat and keeping a small profile. Destroy your enemies with one blow',
             quantity: 1000,
             availability: true,
@@ -132,7 +131,7 @@ function generateAll () {
 
         {
             title: 'Tomahawk',
-            categories: [ categories[3]._id ],
+            categories: [categories[3]._id],
             description: 'Perfect for close range combat and keeping a small profile. Destroy your enemies with one blow',
             quantity: 1000,
             availability: true,
@@ -142,7 +141,7 @@ function generateAll () {
 
         {
             title: 'Machine Gun',
-            categories: [ categories[1]._id ],
+            categories: [categories[1]._id],
             description: 'Choppa Choppa Choppa Choppa Choppa Choppa Choppa Choppa Choppa Choppa Choppa Choppa',
             quantity: 1000,
             availability: true,
@@ -161,11 +160,13 @@ function generateAll () {
             // concat reviews to users
             return users.concat(reviews);
         })
-        .then(null, function(err) { if(err) console.log(err) });
+        .then(null, function (err) {
+            if (err) console.log(err)
+        });
 
 }
 
-function seed () {
+function seed() {
     var docs = generateAll();
     return Promise.map(docs, function (doc) {
         return doc.save();
