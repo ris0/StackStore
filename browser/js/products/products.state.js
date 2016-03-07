@@ -13,10 +13,13 @@ app.config(function ($stateProvider) {
     $stateProvider.state('product', {
         url: '/products/:productId',
         controller: 'singleProductCtrl',
-        templateUrl: '/js/products/templates/products.template.html',
+        templateUrl: '/js/products/templates/product-details.template.html',
         resolve: {
-            allProduct: function (ProductsFactory, $stateParams) {
+            singleProduct: function (ProductsFactory, $stateParams) {
                 return ProductsFactory.getProductById($stateParams.productId);
+            },
+            productReviews: function (ReviewsFactory, $stateParams) {
+                return ReviewsFactory.getReviewsByProductId($stateParams.productId);
             }
         }
     });
