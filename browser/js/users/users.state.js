@@ -17,23 +17,23 @@ Product reviews:
 */
 
     $stateProvider.state('user', {
-        url: '/my-account',
-        controller: 'UserCtrl',
-        templateUrl: 'js/users/templates/users.template.html',
-        resolve: {
-
-            findUser: function (UsersFactory, $stateParams) {
-                return UsersFactory.getUserById($stateParams.userId);
-            },
-
-            updateUser: function (UsersFactory, $stateParams, data) {
-                return UsersFactory.updateUser($stateParams.userId, data);
-            },
-
-            deleteUser: function (UsersFactory, $stateParams) {
-                return UsersFactory.updateUser($stateParams.userId);
-            }
-        }
+        url: '/user',
+        controller: 'UsersCtrl',
+        templateUrl: '../../site-assets/users/templates/users.template.html'
+        //resolve: {
+        //
+        //    findUser: function (UsersFactory, $stateParams) {
+        //        return UsersFactory.getUserById($stateParams.userId);
+        //    },
+        //
+        //    updateUser: function (UsersFactory, $stateParams, data) {
+        //        return UsersFactory.updateUser($stateParams.userId, data);
+        //    },
+        //
+        //    deleteUser: function (UsersFactory, $stateParams) {
+        //        return UsersFactory.updateUser($stateParams.userId);
+        //    }
+        //}
     });
 
 /*
@@ -55,15 +55,15 @@ User management:
  - Trigger password reset for a user: * We don't have anything defined to trigger this.
 
  */
-    $stateProvider.state('admin', {
-        url: '/my-account',
-        controller: 'UserCtrl',
-        templateUrl: 'js/users/templates/users.template.html',
-        resolve: {
-            allUsers: function (UsersFactory, $stateParams) {
-                return UsersFactory.deleteUser($stateParams.userId)
-            }
-        }
-    });
+    //$stateProvider.state('admin', {
+    //    url: '/admin',
+    //    controller: 'UsersCtrl',
+    //    templateUrl: 'js/users/templates/users.template.html',
+    //    resolve: {
+    //        allUsers: function (UsersFactory, $stateParams) {
+    //            return UsersFactory.deleteUser($stateParams.userId)
+    //        }
+    //    }
+    //});
 
 });

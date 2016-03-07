@@ -1,6 +1,4 @@
-app.controller('UsersCtrl', function ($scope, $log, ProductsFactory, allProducts) {
+app.controller('UsersCtrl', function ($scope, $log) {
 
-    ProductsFactory.getAllProducts();
-    $scope.products = allProducts;
 
 });
