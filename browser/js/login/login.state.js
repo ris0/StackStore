@@ -32,11 +32,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, UsersFactory,
         UsersFactory.createUser(signupInfo)
         .then(function(user){
             console.log(user);
-            return AuthService.login(signupInfo)
-        })
-        .then(function () {
-            $state.go('home');
-            CartFactory.createCart();
+            return $scope.sendLogin(signupInfo);
         }).catch(function () {
             $scope.signupError = 'This email address has been taken';
         });
