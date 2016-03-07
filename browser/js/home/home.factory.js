@@ -5,6 +5,7 @@ app.factory('HomeFactory', function ($http) {
     var cart = {
         "contents": []
     }
+
     var JSONcart = JSON.stringify(cart);
 
     HomeFactory.getSession = function () {
