@@ -27,8 +27,20 @@ app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, oneCa
 
     $scope.updateProduct = CartFactory.updateProduct;
 
-    $scope.execute = function (x) {
-      console.log(x.quantity);  
+    $scope.totalCost = function (contents) {
+      var totalCost = 0;
+      contents.forEach(function (element) {
+        totalCost += element.product.price * element.quantity;
+      })
+      return totalCost;
+    }
+
+    $scope.totalTax = function (contents) {
+      var totalCost = 0;
+      contents.forEach(function (element) {
+        totalCost += element.product.price * element.quantity;
+      })
+      return totalCost * 0.08;
     }
 
 });
