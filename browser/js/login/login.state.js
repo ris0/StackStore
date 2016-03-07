@@ -38,7 +38,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, UsersFactory,
             $state.go('home');
             CartFactory.createCart();
         }).catch(function () {
-            $scope.signupError = 'Invalid signup information';
+            $scope.signupError = 'This email address has been taken';
         });
     }
 
