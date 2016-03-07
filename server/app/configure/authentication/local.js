@@ -4,6 +4,7 @@ var _ = require('lodash');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Cart = mongoose.model('Cart');
 
 module.exports = function (app) {
 
@@ -49,6 +50,8 @@ module.exports = function (app) {
             });
 
         };
+
+
 
         passport.authenticate('local', authCb)(req, res, next);
 
