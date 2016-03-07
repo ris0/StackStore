@@ -15,7 +15,7 @@ app.factory('ProductsFactory', function ($http) {
             .catch(function(err) { if (err) console.error(err) })
     };
 
-    // for admins // TODO: Do we need $log?
+    // for admin // TODO: Do we need $log?
     ProductsFactory.createProduct = function (data) {
         return $http.post('/api/products', data)
             .then(newProducts => newProducts.data)
