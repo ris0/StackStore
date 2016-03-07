@@ -42,27 +42,6 @@ function randUser () {
     })
 }
 
-function generateCategory () {
-
-    var zombies = new Category({
-        name: 'Zombies'
-    })
-
-    var rogueAI = new Category({
-        name: 'Rogue AI'
-    })
-
-    var wombats = new Category({
-        name: 'Wombats'
-    })
-
-    var nuclear = new Category({
-        name: 'Nuclear Winter'
-    })
-
-    return [zombies, rogueAI, wombats, nuclear];
-}
-
 function randReview (allUsers, allProducts) {
     // randomly pick one from an array that is resolved in generateAll
     var user = chance.pick(allUsers);
@@ -97,12 +76,12 @@ function generateAll () {
         isAdmin: true
     }));
 
-    var categories = generateCategory();
+    var sampleCategories = [{name: 'Nuclear Winter'},{name: 'Wombats'},{name: 'Rogue AI'},{name: 'Zombies'},{name: 'Ice Age'}];
 
     var sampleProducts = [
         {
             title: 'Templar Knight Helmet',
-            categories: [ categories[0]._id ],
+            categories: [],
             description: 'Protect your head, Protect your mind, Protect yourself with this shiny helmet!',
             quantity: 1000,
             availability: true,
@@ -111,7 +90,7 @@ function generateAll () {
         },
         {
             title: 'Katana',
-            categories: [ categories[1]._id ],
+            categories: [],
             description: 'Perfect for close range combat and keeping a small profile. Destroy your enemies with one blow',
             quantity: 1000,
             availability: true,
@@ -122,7 +101,7 @@ function generateAll () {
 
         {
             title: 'Evil Spiked Mace',
-            categories: [ categories[2]._id ],
+            categories: [],
             description: 'Perfect for close range combat and keeping a small profile. Destroy your enemies with one blow',
             quantity: 1000,
             availability: true,
@@ -132,7 +111,7 @@ function generateAll () {
 
         {
             title: 'Tomahawk',
-            categories: [ categories[3]._id ],
+            categories: [],
             description: 'Perfect for close range combat and keeping a small profile. Destroy your enemies with one blow',
             quantity: 1000,
             availability: true,
@@ -142,7 +121,7 @@ function generateAll () {
 
         {
             title: 'Machine Gun',
-            categories: [ categories[1]._id ],
+            categories: [],
             description: 'Choppa Choppa Choppa Choppa Choppa Choppa Choppa Choppa Choppa Choppa Choppa Choppa',
             quantity: 1000,
             availability: true,
@@ -151,17 +130,24 @@ function generateAll () {
         }
     ];
 
-    return Product.create(sampleProducts)
+    return Category.create(sampleCategories)
+        .then(function(newCategories) {
+            sampleProducts.forEach(function(product,idx) {
+                product.categories = [newCategories[idx]._id];
+            });
+            return Product.create(sampleProducts);
+        })
         .then(function (products) {
             return _.times(numReviews, function () {
                 return randReview(users, products);
             });
         })
         .then(function (reviews) {
-            // concat reviews to users
             return users.concat(reviews);
         })
         .then(null, function(err) { if(err) console.log(err) });
+
+
 
 }
 
