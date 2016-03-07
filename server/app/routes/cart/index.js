@@ -143,7 +143,7 @@ router.delete('/clear-cart/:userId', Auth.assertAdminOrSelf, function (req, res,
 });
 
 router.delete('/:prodId', Auth.assertAdminOrSelf, function (req, res, next) {
-    Cart.findOne({ user : req.user._id })
+    Cart.findOne({ user : req.user._id, pending : true })
     .then(function (foundCart) {
         foundCart.contents = foundCart.contents.filter(function (element) {
             return element.product.toString() !== req.params.prodId.toString();

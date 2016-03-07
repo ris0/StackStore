@@ -1,12 +1,14 @@
 app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, oneCart) {
 
-    function getCart () {
-      CartFactory.getCurrentCart()
-      .then(function (cart) {
-        $scope.cart = cart;
-        console.log(cart);
-      })
-    }
+    $scope.cart = oneCart;
+
+    // function getCart () {
+    //   CartFactory.getCurrentCart()
+    //   .then(function (cart) {
+    //     $scope.cart = cart;
+    //     console.log(cart);
+    //   })
+    // }
 
     // maipulates the $scope's cart, rather than making more api calls and assigning to 
     // $scope through getCart()
@@ -23,19 +25,22 @@ app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, oneCa
 
     function checkout (cartId, bool) {
       console.log('Checked out!');
-      CartFactory.checkout(cartId, bool);
-      getCart();
+      CartFactory.checkout(cartId, bool)
+      .then(function () {
+        getCart();
+      })
     }
 
-    getCart();
+    // getCart();
     
-    $scope.deleteProduct = deleteItem;
+    $scope.deleteItem = deleteItem;
 
     $scope.updateProduct = CartFactory.updateProduct;
 
     $scope.checkout = checkout;
 
     $scope.totalCost = function (contents) {
+      console.log(contents);
       var totalCost = 0;
       contents.forEach(function (element) {
         totalCost += element.product.price * element.quantity;
