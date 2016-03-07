@@ -42,6 +42,10 @@
                             </div>
                         </alert>
 
+                        <alert type="danger" ng-show="signupError">
+                            {{ signupError }}
+                        </alert>
+
                             <input type="email" name="email" ng-model="signup.email" required placeholder="Email Address"/>
                             <input type="password" name="password" ng-model="signup.password" required placeholder="Password"/>
                             <button type="submit" class="btn btn-default">Signup</button>
