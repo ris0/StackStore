@@ -54,11 +54,8 @@ router.get('/:cartId', Auth.assertAdmin, function (req, res, next) {
 router.post('/', Auth.assertAdminOrSelf, function (req, res, next) {
     var found = false;
 
-    console.log('POOPPOPOPOPO');
-
     Cart.find({ user : req.user._id})
     .then(function(cartsArr){
-        console.log('WOWOWOWOWOW', cartsArr)
         cartsArr.forEach(function(cart){
             if(cart.pending){
                 found = true;
@@ -76,7 +73,7 @@ router.post('/', Auth.assertAdminOrSelf, function (req, res, next) {
 
 // adds a product with quantity to the cart
 router.post('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
-    Cart.findOne({ user : req.user._id })
+    Cart.findOne({ user : req.user._id, pending : true })
     .then(function (foundCart) {
         var found = false;
         // if the product is already in there, update qty
@@ -101,9 +98,22 @@ router.post('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
     .then(null, next);
 });
 
+router.put('/pending/:cartId/:bool', Auth.assertAdminOrSelf, function (req, res, next) {
+    Cart.findOne({ _id : req.params.cartId })
+    .then(function (cart) {
+        if (req.params.bool === "false") cart.pending = false;
+        else if (req.params.bool === "true") cart.pending = true;
+        console.log(req.params, cart.pending);
+        return cart.save()
+    })
+    .then(function (savedCart) {
+        res.json(savedCart);
+    })
+})
+
 // updates a product with quantity to the cart
 router.put('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
-    Cart.findOne({ user : req.user._id })
+    Cart.findOne({ user : req.user._id, pending : true })
     .then(function (foundCart) {
         foundCart.contents.forEach(function (element, index, contents) {
             if (element.product.toString() === req.params.prodId.toString()) {

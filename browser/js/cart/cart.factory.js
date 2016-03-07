@@ -73,6 +73,20 @@ app.factory('CartFactory', function ($http) {
             });
     };
 
+    CartFactory.checkout = function (cartId, bool) {
+        return $http.put('api/cart/pending/' + cartId + '/' + bool)
+        .then(function (cart) {
+            return cart.data;
+        })
+        .then(function (cartData) {
+            CartFactory.createCart();
+            return cartData;
+        })
+        .catch(function (err) {
+            console.error(err);
+        })
+    }
+
     return CartFactory;
 
 });

@@ -21,11 +21,19 @@ app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, oneCa
       })
     }
 
+    function checkout (cartId, bool) {
+      console.log('Checked out!');
+      CartFactory.checkout(cartId, bool);
+      getCart();
+    }
+
     getCart();
     
     $scope.deleteProduct = deleteItem;
 
     $scope.updateProduct = CartFactory.updateProduct;
+
+    $scope.checkout = checkout;
 
     $scope.totalCost = function (contents) {
       var totalCost = 0;
