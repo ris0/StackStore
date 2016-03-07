@@ -21,7 +21,6 @@ app.factory('UsersFactory', function ($http) {
     UsersFactory.createUser = function (data) {
         return $http.post('/api/users', data)
         .then(user => user.data)
-        .catch(function(err) { console.error(err); });
     };
 
     UsersFactory.updateUser = function (userId, data) {

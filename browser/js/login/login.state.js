@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('LoginCtrl', function ($scope, AuthService, $state, UsersFactory) {
+app.controller('LoginCtrl', function ($scope, AuthService, $state, UsersFactory, CartFactory) {
 
     $scope.error = null;
 
@@ -16,8 +16,10 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, UsersFactory)
 
         $scope.error = null;
 
-        AuthService.login(loginInfo).then(function () {
+        AuthService.login(loginInfo)
+        .then(function () {
             $state.go('home');
+            CartFactory.createCart();
         }).catch(function () {
             $scope.error = 'Invalid login credentials.';
         });
@@ -30,12 +32,9 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, UsersFactory)
         UsersFactory.createUser(signupInfo)
         .then(function(user){
             console.log(user);
-            return AuthService.login(signupInfo);
-        })
-        .then(function () {
-            $state.go('home');
+            return $scope.sendLogin(signupInfo);
         }).catch(function () {
-            $scope.signupError = 'Invalid signup information';
+            $scope.signupError = 'This email address has been taken';
         });
     }
 
