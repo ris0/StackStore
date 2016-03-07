@@ -63,10 +63,21 @@ router.post('/', Auth.assertAdminOrSelf, function (req, res, next) {
 router.post('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.findOne({ user : req.user._id })
     .then(function (foundCart) {
-        foundCart.contents.push({
-            quantity: req.params.qty,
-            product: req.params.prodId
-        });
+        var found = false;
+        // if the product is already in there, update qty
+        foundCart.contents.forEach(function (element) {
+            if (element.product == req.params.prodId) {
+                element.quantity += Number(req.params.qty);
+                found = true;
+            }
+        })
+        // else do normal
+        if (!found) {
+            foundCart.contents.push({
+                quantity: req.params.qty,
+                product: req.params.prodId
+            });
+        }
         return foundCart.save();
     })
     .then(function (savedCart) {

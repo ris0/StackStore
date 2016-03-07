@@ -1,6 +1,6 @@
 <section id="cart_items">
     <div class="container">
-      <button ng-click="makeCart()"></button>
+<!--       <button ng-click="makeCart()"></button> -->
       <div class="breadcrumbs">
         <ol class="breadcrumb">
           <li><a href="#">Home</a></li>
@@ -35,8 +35,8 @@
               <td class="cart_quantity">
                 <div class="cart_quantity_button">
                   <!-- <a class="cart_quantity_up" href=""> + </a> -->
-                  <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                  <a class="cart_quantity_down" href=""> update </a>
+                  <input class="cart_quantity_input" type="text" name="quantity" value="{{ item.quantity }}" autocomplete="off" size="2">
+                  <button class="cart_quantity_down" href=""> update </button>
                 </div>
               </td>
               <td class="cart_total">

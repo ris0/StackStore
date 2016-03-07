@@ -2,6 +2,7 @@ app.controller('HomeCtrl', function ($scope, $log, ProductsFactory, CartFactory,
 
     $scope.products = allProducts;
 
-    $scope.addToCart = CartFactory.addProduct;  
+    $scope.addToCart = CartFactory.addProduct;   
+
 
 });
