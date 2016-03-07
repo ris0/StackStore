@@ -24,7 +24,7 @@ app.factory('ProductsFactory', function ($http) {
 
     // put
     ProductsFactory.updateProduct = function (productId, data) {
-        return $http.product('/api/products' + productId, data)
+        return $http.put('/api/products' + productId, data)
             .then(updatedProduct => updatedProduct.data)
             .catch(function(err) { if (err) console.error(err) })
     };
