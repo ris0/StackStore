@@ -91,8 +91,8 @@ router.put('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.findOne({ user : req.user._id })
     .then(function (foundCart) {
         foundCart.contents.forEach(function (element, index, contents) {
-            if (element.product._id === req.params.prodId) {
-                if (req.qty === 0) contents.splice(index, 1);
+            if (element.product.toString() === req.params.prodId.toString()) {
+                if (req.params.qty === 0) contents.splice(index, 1);
                 else element.quantity = req.params.qty;
             }
         });

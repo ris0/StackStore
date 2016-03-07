@@ -4,5 +4,4 @@ app.controller('HomeCtrl', function ($scope, $log, ProductsFactory, CartFactory,
 
     $scope.addToCart = CartFactory.addProduct;   
 
-
 });

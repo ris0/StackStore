@@ -25,15 +25,10 @@ app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, oneCa
     
     $scope.deleteProduct = deleteItem;
 
-    // update qty of cart
-    // input qty
-    // press button
-    // makes api call to backend to update
+    $scope.updateProduct = CartFactory.updateProduct;
 
-    $scope.updateQty = function () {
-
+    $scope.execute = function (x) {
+      console.log(x.quantity);  
     }
-
-
 
 });
