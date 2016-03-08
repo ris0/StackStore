@@ -30,6 +30,20 @@ app.factory('LocalStorageFactory', function ($http) {
         })
     }
 
+    // LocalStorageFactory.checkSession = function () {
+    //     var cart = {
+    //         "contents": []
+    //     }
+    //     var JSONcart = JSON.stringify(cart);
+
+    //     window.useLocalStorage = true;
+        
+    //     console.log(Object.keys(window.localStorage).length);
+    //     if (Object.keys(window.localStorage).length === 0) {
+    //         window.localStorage.setItem("cart", JSONcart)
+    //     }
+    // }
+
     LocalStorageFactory.getCurrentCart = function () {
         return parseCart();
     };

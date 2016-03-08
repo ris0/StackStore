@@ -1,6 +1,6 @@
 app.controller('HomeCtrl', function ($scope, $log, ProductsFactory, CartFactory, allProducts, LocalStorageFactory) {
 
-    LocalStorageFactory.checkSession();
+    // LocalStorageFactory.checkSession();
 
     $scope.products = allProducts;
 
