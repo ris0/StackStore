@@ -6,12 +6,13 @@ var passport = require('passport');
 var path = require('path');
 var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
+var CartModel = mongoose.model('Cart');
 
 var ENABLED_AUTH_STRATEGIES = [
     'local',
     //'twitter',
-    //'facebook',
-    //'google'
+    'facebook',
+    'google'
 ];
 
 module.exports = function (app) {
@@ -47,7 +48,12 @@ module.exports = function (app) {
     // logged in already.
     app.get('/session', function (req, res) {
         if (req.user) {
-            res.send({ user: req.user.sanitize() });
+            console.log(req.user)
+            CartModel.create( { user: req.user._id })
+            .then(function(cart){
+                console.log(cart);
+                res.send({ user: req.user.sanitize() });
+            })
         } else {
             res.status(401).send('No authenticated user.');
         }

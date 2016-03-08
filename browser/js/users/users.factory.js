@@ -30,7 +30,7 @@ app.factory('UsersFactory', function ($http) {
     };
 
     UsersFactory.deleteUser = function (userId) {
-        return $http.put('/api/users/' + userId)
+        return $http.delete('/api/users/' + userId)
         .catch(function(err) { console.error(err); });
     };
 
