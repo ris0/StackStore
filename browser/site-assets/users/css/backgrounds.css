@@ -36,13 +36,13 @@
 
 }
 .bg-light-ltr{
-    /*background-image: url('http://aqvatarius.com/themes/taurus_v12/html/img/background/blight_ltr.png');*/
+    background-image: url('http://aqvatarius.com/themes/taurus_v12/html/img/background/wlight_ltr.png');
     background-position: left top;
     background-repeat: no-repeat;
 }
 
 .bg-light-rtl{
-    /*background-image: url('http://aqvatarius.com/themes/taurus_v12/html/img/background/blight_rtl.png');*/
+    background-image: url('http://aqvatarius.com/themes/taurus_v12/html/img/background/wlight_rtl.png');
     background-position: right top;
     background-repeat: no-repeat;
 }
