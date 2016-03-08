@@ -1,0 +1,70 @@
+<section id="cart_items">
+    <div class="container">
+<!--       <button ng-click="makeCart()"></button> -->
+      <div class="breadcrumbs">
+        <ol class="breadcrumb">
+          <li><a href="#">Home</a></li>
+          <li class="active">Shopping Cart</li>
+        </ol>
+      </div>
+      <div class="table-responsive cart_info">
+        <table class="table table-condensed">
+          <thead>
+            <tr class="cart_menu">
+              <td class="image">Item</td>
+              <td class="description"></td>
+              <td class="price">Price</td>
+              <td class="quantity">Quantity</td>
+              <td class="total">Total</td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr ng-repeat="item in cart.contents">
+              <td class="cart_product">
+                <a href=""><img src="{{ item.product.image }}" height="100px" width="100px" alt=""></a>
+              </td>
+              <td class="cart_description">
+                <h4><a href="">{{ item.product.title }}</a></h4>
+                <p>Web ID: {{ item.product._id }}</p>
+              </td>
+              <td class="cart_price">
+                <p>{{ item.product.price | currency }}</p>
+              </td>
+              <td class="cart_quantity">
+                <div class="cart_quantity_button">
+                  <form name="form" class="css-form" novalidate>
+                    <input class="cart_quantity_input" type="text" name="quantity" value="{{ item.quantity }}" autocomplete="off" size="2" ng-model="item.quantity">
+                  <button class="btn btn-sm cart_quantity_down" href="" ng-click="updateProduct(item.product._id, item.quantity)"> update </button>
+                </form>
+                </div>
+                <!-- <h1>{{ form | json }}</h1> -->
+              </td>
+              <td class="cart_total">
+                <p class="cart_total_price">{{ item.product.price * item.quantity | currency }}</p>
+              </td>
+              <td class="cart_delete">
+                <button class="cart_quantity_delete btn btn-sq" ng-click="deleteItem(item.product._id)"><i class="fa fa-times"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+            <h2 ng-model="cart.contents" class="empty_cart text-center" ng-show="cart.contents.length === 0">Your cart is empty</h2>
+      </div>
+    </div>
+  </section> <!--/#cart_items-->
+
+  <section id="do_action">
+    <div class="container">
+      <div class="heading">
+        <h3>What would you like to do next?</h3>
+        <p>add button here to submit</p>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+        </div>
+
+      </div>
+    </div>
+  </section><!--/#do_action-->

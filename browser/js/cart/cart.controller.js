@@ -1,6 +1,7 @@
 app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, LocalStorageFactory, oneCart) {
 
     $scope.cart = oneCart;
+    console.log($scope.cart);
 
     function deleteItem (productId) {
       if (window.useLocalStorage) {
@@ -25,9 +26,11 @@ app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, Local
       else {
         console.log('Checked out!');
         CartFactory.checkout(cartId, bool)
-        .then(function () {
-          getCart();
+        .then(function (cart) {
+          console.log(cart);
+          $scope.cart = { contents: [] };
         })
+
       }
     }
 
@@ -36,7 +39,6 @@ app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, Local
     $scope.checkout = checkout;
 
     $scope.totalCost = function (contents) {
-      console.log(contents);
       var totalCost = 0;
       contents.forEach(function (element) {
         totalCost += element.product.price * element.quantity;
