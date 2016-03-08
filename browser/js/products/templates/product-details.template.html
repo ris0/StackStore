@@ -1,0 +1,102 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Category</h2>
+                    <div class="panel-group category-products" id="accordian">
+                        <!--category-productsr-->
+                        <div class="panel panel-default" ng-repeat="category in categories">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="#">{{ category.name }}</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/category-products-->
+                    <!--/brands_products-->
+                    <!--/price-range-->
+                    <!--/shipping-->
+                </div>
+            </div>
+            <div class="col-sm-9 padding-right">
+                <div class="product-details">
+                    <!--product-details-->
+                    <div class="col-sm-5">
+                        <div class="view-product">
+                            <img ng-src="{{ product.image }}" alt="" />
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="product-information">
+                            <!--/product-information-->
+                            <h2>{{ product.title }}</h2>
+                            <span>
+                                    <span>{{ product.price | currency }}</span>
+                            <span></span>
+                            <label>Quantity:</label>
+                            <input type="text" placeholder="1" ng-model="quantity" />
+                            <button type="button" class="btn btn-fefault cart" ng-click="addToCart(product._id, quantity)">
+                                <i class="fa fa-shopping-cart"></i> Add to cart
+                            </button>
+                            </span>
+                            <p><b>Availability:</b> <span ng-show="product.availability">In Stock</span><span ng-hide="product.availability">Out of Stock</span></p>
+                        </div>
+                        <!--/product-information-->
+                    </div>
+                </div>
+                <!--/product-details-->
+                <div class="category-tab shop-details-tab">
+                    <!--category-tab-->
+                    <div class="col-sm-12">
+                        <ul class="nav nav-tabs">
+                            <li><a href="#details" data-toggle="tab">Description</a></li>
+                            <!-- <li><a href="#tag" data-toggle="tab">Categories</a></li>
+ -->
+                            <li class="active"><a href="#reviews" data-toggle="tab">Reviews ({{ reviews.length }})</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade" id="details">
+                            <p>{{ product.description }}</p>
+                        </div>
+                        <!-- <div class="tab-pane fade" id="tag">
+    <ul ng-repeat="category in product.categories">
+        <li>{{ category }}</li>
+    </ul>
+</div>
+ -->
+                        <div class="tab-pane fade active in" id="reviews">
+                            <div class="col-sm-12">
+                                <div ng-repeat="review in reviews">
+                                    <ul>
+                                        <li><i class="fa fa-user"></i> {{ review.user.email }}</li>
+                                    </ul>
+                                    <p>{{ review.content }}</p>
+                                    <p>Rating: {{ review.rating }}</p>
+                                </div>
+                                <div ng-show="isLoggedIn()">
+                                    <p><b>Write Your Review</b></p>
+                                    <form action="#">
+                                        <textarea ng-model="content" name=""></textarea>
+                                        <b>Rating: </b>
+                                        <select name="rating" ng-model="rating">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                        <button type="button" class="btn btn-default pull-right" ng-click="submitReview()">
+                                            Submit
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/category-tab-->
+            </div>
+        </div>
+    </div>
+</section>
