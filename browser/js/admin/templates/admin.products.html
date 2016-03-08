@@ -1,134 +1,79 @@
+
 <div class="col-md-5">
 
-        <div class="block block-drop-shadow">
-            <div class="head bg-default bg-light-rtl">
-                <h2>Inbox messages</h2>
-                <div class="side pull-right">
-                    <ul class="buttons">
-                        <li><a href="#"><span class="icon-plus"></span></a></li>
-                        <li><a href="#"><span class="icon-cogs"></span></a></li>
-                    </ul>
-                </div>
-                <div class="head-panel nm">
-                    <a href="#" class="hp-info pull-left">
-                        <div class="hp-icon">
-                            <span class="icon-download-alt"></span>
-                        </div>
-                        <span class="hp-main">25</span>
-                        <span class="hp-sm">recived</span>
-                    </a>
-                    <a href="#" class="hp-info pull-left">
-                        <div class="hp-icon">
-                            <span class="icon-upload-alt"></span>
-                        </div>
-                        <span class="hp-main">10</span>
-                        <span class="hp-sm">sent</span>
-                    </a>
-                    <a href="#" class="hp-info hp-one pull-right tip" title="Refresh">
-                        <div class="hp-icon">
-                            <span class="icon-refresh"></span>
-                        </div>
-                        <span class="hp-main">9:24 am</span>
-                    </a>
-                </div>
-            </div>
+    <div class="block block-drop-shadow">
+        <div class="head bg-default bg-light-rtl">
             <div class="content list">
-                <div class="list-item">
-                    <div class="list-datetime">
-                        <div class="time">9:45 am</div>
-                    </div>
-                    <div class="list-info">
-                        <!--<img src="img/example/user/dmitry.jpg" class="img-circle img-thumbnail"/>-->
-                    </div>
-                    <div class="list-text">
-                        <a href="#" class="list-text-name">John Doe</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum nisl velit.</p>
-                    </div>
-                    <div class="list-controls">
-                        <a href="#" class="widget-icon widget-icon-circle"><span class="icon-rotate-right"></span></a>
-                        <a href="#" class="widget-icon widget-icon-circle"><span class="icon-pushpin"></span></a>
-                        <a href="#" class="widget-icon widget-icon-circle"><span class="icon-remove"></span></a>
+                <div class="list-title">
+                    Products
+                </div>
+                <div class="list-item" ng-repeat="product in products">
+                    <div class="list-text row">
+                        <div class="col-xs-12 col-sm-6 col-lg-8"><strong class="pull-left">{{product.title}}</strong></div>
+                        <div class="col-xs-12 col-sm-6 col-lg-8"><span>Price: {{ product.price | currency}}</span></div>
+                        <div <div class="col-xs-12 col-sm-6 col-lg-8"><p>Description: {{ product.description }}</p></div>
+                        <div class="side pull-right">
+                            <ul class="buttons">
+                                <li><a href="#" ng-click="setProduct(product)" ><span class="icon-cogs"></span></a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <div class="list-item">
-                    <div class="list-datetime">
-                        <div class="time">8:16 am</div>
-                    </div>
-                    <div class="list-info">
-                        <!--<img src="img/example/user/alexey.jpg" class="img-circle img-thumbnail"/>-->
-                    </div>
-                    <div class="list-text">
-                        <a href="#" class="list-text-name">Brad Pitt</a>
-                        <p>Duis eu libero pellentesque, dapibus ante eu, vehicula leo. Nulla gravida rutrum neque.</p>
-                    </div>
-                    <div class="list-controls">
-                        <a href="#" class="widget-icon widget-icon-circle"><span class="icon-rotate-right"></span></a>
-                        <a href="#" class="widget-icon widget-icon-circle"><span class="icon-pushpin"></span></a>
-                        <a href="#" class="widget-icon widget-icon-circle"><span class="icon-remove"></span></a>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-datetime">
-                        <div class="date">ORDER #?</div>
-                        <div class="time">9:59 pm</div>
-                    </div>
-                    <div class="list-info">
-                        <!--<img src="img/example/user/olga.jpg" class="img-circle img-thumbnail"/>-->
-                    </div>
-                    <div class="list-text">
-                        <a href="#" class="list-text-name">Angelina Jolie</a>
-                        <p>Morbi tincidunt, tellus ut fermentum accumsan, est justo pretium enim, eget.</p>
-                    </div>
-                    <div class="list-controls">
-                        <a href="#" class="widget-icon widget-icon-circle"><span class="icon-rotate-right"></span></a>
-                        <a href="#" class="widget-icon widget-icon-circle"><span class="icon-pushpin"></span></a>
-                        <a href="#" class="widget-icon widget-icon-circle"><span class="icon-remove"></span></a>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-datetime">
-                        <div class="date">27.08</div>
-                        <div class="time">4:34 pm</div>
-                    </div>
-                    <div class="list-info">
-                        <!--<img src="img/example/user/helen.jpg" class="img-circle img-thumbnail"/>-->
-                    </div>
-                    <div class="list-text">
-                        <a href="#" class="list-text-name">Keira Knightley</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum nisl velit.</p>
-                    </div>
-                    <div class="list-controls">
-                        <a href="#" class="widget-icon widget-icon-circle"><span class="icon-rotate-right"></span></a>
-                        <a href="#" class="widget-icon widget-icon-circle"><span class="icon-pushpin"></span></a>
-                        <a href="#" class="widget-icon widget-icon-circle"><span class="icon-remove"></span></a>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-datetime">
-                        <div class="date">26.08</div>
-                        <div class="time">12:12 am</div>
-                    </div>
-                    <div class="list-info">
-                        <!--<img src="img/example/user/dmitry.jpg" class="img-circle img-thumbnail"/>-->
-                    </div>
-                    <div class="list-text">
-                        <a href="#" class="list-text-name">John Doe</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum nisl velit.</p>
-                    </div>
-                    <div class="list-controls">
-                        <a href="#" class="widget-icon widget-icon-circle"><span class="icon-rotate-right"></span></a>
-                        <a href="#" class="widget-icon widget-icon-circle"><span class="icon-pushpin"></span></a>
-                        <a href="#" class="widget-icon widget-icon-circle"><span class="icon-remove"></span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer tac">
-                <a href="#">Load more messages...</a>
             </div>
         </div>
-
-
-
-
-
     </div>
+</div>
+
+<div class="col-md-5" ng-show="productIsSelected">
+               <form name='productEdit'>
+               <div class="block">
+                   <div class="header">
+                       <h2>Default elements</h2>
+                   </div>
+                   <div class="content controls">
+                       <div class="form-row">
+                           {{ productToEdit | json}}
+                           <div class="col-md-3">Name:</div>
+                           <div class="col-md-9"><input type="text" class="form-control" placeholder="{productToEdit.title}" ng-model='productToEdit.title'/></div>
+                       </div>
+                       <div class="form-row">
+                           <div class="col-md-3">Price</div>
+                           <div class="col-md-9"><input type="text" class="form-control" placeholder="{productToEdit.price}" ng-model='productToEdit.price'/></div>
+                       </div>
+                       <div class="form-row">
+                           <div class="col-md-3">Quantity</div>
+                           <div class="col-md-9"><input type="text" class="form-control" placeholder="{productToEdit.quantity}" ng-model='productToEdit.quantity'/></div>
+                       </div>                                       
+                       <div class="form-row">
+                           <div class="col-md-3">Textarea:</div>
+                           <div class="col-md-9"/><input type="text" placeholder="{productToEdit.description}" ng-model='productToEdit.description'/></div>
+                       </div>   
+                       <div class="form-row">
+                           <div class="col-md-3">Image Url:</div>
+                           <div class="col-md-9"/><textarea class="form-control" placeholder="{productToEdit.image}" ng-model='productToEdit.image'></textarea></div>
+                       </div>                      
+                       <div class="form-row">
+                           <div class="col-md-3">Available:</div>
+                           <div class="col-md-9">
+                               <select class="form-control">
+                                   <option>Option 1</option>
+                                   <option>Option 2</option>
+                                   <option>Option 3</option>
+                                   <option>Option 4</option>
+                               </select>
+                           </div>
+                       </div>
+                       <div class="form-row">
+                           <div class="col-md-3">Categories:</div>
+                           <div class="col-md-9">
+                               <select ng-model="productToEdit.availability" ng-options="bool for bools in productIsSelected"></select>
+                           </div>
+                       </div>
+                       <div class="form-row">
+                            <div class="side pull-right">
+                           <a class="file-input-wrapper btn btn-default fileinput pull right">Submit</a>
+                           </div>
+                       </div>                        
+                   </div>
+                   </form>
+               </div>
