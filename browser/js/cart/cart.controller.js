@@ -1,33 +1,44 @@
-app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, oneCart) {
+app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, LocalStorageFactory, oneCart) {
 
-    function getCart () {
-      CartFactory.getCurrentCart()
-      .then(function (cart) {
-        $scope.cart = cart;
-        console.log(cart);
-      })
-    }
+    // if (window.useLocalStorage) {
+    //   $scope.cart = JSON.parse(window.localStorage.cart)
+    //   console.log($scope.cart);
+    // }
+    // else {
+    $scope.cart = oneCart;
+    // }
 
-    // maipulates the $scope's cart, rather than making more api calls and assigning to 
-    // $scope through getCart()
     function deleteItem (productId) {
-      CartFactory.deleteProduct(productId)
-      .then(function () {
-        $scope.cart.contents = $scope.cart.contents.filter(function (element) {
-          return element.product._id !== productId;
+      if (window.useLocalStorage) {
+        console.log('5555555555555',LocalStorageFactory.deleteProduct(productId));
+        $scope.cart = LocalStorageFactory.deleteProduct(productId); 
+      }
+      else {
+        CartFactory.deleteProduct(productId)
+        .then(function () {
+          $scope.cart.contents = $scope.cart.contents.filter(function (element) {
+            return element.product._id !== productId;
+          })
+          console.log("Item Deleted")
+          console.log($scope.cart)
         })
-        console.log("Item Deleted")
-        console.log($scope.cart)
+      } 
+    }
+
+    function checkout (cartId, bool) {
+      console.log('Checked out!');
+      CartFactory.checkout(cartId, bool)
+      .then(function () {
+        getCart();
       })
     }
 
-    getCart();
-    
-    $scope.deleteProduct = deleteItem;
-
+    $scope.deleteItem = deleteItem;
     $scope.updateProduct = CartFactory.updateProduct;
+    $scope.checkout = checkout;
 
     $scope.totalCost = function (contents) {
+      console.log(contents);
       var totalCost = 0;
       contents.forEach(function (element) {
         totalCost += element.product.price * element.quantity;

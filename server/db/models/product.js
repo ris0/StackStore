@@ -8,12 +8,10 @@ var productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    categories: [
-        {
+    categories: [{
         type: mongoose.Schema.ObjectId,
         ref: 'Category'
-        }
-    ],
+    }],
     description: {
         type: String,
         required: true
