@@ -1,14 +1,14 @@
 app.config(function ($stateProvider) {
 
     $stateProvider.state('home', {
-        url: '/:category',
+        url: '/:categories',
         templateUrl: 'js/home/home.html',
         resolve: {
-            allProducts: function (ProductsFactory, $stateParams) {
-                console.log($stateParams.category);
-                return ProductsFactory.getAllProducts($stateParams.category);
+            allProducts: function (ProductsFactory) {
+                return ProductsFactory.getAllProducts();
             },
-            categories: function (CategoriesFactory) {
+            categories: function (CategoriesFactory, $stateParams) {
+                console.dir($stateParams.categories[0]);
                 return CategoriesFactory.getCategories();
             }
         },

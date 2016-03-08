@@ -53,19 +53,23 @@
             <div class="col-sm-3">
                 <div class="left-sidebar">
                     <h2>Category</h2>
-
-                        <div class="panel-group category-products" id="accordian">
-                            <!--category-productsr-->
-                            <div class="panel panel-default" ng-repeat="category in categories">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="#">{{ category.name }}</a></h4>
-                                </div>
+                    <div class="panel-group category-products" id="accordian">
+                        <!--category-productsr-->
+                        <div class="panel panel-default" ng-repeat="category in categories">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="#" ng-click="setActiveCategories([category])">{{ category.name }}</a></h4>
                             </div>
                         </div>
-                        <!--category-productsr-->
-<!-- <div class="panel-group category-products" id="accordian">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="#" ng-click="setActiveCategories(categories)">All</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!--category-productsr-->
+                    <!-- <div class="panel-group category-products" id="accordian">
  -->
-                        <!-- <div class="panel panel-default">
+                    <!-- <div class="panel panel-default">
     <div class="panel-heading">
         <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
@@ -126,7 +130,7 @@
     </div>
 </div>
  -->
-<!-- </div>
+                    <!-- </div>
  -->
                     <!--/category-products-->
                     <!--brands_products-->
@@ -162,7 +166,7 @@
                 <div class="features_items">
                     <!--features_items-->
                     <h2 class="title text-center">Our Products</h2>
-                    <home-product ng-repeat="product in products" product="product" add-to-cart="addToCart"></home-product>
+                    <home-product ng-repeat="product in products" product="product" add-to-cart="addToCart" check-categories="checkCategories"></home-product>
                     <!--                     <div class="col-sm-4">
                         <div class="product-image-wrapper">
                             <div class="single-products">
