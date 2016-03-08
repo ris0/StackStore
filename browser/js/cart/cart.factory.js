@@ -1,4 +1,4 @@
-app.factory('CartFactory', function ($http) {
+app.factory('CartFactory', function ($http, LocalStorageFactory) {
 
     var CartFactory = {};
 
@@ -10,12 +10,17 @@ app.factory('CartFactory', function ($http) {
             });
     };
 
-    CartFactory.getCurrentCart = function (data) {
-        return $http.get('/api/cart/current', data)
-            .then(cart => cart.data)
-            .catch(function (err) {
-                console.error(err);
-            });
+    CartFactory.getCurrentCart = function () {
+        if (window.useLocalStorage) {
+            return LocalStorageFactory.getCurrentCart();
+        }
+        else {
+            return $http.get('/api/cart/current')
+                .then(cart => cart.data)
+                .catch(function (err) {
+                    console.error(err);
+                });
+        }
     };
 
     CartFactory.getPastCarts = function (data) {
@@ -43,19 +48,29 @@ app.factory('CartFactory', function ($http) {
     };
 
     CartFactory.addProduct = function (productId, quantity, data) {
-        return $http.post('/api/cart/' + productId + '/' + quantity, data)
-            .then(cart => cart.data)
-            .catch(function (err) {
-                console.error(err);
-            });
+        if (window.useLocalStorage) {
+            return LocalStorageFactory.addProduct(productId, quantity);
+        }
+        else {
+            return $http.post('/api/cart/' + productId + '/' + quantity, data)
+                .then(cart => cart.data)
+                .catch(function (err) {
+                    console.error(err);
+                });
+        }
     };
 
     CartFactory.updateProduct = function (productId, quantity, data) {
-        return $http.put('/api/cart/' + productId + '/' + quantity, data)
-            .then(cart => cart.data)
-            .catch(function (err) {
-                console.error(err);
-            });
+        if (window.useLocalStorage) {
+            return LocalStorageFactory.updateProduct(productId, quantity);
+        }
+        else {
+            return $http.put('/api/cart/' + productId + '/' + quantity, data)
+                .then(cart => cart.data)
+                .catch(function (err) {
+                    console.error(err);
+                });
+        }
     };
 
     CartFactory.clearCurrentCart = function (userId) {
@@ -66,12 +81,31 @@ app.factory('CartFactory', function ($http) {
     };
 
     CartFactory.deleteProduct = function (productId) {
+        if (window.useLocalStorage) {
+            return LocalStorageFactory.deleteProduct(productId);
+        }
+        else {
         return $http.delete('/api/cart/' + productId)
-            .then(cart => cart.data)
-            .catch(function (err) {
-                console.error(err);
-            });
+                .then(cart => cart.data)
+                .catch(function (err) {
+                    console.error(err);
+                });
+        }
     };
+
+    CartFactory.checkout = function (cartId, bool) {
+        return $http.put('api/cart/pending/' + cartId + '/' + bool)
+        .then(function (cart) {
+            return cart.data;
+        })
+        .then(function (cartData) {
+            CartFactory.createCart();
+            return cartData;
+        })
+        .catch(function (err) {
+            console.error(err);
+        })
+    }
 
     return CartFactory;
 

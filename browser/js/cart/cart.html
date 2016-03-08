@@ -34,20 +34,23 @@
               </td>
               <td class="cart_quantity">
                 <div class="cart_quantity_button">
-                  <input class="cart_quantity_input" type="text" name="quantity" value="{{ item.quantity }}" autocomplete="off" size="2" ng-model="item.quantity">
+                  <form name="form" class="css-form" novalidate>
+                    <input class="cart_quantity_input" type="text" name="quantity" value="{{ item.quantity }}" autocomplete="off" size="2" ng-model="item.quantity">
                   <button class="btn btn-sm cart_quantity_down" href="" ng-click="updateProduct(item.product._id, item.quantity)"> update </button>
+                </form>
                 </div>
+                <!-- <h1>{{ form | json }}</h1> -->
               </td>
               <td class="cart_total">
                 <p class="cart_total_price">{{ item.product.price * item.quantity | currency }}</p>
               </td>
               <td class="cart_delete">
-                <button class="cart_quantity_delete btn btn-sq" ng-click="deleteProduct(item.product._id)"><i class="fa fa-times"></i></button>
+                <button class="cart_quantity_delete btn btn-sq" ng-click="deleteItem(item.product._id)"><i class="fa fa-times"></i></button>
               </td>
             </tr>
-
           </tbody>
         </table>
+            <h2 ng-model="cart.contents" class="empty_cart text-center" ng-show="cart.contents.length === 0">Your cart is empty</h2>
       </div>
     </div>
   </section> <!--/#cart_items-->
@@ -114,8 +117,7 @@
           </div>
         </div>
         <div class="col-sm-6">
-          <div class="total_area" ng-model="cart.contents">
-            <!-- <h3>{{ cart.contents | json }}</h3> -->
+          <div class="total_area">
             <ul>
               <li>Cart Sub Total <span>{{ totalCost(cart.contents) | currency }}</span></li>
               <li>Eco Tax <span>{{ totalTax(cart.contents) | currency }}</span></li>
@@ -123,7 +125,7 @@
               <li>Total <span>{{ totalCost(cart.contents) + totalTax(cart.contents) | currency }}</span></li>
             </ul>
               <a class="btn btn-default update" href="">Update</a>
-              <a class="btn btn-default check_out" href="">Check Out</a>
+              <a class="btn btn-default check_out" href="" ng-click="checkout(cart._id, false)">Check Out</a>
           </div>
         </div>
       </div>
