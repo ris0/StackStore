@@ -1,10 +1,10 @@
-app.controller('HomeCtrl', function ($scope, $log, ProductsFactory, CartFactory, allProducts, HomeFactory) {
+app.controller('HomeCtrl', function ($scope, $log, ProductsFactory, CartFactory, allProducts, HomeFactory, categories) {
 
     HomeFactory.getSession();
 
     $scope.products = allProducts;
-
-    $scope.addToCart = CartFactory.addProduct;   
-
+    console.log($scope.products);
+    $scope.categories = categories;
+    $scope.addToCart = CartFactory.addProduct;
 
 });
