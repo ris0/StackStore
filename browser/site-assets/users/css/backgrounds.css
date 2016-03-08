@@ -29,9 +29,26 @@
 .bg-img-num21{background: url('../img/background/bg_num4.jpg') left top repeat-x #000000;}
 
 
-.bg-light{background-image: url('../img/background/blight.png'); background-position: center top; background-repeat: no-repeat;}
-.bg-light-ltr{background-image: url('../img/background/blight_ltr.png'); background-position: left top; background-repeat: no-repeat;}
-.bg-light-rtl{background-image: url('../img/background/blight_rtl.png'); background-position: right top; background-repeat: no-repeat;}
+.bg-light{
+    background-image: url('../img/background/blight.png');
+    background-position: center top;
+    background-repeat: no-repeat;
+
+}
+.bg-light-ltr{
+    /*background-image: url('http://aqvatarius.com/themes/taurus_v12/html/img/background/blight_ltr.png');*/
+    background-position: left top;
+    background-repeat: no-repeat;
+}
+
+.bg-light-rtl{
+    /*background-image: url('http://aqvatarius.com/themes/taurus_v12/html/img/background/blight_rtl.png');*/
+    background-position: right top;
+    background-repeat: no-repeat;
+}
+
+
+
 .bg-splash-white{background-image: url('../img/background/splash_white.png'); background-position: center top; background-repeat: no-repeat;}
 .bg-splash-blue{background-image: url('../img/background/splash_blue.png'); background-position: center top; background-repeat: no-repeat;}
 
@@ -39,13 +56,13 @@
 /* eof background images */
 
 /* background colors */
-.bg-white{background-color: #FFFFFF !important;}
-.bg-lblue{background-color: #34A6C8 !important;}
-.bg-blue{background-color: #2F80A6 !important;}
-.bg-dblue,.bg-default{background-color: #133959 !important;}
-.bg-turquoise{background-color: #40BABD !important;}
-.bg-dark-gray{background-color: #333 !important;}
-.bg-dark-gray_ni{background: #333 !important;}
+/*.bg-white{background-color: #FFFFFF !important;}*/
+/*.bg-lblue{background-color: #34A6C8 !important;}*/
+/*.bg-blue{background-color: #2F80A6 !important;}*/
+/*.bg-dblue,.bg-default{background-color: #133959 !important;}*/
+/*.bg-turquoise{background-color: #40BABD !important;}*/
+/*.bg-dark-gray{background-color: #333 !important;}*/
+/*.bg-dark-gray_ni{background: #333 !important;}*/
 /* eof background colors */
 
 /* wallpappers */

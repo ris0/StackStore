@@ -47,7 +47,7 @@
 
     .navbar-nav .open .dropdown-menu{width: 100%; float: left;}
     .navbar-nav .open .dropdown-menu > li > a{padding: 8px 15px 8px 25px;}
-    .navbar-nav .open .dropdown-menu > li > a:hover{background: url('../img/background/bt_cubs_a.png') left top repeat transparent;}
+    .navbar-nav .open .dropdown-menu > li > a:hover{background: url('http://aqvatarius.com/themes/taurus_v12/html/img/background/bt_cubs_a.png') left top repeat transparent;}
     .dropdown-menu > li > a .icon-angle-right{display: none;}
 
     .navbar-collapse .dropdown-submenu{position: relative; display: block; float: left; left: auto; background: transparent; padding-left: 25px;
