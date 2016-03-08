@@ -8,7 +8,6 @@ app.config(function ($stateProvider) {
                 return ProductsFactory.getAllProducts();
             },
             categories: function (CategoriesFactory, $stateParams) {
-                console.dir($stateParams.categories[0]);
                 return CategoriesFactory.getCategories();
             }
         },

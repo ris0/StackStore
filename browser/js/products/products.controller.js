@@ -35,10 +35,4 @@ app.controller('singleProductCtrl', function ($scope, $log, ProductsFactory, Rev
         $state.go('cart');
     };
 
-    $scope.setActiveCategories = function (categories) {
-        console.log(categories);
-        $state.go('home', {
-            categories: categories
-        });
-    };
 });
