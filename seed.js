@@ -16,8 +16,8 @@
  name in the environment files.
 
  */
-var Chance = require ('chance'),
-    _ = require ('lodash'),
+var Chance = require('chance'),
+    _ = require('lodash'),
     mongoose = require('mongoose'),
     Promise = require('bluebird'),
     chalk = require('chalk'),
@@ -27,14 +27,13 @@ var Chance = require ('chance'),
     Review = mongoose.model('Review'),
     Category = mongoose.model('Category');
 
-
 var chance = new Chance();
 var numUsers = 20;
 var numReviews = 20;
 // picks a unique email address => chance.email will generate a random e-mail;
 var emails = chance.unique(chance.email, numUsers);
 
-function randUser () {
+function randUser() {
     return new User({
         email: emails.pop(),
         password: chance.word(),
@@ -42,7 +41,7 @@ function randUser () {
     })
 }
 
-function randReview (allUsers, allProducts) {
+function randReview(allUsers, allProducts) {
     // randomly pick one from an array that is resolved in generateAll
     var user = chance.pick(allUsers);
     var product = chance.pick(allProducts);
@@ -55,12 +54,15 @@ function randReview (allUsers, allProducts) {
         content: chance.n(chance.paragraph, numPars),
         user: user,
         product: product,
-        rating: chance.integer({ min: 1, max: 5 })
+        rating: chance.integer({
+            min: 1,
+            max: 5
+        })
     });
 }
 
 // take note: I removed reviews from productsSchema...deal with it :)
-function generateAll () {
+function generateAll() {
 
     // arg1 = n; arg2 = fn => returns array of result; invokes the fn (n) times;
     var users = _.times(numUsers, randUser);
@@ -76,10 +78,19 @@ function generateAll () {
         isAdmin: true
     }));
 
-    var sampleCategories = [{name: 'Nuclear Winter'},{name: 'Wombats'},{name: 'Rogue AI'},{name: 'Zombies'},{name: 'Ice Age'}];
+    var sampleCategories = [{
+        name: 'Nuclear Winter'
+    }, {
+        name: 'Wombats'
+    }, {
+        name: 'Rogue AI'
+    }, {
+        name: 'Zombies'
+    }, {
+        name: 'Ice Age'
+    }];
 
-    var sampleProducts = [
-        {
+    var sampleProducts = [{
             title: 'Templar Knight Helmet',
             categories: [],
             description: 'Protect your head, Protect your mind, Protect yourself with this shiny helmet!',
@@ -87,8 +98,7 @@ function generateAll () {
             availability: true,
             price: 1000,
             image: "http://www.trueswords.com/images/prod/c/templar_knight_metal_helmet2_250.jpg"
-        },
-        {
+        }, {
             title: 'Katana',
             categories: [],
             description: 'Perfect for close range combat and keeping a small profile. Destroy your enemies with one blow',
@@ -97,7 +107,6 @@ function generateAll () {
             price: 1000,
             image: "http://www.trueswords.com/images/prod/c/shinwa-blue-knight-damascus-katana-kz747ndz_250.jpg"
         },
-
 
         {
             title: 'Evil Spiked Mace',
@@ -131,8 +140,8 @@ function generateAll () {
     ];
 
     return Category.create(sampleCategories)
-        .then(function(newCategories) {
-            sampleProducts.forEach(function(product,idx) {
+        .then(function (newCategories) {
+            sampleProducts.forEach(function (product, idx) {
                 product.categories = [newCategories[idx]._id];
             });
             return Product.create(sampleProducts);
@@ -145,13 +154,13 @@ function generateAll () {
         .then(function (reviews) {
             return users.concat(reviews);
         })
-        .then(null, function(err) { if(err) console.log(err) });
-
-
+        .then(null, function (err) {
+            if (err) console.log(err)
+        });
 
 }
 
-function seed () {
+function seed() {
     var docs = generateAll();
     return Promise.map(docs, function (doc) {
         return doc.save();
