@@ -19,7 +19,7 @@ app.factory('ProductsFactory', function ($http) {
             });
     };
 
-    // for admins // TODO: Do we need $log?
+    // for admin // TODO: Do we need $log?
     ProductsFactory.createProduct = function (data) {
         return $http.post('/api/products', data)
             .then(newProducts => newProducts.data)
@@ -30,7 +30,7 @@ app.factory('ProductsFactory', function ($http) {
 
     // put
     ProductsFactory.updateProduct = function (productId, data) {
-        return $http.product('/api/products' + productId, data)
+        return $http.put('/api/products' + productId, data)
             .then(updatedProduct => updatedProduct.data)
             .catch(function (err) {
                 if (err) console.error(err);
