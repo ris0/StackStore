@@ -1,4 +1,4 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, LocalStorageFactory) {
 
     return {
         restrict: 'E',
@@ -21,13 +21,10 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
 
             scope.logout = function () {
                 AuthService.logout().then(function () {
-                    if (window.useLocalStorage) {
-                        window.useLocalStorage = false;
-                    } 
-                    else if (!window.useLocalStorage) {
-                        window.useLocalStorage = true;
-                    }
-                   $state.go('home');
+                    LocalStorageFactory.checkSession()
+                    .then(function () {
+                        $state.go('home');
+                    })
                 });
             };
 

@@ -1,16 +1,9 @@
 app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, LocalStorageFactory, oneCart) {
 
-    // if (window.useLocalStorage) {
-    //   $scope.cart = JSON.parse(window.localStorage.cart)
-    //   console.log($scope.cart);
-    // }
-    // else {
     $scope.cart = oneCart;
-    // }
 
     function deleteItem (productId) {
       if (window.useLocalStorage) {
-        console.log('5555555555555',LocalStorageFactory.deleteProduct(productId));
         $scope.cart = LocalStorageFactory.deleteProduct(productId); 
       }
       else {
@@ -26,11 +19,16 @@ app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, Local
     }
 
     function checkout (cartId, bool) {
-      console.log('Checked out!');
-      CartFactory.checkout(cartId, bool)
-      .then(function () {
-        getCart();
-      })
+      if (window.useLocalStorage) {
+        $scope.cart = LocalStorageFactory.checkout(); 
+      }
+      else {
+        console.log('Checked out!');
+        CartFactory.checkout(cartId, bool)
+        .then(function () {
+          getCart();
+        })
+      }
     }
 
     $scope.deleteItem = deleteItem;
