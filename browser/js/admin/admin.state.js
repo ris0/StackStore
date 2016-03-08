@@ -32,6 +32,9 @@ app.config(function ($stateProvider) {
             },
             allUsers: function (UsersFactory) {
                 return UsersFactory.getAllUsers();
+            },
+            allCategories: function (CategoriesFactory) {
+                return CategoriesFactory.getCategories();
             }
         }
     });

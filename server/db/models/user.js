@@ -8,7 +8,7 @@ var userSchema = new mongoose.Schema({
         type: String
     },
     password: {
-        type: String,
+        type: String
     },
     salt: {
         type: String
