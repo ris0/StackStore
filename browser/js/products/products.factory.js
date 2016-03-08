@@ -2,9 +2,14 @@ app.factory('ProductsFactory', function ($http) {
 
     var ProductsFactory = {};
 
+    var cached = [];
+
     ProductsFactory.getAllProducts = function (data) {
         return $http.get('/api/products', data)
-            .then(products => products.data)
+            .then(function(products) {
+                angular.copy(products.data, cached);
+                return cached;
+            })
             .catch(function (err) {
                 if (err) console.error(err);
             });
@@ -30,8 +35,15 @@ app.factory('ProductsFactory', function ($http) {
 
     // put
     ProductsFactory.updateProduct = function (productId, data) {
-        return $http.put('/api/products' + productId, data)
-            .then(updatedProduct => updatedProduct.data)
+        return $http.put('/api/products/' + productId, data)
+            .then(function(updatedProduct) {
+                cached.forEach(function(product){
+                    if(product._id === updatedProduct.data._id){
+                        angular.extend(product, updatedProduct.data);
+                    }
+                })
+                return updatedProduct.data;
+            })
             .catch(function (err) {
                 if (err) console.error(err);
             });
