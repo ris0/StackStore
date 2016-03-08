@@ -1,10 +1,9 @@
-app.controller('HomeCtrl', function ($scope, $log, ProductsFactory, CartFactory, allProducts, HomeFactory) {
+app.controller('HomeCtrl', function ($scope, $log, ProductsFactory, CartFactory, allProducts, LocalStorageFactory) {
 
-    HomeFactory.getSession();
+    LocalStorageFactory.checkSession();
 
     $scope.products = allProducts;
 
     $scope.addToCart = CartFactory.addProduct;   
-
 
 });
