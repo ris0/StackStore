@@ -6,11 +6,17 @@ app.config(function ($urlRouterProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
     $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.deferIntercept();
 });
 
 // This app.run is for controlling access to specific states.
-app.run(function ($rootScope, AuthService, $state) {
+app.run(function ($rootScope, AuthService, $state, LocalStorageFactory, $urlRouter) {
 
+    LocalStorageFactory.checkSession()
+    .then(function () {
+        $urlRouter.listen();
+        $urlRouter.sync();
+    })
     // The given state requires an authenticated user.
     var destinationStateRequiresAuth = function (state) {
         return state.data && state.data.authenticate;
@@ -19,6 +25,7 @@ app.run(function ($rootScope, AuthService, $state) {
     // $stateChangeStart is an event fired
     // whenever the process of changing a state begins.
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+        console.log("STATE CHANGE START");
 
         if (!destinationStateRequiresAuth(toState)) {
             // The destination state does not require authentication
@@ -35,12 +42,15 @@ app.run(function ($rootScope, AuthService, $state) {
         // Cancel navigating to new state.
         event.preventDefault();
 
+
         AuthService.getLoggedInUser().then(function (user) {
             // If a user is retrieved, then renavigate to the destination
             // (the second time, AuthService.isAuthenticated() will work)
             // otherwise, if no user is logged in, go to "login" state.
+            // console.log("AUTHSERVICE START");
             if (user) {
                 $state.go(toState.name, toParams);
+
             } else {
                 $state.go('login');
             }

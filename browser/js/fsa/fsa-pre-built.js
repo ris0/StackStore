@@ -48,9 +48,10 @@
         ]);
     });
 
-    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
+    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q, LocalStorageFactory) {
 
         function onSuccessfulLogin(response) {
+            if (window.useLocalStorage) window.useLocalStorage = false;
             var data = response.data;
             Session.create(data.id, data.user);
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
