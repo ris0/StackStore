@@ -5,10 +5,11 @@ app.controller('ProductsCtrl', function ($scope, $log, ProductsFactory, allProdu
 
 });
 
-app.controller('singleProductCtrl', function ($scope, $log, ProductsFactory, ReviewsFactory, singleProduct, productReviews, AuthService, CartFactory) {
+app.controller('singleProductCtrl', function ($scope, $log, ProductsFactory, ReviewsFactory, singleProduct, productReviews, AuthService, CartFactory, categories) {
 
     $scope.product = singleProduct;
     $scope.reviews = productReviews;
+    $scope.categories = categories;
     $scope.isLoggedIn = function () {
         return AuthService.isAuthenticated();
     };

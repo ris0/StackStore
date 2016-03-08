@@ -20,6 +20,9 @@ app.config(function ($stateProvider) {
             },
             productReviews: function (ReviewsFactory, $stateParams) {
                 return ReviewsFactory.getReviewsByProductId($stateParams.productId);
+            },
+            categories: function (CategoriesFactory, $stateParams) {
+                return CategoriesFactory.getCategories();
             }
         }
     });
