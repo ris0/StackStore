@@ -16,7 +16,7 @@ app.factory('LocalStorageFactory', function ($http) {
         }
         var JSONcart = JSON.stringify(cart);
 
-        $http.get('/session')
+        return $http.get('/session')
         .then(function () {
             if (window.useLocalStorage) {
                 window.useLocalStorage = false;
@@ -29,20 +29,6 @@ app.factory('LocalStorageFactory', function ($http) {
             }
         })
     }
-
-    // LocalStorageFactory.checkSession = function () {
-    //     var cart = {
-    //         "contents": []
-    //     }
-    //     var JSONcart = JSON.stringify(cart);
-
-    //     window.useLocalStorage = true;
-        
-    //     console.log(Object.keys(window.localStorage).length);
-    //     if (Object.keys(window.localStorage).length === 0) {
-    //         window.localStorage.setItem("cart", JSONcart)
-    //     }
-    // }
 
     LocalStorageFactory.getCurrentCart = function () {
         return parseCart();

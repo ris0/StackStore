@@ -6,11 +6,17 @@ app.config(function ($urlRouterProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
     $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.deferIntercept();
 });
 
 // This app.run is for controlling access to specific states.
-app.run(function ($rootScope, AuthService, $state, LocalStorageFactory) {
+app.run(function ($rootScope, AuthService, $state, LocalStorageFactory, $urlRouter) {
 
+    LocalStorageFactory.checkSession()
+    .then(function () {
+        $urlRouter.listen();
+        $urlRouter.sync();
+    })
     // The given state requires an authenticated user.
     var destinationStateRequiresAuth = function (state) {
         return state.data && state.data.authenticate;
@@ -20,8 +26,7 @@ app.run(function ($rootScope, AuthService, $state, LocalStorageFactory) {
     // whenever the process of changing a state begins.
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
         console.log("STATE CHANGE START");
-        LocalStorageFactory.checkSession();
-        
+
         if (!destinationStateRequiresAuth(toState)) {
             // The destination state does not require authentication
             // Short circuit with return.
