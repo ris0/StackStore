@@ -22,15 +22,33 @@ app.config(function ($stateProvider) {
     $stateProvider.state('admin', {
         url: '/admin', // api ? necessary?
         controller: 'AdminCtrl',
-        templateUrl: '../../site-assets/users/templates/admin.template.html',
+        templateUrl: 'js/admin/templates/admin.template.html',
         resolve: {
-        	allProducts: function (ProductsFactory) {
-        		return ProductsFactory.getAllProducts();
+        	allCarts: function (CartFactory) {
+        		return CartFactory.getAllCarts();
         	},
-        	allUsers: function (UsersFactory) {
-        		return UsersFactory.getAllUsers();
-        	}
+            allProducts: function (ProductsFactory) {
+                return ProductsFactory.getAllProducts();
+            },
+            allUsers: function (UsersFactory) {
+                return UsersFactory.getAllUsers();
+            }
         }
+    });
+
+    $stateProvider.state('admin.products', {
+        url: '/products',
+        templateUrl:'js/admin/templates/admin.products.html'
+    });
+
+    $stateProvider.state('admin.carts', {
+        url: '/carts',
+        templateUrl:'js/admin/templates/admin.users.html'
+    });
+
+    $stateProvider.state('admin.users', {
+        url: '/users',
+        templateUrl:'js/admin/templates/admin.users.html'
     });
 
 });

@@ -35,7 +35,7 @@
                             <span></span>
                             <label>Quantity:</label>
                             <input type="text" placeholder="1" ng-model="quantity" />
-                            <button type="button" class="btn btn-fefault cart" ng-click="addToCart(product._id, quantity)">
+                            <button type="button" class="btn btn-fefault cart" ng-click="addToCart(product._id, quantity || 1)">
                                 <i class="fa fa-shopping-cart"></i> Add to cart
                             </button>
                             </span>
