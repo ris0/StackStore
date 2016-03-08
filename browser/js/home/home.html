@@ -1,4 +1,5 @@
-<section id="slider"><!--slider-->
+<section id="slider">
+    <!--slider-->
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -8,7 +9,6 @@
                         <li data-target="#slider-carousel" data-slide-to="1"></li>
                         <li data-target="#slider-carousel" data-slide-to="2"></li>
                     </ol>
-                    
                     <div class="carousel-inner">
                         <div class="item active">
                             <div class="text-overlay bump-text col-md-12">
@@ -16,29 +16,25 @@
                                 <h2>Always be prepared</h2>
                                 <button type="button" class="btn btn-default get">Shop now</button>
                             </div>
-                                <img src="images/home/carousel1.jpg" class="img-responsive carousel-image" alt="" />
+                            <img src="images/home/carousel1.jpg" class="img-responsive carousel-image" alt="" />
                         </div>
-
                         <div class="item">
                             <div class="text-overlay bump-text col-md-12">
                                 <h1><span>APOCA</span>SHOP</h1>
                                 <h2>Ready for the worst</h2>
                                 <button type="button" class="btn btn-default get">Shop now</button>
                             </div>
-                                <img src="images/home/carousel2.jpg" class="img-responsive" alt="" />
+                            <img src="images/home/carousel2.jpg" class="img-responsive" alt="" />
                         </div>
-
                         <div class="item">
                             <div class="text-overlay bump-text col-md-12">
                                 <h1><span>APOCA</span>SHOP</h1>
                                 <h2>Never let go</h2>
                                 <button type="button" class="btn btn-default get">Shop now</button>
                             </div>
-                                <img src="images/home/carousel3.jpg" class="img-responsive" alt="" />
+                            <img src="images/home/carousel3.jpg" class="img-responsive" alt="" />
                         </div>
-                        
                     </div>
-                    
                     <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
                         <i class="fa fa-angle-left"></i>
                     </a>
@@ -46,83 +42,99 @@
                         <i class="fa fa-angle-right"></i>
                     </a>
                 </div>
-                
             </div>
         </div>
     </div>
-</section><!--/slider-->
-
+</section>
+<!--/slider-->
 <section>
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
                 <div class="left-sidebar">
                     <h2>Category</h2>
-                    <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                    <div class="panel-group category-products" id="accordian">
+                        <!--category-productsr-->
+                        <div class="panel panel-default" ng-repeat="category in categories">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="#" ng-click="setActiveCategories([category])">{{ category.name }}</a></h4>
+                            </div>
+                        </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4 class="panel-title">
+                                <h4 class="panel-title"><a href="#" ng-click="setActiveCategories(categories)">All</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!--category-productsr-->
+                    <!-- <div class="panel-group category-products" id="accordian">
+ -->
+                    <!-- <div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
                                         <span class="badge pull-right"><i class="fa fa-plus"></i></span>
                                         Nuclear
                                     </a>
                                 </h4>
-                            </div>
-                            <div id="sportswear" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <ul>
-                                        <li><a href="#">Food </a></li>
-                                        <li><a href="#">Gear </a></li>
-                                        <li><a href="#">Weapons </a></li>
-                                        <li><a href="#">Fun</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
+    </div>
+    <div id="sportswear" class="panel-collapse collapse">
+        <div class="panel-body">
+            <ul>
+                <li><a href="#">Food </a></li>
+                <li><a href="#">Gear </a></li>
+                <li><a href="#">Weapons </a></li>
+                <li><a href="#">Fun</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordian" href="#mens">
                                         <span class="badge pull-right"><i class="fa fa-plus"></i></span>
                                         Zombie
                                     </a>
                                 </h4>
-                            </div>
-                            <div id="mens" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <ul>
-                                        <li><a href="#">Food </a></li>
-                                        <li><a href="#">Gear </a></li>
-                                        <li><a href="#">Weapons </a></li>
-                                        <li><a href="#">Fun</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
+    </div>
+    <div id="mens" class="panel-collapse collapse">
+        <div class="panel-body">
+            <ul>
+                <li><a href="#">Food </a></li>
+                <li><a href="#">Gear </a></li>
+                <li><a href="#">Weapons </a></li>
+                <li><a href="#">Fun</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordian" href="#womens">
                                         <span class="badge pull-right"><i class="fa fa-plus"></i></span>
                                         Fiscal
                                     </a>
                                 </h4>
-                            </div>
-                            <div id="womens" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <ul>
-                                        <li><a href="#">Food </a></li>
-                                        <li><a href="#">Gear </a></li>
-                                        <li><a href="#">Weapons </a></li>
-                                        <li><a href="#">Fun</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/category-products-->
-                
-                    <div class="brands_products"><!--brands_products-->
+    </div>
+    <div id="womens" class="panel-collapse collapse">
+        <div class="panel-body">
+            <ul>
+                <li><a href="#">Food </a></li>
+                <li><a href="#">Gear </a></li>
+                <li><a href="#">Weapons </a></li>
+                <li><a href="#">Fun</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+ -->
+                    <!-- </div>
+ -->
+                    <!--/category-products-->
+                    <!--brands_products-->
+                    <!--                     <div class="brands_products">
                         <h2>Brands</h2>
                         <div class="brands-name">
                             <ul class="nav nav-pills nav-stacked">
@@ -135,24 +147,27 @@
                                 <li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
                             </ul>
                         </div>
-                    </div><!--/brands_products-->
-                    
-                    <div class="price-range"><!--price-range-->
+                    </div> -->
+                    <!--/brands_products-->
+                    <!--price-range-->
+                    <!--                     <div class="price-range">
+
                         <h2>Price Range</h2>
                         <div class="well text-center">
                              <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
                              <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
                         </div>
-                    </div><!--/price-range-->
-                
+                    </div> -->
+                    <!--/price-range-->
                 </div>
             </div>
             //merge conflict
             <div class="col-sm-9 padding-right">
-                <div class="features_items"><!--features_items-->
+                <div class="features_items">
+                    <!--features_items-->
                     <h2 class="title text-center">Our Products</h2>
-                    <home-product ng-repeat="product in products" product="product" add-to-cart="addToCart"></home-product>
-<!--                     <div class="col-sm-4">
+                    <home-product ng-repeat="product in products" product="product" add-to-cart="addToCart" check-categories="checkCategories"></home-product>
+                    <!--                     <div class="col-sm-4">
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                     <div class="productinfo text-center">
@@ -225,8 +240,8 @@
                                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                     </div>
                                 </div> -->
-                                <!-- <img src="images/home/new.png" class="new" alt="" /> -->
-<!--                             </div>
+                    <!-- <img src="images/home/new.png" class="new" alt="" /> -->
+                    <!--                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -270,9 +285,8 @@
                     </div>
                     
                 </div> -->
-                <!--features_items-->
-
+                    <!--features_items-->
+                </div>
             </div>
         </div>
-    </div>
 </section>

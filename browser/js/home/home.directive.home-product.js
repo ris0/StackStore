@@ -4,7 +4,8 @@ app.directive('homeProduct', function () {
         templateUrl: 'js/home/home-product.html',
         scope: {
             product: '=',
-            addToCart: '='
+            addToCart: '=',
+            checkCategories: '='
         }
-    }
+    };
 });

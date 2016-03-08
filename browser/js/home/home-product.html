@@ -1,4 +1,4 @@
-<div class="col-sm-4">
+<div class="col-sm-4" ng-show="checkCategories(product.categories)">
     <div class="product-image-wrapper">
         <div class="single-products">
             <div class="productinfo text-center">
@@ -7,18 +7,20 @@
                 <p>{{ product.title }}</p>
                 <a href="#" class="btn btn-default add-to-cart" ng-click="addToCart(product._id, 1)"><i class="fa fa-shopping-cart"></i>Add to cart</a>
             </div>
-            <div class="product-overlay">
-                <div class="overlay-content">
-                    <h2>{{ product.price | currency }}</h2>
-                    <p>{{ product.description }}</p>
-                    <a href="#" class="btn btn-default add-to-cart" ng-click="addToCart(product._id, 1)"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+            <a href="/products/{{product._id}}">
+                <div class="product-overlay">
+                    <div class="overlay-content">
+                        <h2>{{ product.price | currency }}</h2>
+                        <p>{{ product.description }}</p>
+                        <a href="#" class="btn btn-default add-to-cart" ng-click="addToCart(product._id, 1)"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
-            <div class="choose">
-                <ul class="nav nav-pills nav-justified">
-                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                </ul>
-            </div>
+        <div class="choose">
+            <ul class="nav nav-pills nav-justified">
+                <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+            </ul>
+        </div>
     </div>
 </div>
