@@ -23,7 +23,6 @@ app.factory('LocalStorageFactory', function ($http) {
             }
         }, function () {
             window.useLocalStorage = true;
-            console.log(Object.keys(window.localStorage).length);
             if (Object.keys(window.localStorage).length === 0) {
                 window.localStorage.setItem("cart", JSONcart)
             }

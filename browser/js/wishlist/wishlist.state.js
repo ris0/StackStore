@@ -5,8 +5,8 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/wishlist/wishlist.template.html',
         resolve: {
 
-          oneCart: function (CartFactory) {
-            return CartFactory.getCurrentCart();
+          wishlist: function (CartFactory) {
+            return CartFactory.getWishlist();
           }
 
         },

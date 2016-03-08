@@ -23,6 +23,15 @@ app.factory('CartFactory', function ($http, LocalStorageFactory) {
         }
     };
 
+    // CartFactory.getWishlist = function () {
+    //     return $http.get('/api/cart/wishlist')
+    //         .then(wishlist => wishlist.data)
+    //         .catch(function (err) {
+    //             console.error(err);
+    //         });
+    //     }
+    // };
+
     CartFactory.getPastCarts = function (data) {
         return $http.get('/api/cart/past', data)
             .then(carts => carts.data)

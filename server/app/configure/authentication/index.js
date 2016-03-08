@@ -6,7 +6,7 @@ var passport = require('passport');
 var path = require('path');
 var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
-var CartModel = mongoose.model('Cart');
+var Cart = mongoose.model('Cart');
 
 var ENABLED_AUTH_STRATEGIES = [
     'local',
@@ -48,8 +48,20 @@ module.exports = function (app) {
     // logged in already.
     app.get('/session', function (req, res) {
         if (req.user) {
-            console.log(req.user)
-            CartModel.create( { user: req.user._id })
+            var found = false;
+            
+            Cart.find({ user : req.user._id })
+            .then(function(cartsArr){
+            cartsArr.forEach(function(cart){
+                if(cart.status === 'pending'){
+                    found = true;
+                    console.log(cart.status)
+                    res.json(cart).end();
+                }
+            });
+
+            if(!found) return Cart.create({ user : req.user._id })
+            })
             .then(function(cart){
                 console.log(cart);
                 res.send({ user: req.user.sanitize() });

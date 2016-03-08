@@ -49,12 +49,19 @@ router.get('/:cartId', Auth.assertAdmin, function (req, res, next) {
     .then(null, next);
 });
 
+router.get('/wishlist', Auth.assertAdminOrSelf, function (req, res, next) {
+    Cart.findOne({ user : req.user._id, status : 'wishlist' })
+    .then(function (wishlist) {
+        res.json(wishlist);
+    })
+    .then(null, next);
+});
 
 // creates a new cart for the active user
 router.post('/', Auth.assertAdminOrSelf, function (req, res, next) {
     var found = false;
 
-    Cart.find({ user : req.user._id})
+    Cart.find({ user : req.user._id })
     .then(function(cartsArr){
         cartsArr.forEach(function(cart){
             if(cart.status === 'pending'){

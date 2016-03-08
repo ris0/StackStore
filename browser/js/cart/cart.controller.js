@@ -1,7 +1,7 @@
 app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, LocalStorageFactory, oneCart) {
 
     $scope.cart = oneCart;
-    console.log($scope.cart);
+    console.log('current cart:', $scope.cart);
 
     function deleteItem (productId) {
       if (window.useLocalStorage) {
@@ -13,8 +13,7 @@ app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, Local
           $scope.cart.contents = $scope.cart.contents.filter(function (element) {
             return element.product._id !== productId;
           })
-          console.log("Item Deleted")
-          console.log($scope.cart)
+          console.log('Item Deleted: ', $scope.cart);
         })
       } 
     }
