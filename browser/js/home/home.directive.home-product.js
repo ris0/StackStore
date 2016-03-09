@@ -5,7 +5,8 @@ app.directive('homeProduct', function () {
         scope: {
             product: '=',
             addToCart: '=',
-            checkCategories: '='
+            checkCategories: '=',
+            addWishlistProduct: '='
         }
     };
 });
