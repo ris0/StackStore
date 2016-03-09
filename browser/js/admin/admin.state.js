@@ -54,4 +54,9 @@ app.config(function ($stateProvider) {
         templateUrl:'js/admin/templates/admin.users.html'
     });
 
+    $stateProvider.state('admin.categories', {
+        url: '/categories',
+        templateUrl:'js/admin/templates/admin.categories.html'
+    });
+
 });

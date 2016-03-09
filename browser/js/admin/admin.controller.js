@@ -1,7 +1,6 @@
 app.controller('AdminCtrl', function ($scope, $log, allProducts, allUsers, CategoriesFactory, allCategories, ProductsFactory) {
     $scope.products = allProducts;
     $scope.users = allUsers;
-    $scope.thisProduct;
     $scope.productAvailability = [true,false];
     $scope.productIsSelected = false;
 	$scope.productToEdit = {};
@@ -16,7 +15,10 @@ app.controller('AdminCtrl', function ($scope, $log, allProducts, allUsers, Categ
     }
 
     $scope.submitEditedProduct = function(product) {
-    	console.log(product);
+    	product.categories = product.categories.map(function(category){
+            return category._id;
+        })
+        console.log(product);
     	ProductsFactory.updateProduct(product._id, product)
     	.then(function(res){
     		$scope.productIsSelected = false;
@@ -39,8 +41,52 @@ app.controller('AdminCtrl', function ($scope, $log, allProducts, allUsers, Categ
     }
 
     $scope.deleteProduct = function(productId) {
-        
+
         ProductsFactory.deleteProduct(productId)
+        .then(function(res){
+            return res.data;
+        })
+    }
+
+    // Categories
+    $scope.categoryIsSelected = false;
+    $scope.categoryToEdit = {};
+    $scope.categories = allCategories;
+    $scope.addCategoryForm = false;
+
+    $scope.setCategory = function(category) {
+        console.log(category);
+        $scope.addCategoryForm = false;
+        $scope.categoryIsSelected = true;
+        $scope.categoryToEdit = category;
+    }
+
+    $scope.submitEditedCategory = function(category) {
+        console.log(category);
+        CategoriesFactory.updateCategory(category._id, category)
+        .then(function(res){
+            $scope.categoryIsSelected = false;
+        })
+    }
+
+    $scope.showAddCategoryForm = function(){
+        $scope.categoryIsSelected = false;
+        $scope.addCategoryForm = true;
+        $scope.categoryToAdd = {};
+    }
+
+    $scope.submitNewCategory = function(category) {
+        console.log(category);
+        CategoriesFactory.createCategory(category)
+        .then(function(res){
+            $scope.categoryToAdd = {};
+            $scope.addCategoryForm = false;
+        })
+    }
+
+    $scope.deleteCategory = function(categoryId) {
+        
+        CategoriesFactory.deleteCategory(categoryId)
         .then(function(res){
             return res.data;
         })

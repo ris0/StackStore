@@ -22,9 +22,12 @@
                     <div class="list-text row">
                         <div class="col-xs-12 col-sm-6 col-lg-8"><strong class="pull-left">{{product.title}}</strong></div>
                         <div class="col-xs-12 col-sm-6 col-lg-8"><span>Price: {{ product.price | currency}}</span></div>
-                        <div <div class="col-xs-12 col-sm-6 col-lg-8"><p>Description: {{ product.description }}</p></div>
-                        <div <div class="col-xs-12 col-sm-6 col-lg-8"><p>Available: {{ product.availability }}</p></div>
-                        <div <div class="col-xs-12 col-sm-6 col-lg-8"><p>Categories: {{ product.categories[0].name }}</p></div>
+                        <div class="col-xs-12 col-sm-6 col-lg-8"><span>Description: <p>{{ product.description }}</p></span></div>
+                        <div class="col-xs-12 col-sm-6 col-lg-8"><span>Available: {{ product.availability }}</span></div>
+                        <div class="col-xs-12 col-sm-6 col-lg-8">
+                        <span>Categories:
+                          <span ng-repeat="category in product.categories"> {{ category.name }} </span></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,7 +73,7 @@
                         <div class="form-row">
                            <div class="col-md-3">Categories:</div>
                            <div class="col-md-9">
-                               <select class="form-control" multiple="multiple" ng-model="productToEdit.categories" ng-options="category._id as category.name for category in categories"></select>
+                               <select class="form-control" multiple ng-model="productToEdit.categories" ng-options="category as category.name for category in categories"></select>
                            </div>
                         </div>      
                         <div class="form-row">
@@ -85,6 +88,7 @@
 
 <div class="col-md-3" ng-if="!productIsSelected">
                <form name="productEdit" ng-submit="submitNewProduct(productToAdd)">
+               {{productToAdd | json}}
                <div class="block">
                     <div class="header">
                        <h2>Add Product</h2>
@@ -113,7 +117,7 @@
                     <div class="form-row">
                        <div class="col-md-3">Available:</div>
                        <div class="col-md-9">
-                           <select class="form-control" ng-model="productToAdd.availability" ng-options="bool as bool for bool in productAvailability">
+                           <select class="form-control" ng-init="productToAdd.availability" ng-model="productToAdd.availability" ng-options="bool as bool for bool in productAvailability">
                                <option>{{productToAdd.availability}}</option>
                            </select>
                        </div>
@@ -121,7 +125,7 @@
                     <div class="form-row">
                        <div class="col-md-3">Categories:</div>
                        <div class="col-md-9">
-                           <select class="form-control" multiple="multiple" ng-model="productToAdd.categories" ng-options="category._id as category.name for category in categories"></select>
+                           <select class="form-control" ng-init="productToAdd.categories" multiple="multiple" ng-model="productToAdd.categories" ng-options="category as category.name for category in categories"></select>
                        </div>
                     </div>      
                     <div class="form-row">

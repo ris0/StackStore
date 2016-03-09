@@ -1,0 +1,71 @@
+
+<div class="col-md-5">
+
+    <div class="block block-drop-shadow">
+        <div class="head bg-default bg-light-rtl">
+            <div class="content list">
+                <div class="list-title">
+                    categories
+                    <div class="side pull-right">
+                        <ul class="buttons">
+                            <li><a href="#" ng-click="showAddCategoryForm()" ><span class="icon-plus"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="list-item" ng-repeat="category in categories">
+                        <div class="side pull-right">
+                            <ul class="buttons">
+                                <li><a href="#" ng-click="deleteCategory(category._id)"><span class="fa fa-times-circle icon-border" style="color:black"></span></a></li>
+                                <li><a href="#" ng-click="setCategory(category)"><span class="icon-cogs icon-border" style="color:black"></span></a></li>
+                            </ul>
+                        </div>
+                    <div class="list-text row">
+                        <div class="col-xs-12 col-sm-6 col-lg-8"><strong class="pull-left">{{category.name}}</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-3" ng-if="categoryIsSelected">
+               <form name="categoryEdit" ng-submit="submitEditedCategory(categoryToEdit)">
+               <div class="block">
+                    <div class="header">
+                       <h2>Edit category</h2>
+                    </div>
+                    <div class="content controls">
+                        <div class="form-row">
+                           <div class="col-md-3">Name:</div>
+                           <div class="col-md-9"><input type="text" class="form-control" placeholder="{{categoryToEdit.name}}" ng-model='categoryToEdit.name'/></div>
+                        </div>      
+                        <div class="form-row">
+                            <div class="side pull-right">
+                           <button type="submit" class="file-input-wrapper btn btn-default fileinput pull right">Submit</button>
+                           </div>
+                        </div>   
+                  </div>
+            </div>
+            </form>
+</div>
+
+<div class="col-md-3" ng-if="!categoryIsSelected">
+               <form name="categoryEdit" ng-submit="submitNewCategory(categoryToAdd)">
+               <div class="block">
+                    <div class="header">
+                       <h2>Add category</h2>
+                    </div>
+                    <div class="content controls">
+                    <div class="form-row">
+                       <div class="col-md-3">Name:</div>
+                       <div class="col-md-9"><input type="text" class="form-control" placeholder="{{categoryToAdd.name}}" ng-model='categoryToAdd.name'/></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="side pull-right">
+                       <button type="submit" class="file-input-wrapper btn btn-default fileinput pull right">Submit</button>
+                       </div>
+                    </div>   
+                  </div>
+                </div>
+                </form>
+</div>
