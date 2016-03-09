@@ -6,16 +6,27 @@
             <div class="content list">
                 <div class="list-title">
                     Products
+                    <div class="side pull-right">
+                        <ul class="buttons">
+                            <li><a href="#" ng-click="showAddProductForm()" ><span class="icon-plus"></span></a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="list-item" ng-repeat="product in products">
+                        <div class="side pull-right">
+                            <ul class="buttons">
+                                <li><a href="#" ng-click="deleteProduct(product._id)"><span class="fa fa-times-circle icon-border" style="color:black"></span></a></li>
+                                <li><a href="#" ng-click="setProduct(product)"><span class="icon-cogs icon-border" style="color:black"></span></a></li>
+                            </ul>
+                        </div>
                     <div class="list-text row">
                         <div class="col-xs-12 col-sm-6 col-lg-8"><strong class="pull-left">{{product.title}}</strong></div>
                         <div class="col-xs-12 col-sm-6 col-lg-8"><span>Price: {{ product.price | currency}}</span></div>
-                        <div <div class="col-xs-12 col-sm-6 col-lg-8"><p>Description: {{ product.description }}</p></div>
-                        <div class="side pull-right">
-                            <ul class="buttons">
-                                <li><a href="#" ng-click="setProduct(product)" ><span class="icon-cogs"></span></a></li>
-                            </ul>
+                        <div class="col-xs-12 col-sm-6 col-lg-8"><span>Description: <p>{{ product.description }}</p></span></div>
+                        <div class="col-xs-12 col-sm-6 col-lg-8"><span>Available: {{ product.availability }}</span></div>
+                        <div class="col-xs-12 col-sm-6 col-lg-8">
+                        <span>Categories:
+                          <span ng-repeat="category in product.categories"> {{ category.name }} </span></span>
                         </div>
                     </div>
                 </div>
@@ -24,45 +35,97 @@
     </div>
 </div>
 
-<div class="col-md-5" ng-show="productIsSelected">
+<div class="col-md-3" ng-if="productIsSelected">
                <form name="productEdit" ng-submit="submitEditedProduct(productToEdit)">
                <div class="block">
                     <div class="header">
                        <h2>Edit Product</h2>
                     </div>
                     <div class="content controls">
+                        <div class="form-row">
+                           <div class="col-md-3">Name:</div>
+                           <div class="col-md-9"><input type="text" class="form-control" placeholder="{{productToEdit.title}}" ng-model='productToEdit.title'/></div>
+                        </div>
+                        <div class="form-row">
+                           <div class="col-md-3">Price</div>
+                           <div class="col-md-9"><input type="text" class="form-control" placeholder="{{productToEdit.price}}" ng-model='productToEdit.price'/></div>
+                        </div>
+                        <div class="form-row">
+                           <div class="col-md-3">Quantity</div>
+                           <div class="col-md-9"><input type="text" class="form-control" placeholder="{{productToEdit.quantity}}" ng-model='productToEdit.quantity'/></div>
+                        </div>                                       
+                        <div class="form-row">
+                           <div class="col-md-3">Textarea:</div>
+                           <div class="col-md-9"/><input type="text" placeholder="{{productToEdit.description}}" ng-model='productToEdit.description'/></div>
+                        </div>   
+                        <div class="form-row">
+                           <div class="col-md-3">Image Url:</div>
+                           <div class="col-md-9"/><textarea class="form-control" placeholder="{{productToEdit.image}}" ng-model='productToEdit.image'></textarea></div>
+                        </div>                      
+                        <div class="form-row">
+                           <div class="col-md-3">Available:</div>
+                           <div class="col-md-9">
+                               <select class="form-control" ng-model="productToEdit.availability" ng-options="bool as bool for bool in productAvailability">
+                                   <option>{{productToEdit.availability}}</option>
+                               </select>
+                           </div>
+                        </div>
+                        <div class="form-row">
+                           <div class="col-md-3">Categories:</div>
+                           <div class="col-md-9">
+                               <select class="form-control" multiple ng-model="productToEdit.categories" ng-options="category as category.name for category in categories"></select>
+                           </div>
+                        </div>      
+                        <div class="form-row">
+                            <div class="side pull-right">
+                           <button type="submit" class="file-input-wrapper btn btn-default fileinput pull right">Submit</button>
+                           </div>
+                        </div>   
+                  </div>
+            </div>
+            </form>
+</div>
+
+<div class="col-md-3" ng-if="!productIsSelected">
+               <form name="productEdit" ng-submit="submitNewProduct(productToAdd)">
+               {{productToAdd | json}}
+               <div class="block">
+                    <div class="header">
+                       <h2>Add Product</h2>
+                    </div>
+                    <div class="content controls">
                     <div class="form-row">
                        <div class="col-md-3">Name:</div>
-                       <div class="col-md-9"><input type="text" class="form-control" placeholder="{{productToEdit.title}}" ng-model='productToEdit.title'/></div>
+                       <div class="col-md-9"><input type="text" class="form-control" placeholder="{{productToAdd.title}}" ng-model='productToAdd.title'/></div>
                     </div>
                     <div class="form-row">
                        <div class="col-md-3">Price</div>
-                       <div class="col-md-9"><input type="text" class="form-control" placeholder="{{productToEdit.price}}" ng-model='productToEdit.price'/></div>
+                       <div class="col-md-9"><input type="text" class="form-control" placeholder="{{productToAdd.price}}" ng-model='productToAdd.price'/></div>
                     </div>
                     <div class="form-row">
                        <div class="col-md-3">Quantity</div>
-                       <div class="col-md-9"><input type="text" class="form-control" placeholder="{{productToEdit.quantity}}" ng-model='productToEdit.quantity'/></div>
+                       <div class="col-md-9"><input type="text" class="form-control" placeholder="{{productToAdd.quantity}}" ng-model='productToAdd.quantity'/></div>
                     </div>                                       
                     <div class="form-row">
                        <div class="col-md-3">Textarea:</div>
-                       <div class="col-md-9"/><input type="text" placeholder="{{productToEdit.description}}" ng-model='productToEdit.description'/></div>
+                       <div class="col-md-9"/><input type="text" placeholder="{{productToAdd.description}}" ng-model='productToAdd.description'/></div>
                     </div>   
                     <div class="form-row">
                        <div class="col-md-3">Image Url:</div>
-                       <div class="col-md-9"/><textarea class="form-control" placeholder="{{productToEdit.image}}" ng-model='productToEdit.image'></textarea></div>
+                       <div class="col-md-9"/><textarea class="form-control" placeholder="{{productToAdd.image}}" ng-model='productToAdd.image'></textarea></div>
                     </div>                      
                     <div class="form-row">
                        <div class="col-md-3">Available:</div>
                        <div class="col-md-9">
-                           <select class="form-control" ng-model="productToEdit.availability" ng-options="bool as bool for bool in productAvailability">
-                               <option>{{productToEdit.availability}}</option>
+                           <select class="form-control" ng-init="productToAdd.availability" ng-model="productToAdd.availability" ng-options="bool as bool for bool in productAvailability">
+                               <option>{{productToAdd.availability}}</option>
                            </select>
                        </div>
                     </div>
                     <div class="form-row">
                        <div class="col-md-3">Categories:</div>
                        <div class="col-md-9">
-                           <select class="form-control" multiple="multiple" ng-model="productToEdit.category" ng-options="category as category.name for category in categories"></select>
+                           <select class="form-control" ng-init="productToAdd.categories" multiple="multiple" ng-model="productToAdd.categories" ng-options="category as category.name for category in categories"></select>
                        </div>
                     </div>      
                     <div class="form-row">
@@ -70,7 +133,7 @@
                        <button type="submit" class="file-input-wrapper btn btn-default fileinput pull right">Submit</button>
                        </div>
                     </div>   
-
+                  </div>
                 </div>
                 </form>
 </div>

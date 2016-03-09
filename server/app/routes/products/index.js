@@ -32,6 +32,10 @@ router.get('/', function (req, res, next) {
 router.post('/', Auth.assertAdmin, function (req, res, next) {
     Product.create(req.body)
         .then(function (product) {
+            return Product.findOne({ _id: product._id})
+            .populate('categories')
+        })
+        .then(function (product) {
             res.status(201).json(product);
         })
         .then(null, next);
@@ -53,7 +57,14 @@ router.put('/:productId', Auth.assertAdmin, function (req, res, next) {
     _.merge(req.product, req.body);
 
     req.product.save()
-        .then(newProduct => res.json(newProduct))
+        .then(function(newProduct) {
+            return Product.findOne({ _id: newProduct._id})
+            .populate('categories')
+        })
+        .then(newProduct => {
+            console.log(newProduct);
+            res.json(newProduct)
+        })
         .then(null, next);
 });
 
