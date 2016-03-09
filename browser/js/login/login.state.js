@@ -18,7 +18,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, UsersFactory,
 
         AuthService.login(loginInfo)
         .then(function () {
-            CartFactory.createCart()
+            Promise.all([ CartFactory.createCart(), CartFactory.createWishlist() ])
             .then(function () {
                 $state.go('home');
             })

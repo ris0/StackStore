@@ -15,7 +15,7 @@ app.controller('CartCtrl', function ($scope, CartFactory, ProductsFactory, Local
           })
           console.log('Item Deleted: ', $scope.cart);
         })
-      } 
+      }
     }
 
     function checkout (cartId, bool) {

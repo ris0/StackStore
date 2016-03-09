@@ -6,6 +6,7 @@ app.config(function ($stateProvider) {
         resolve: {
 
           wishlist: function (CartFactory) {
+            console.log("RESOLVED")
             return CartFactory.getWishlist();
           }
 
