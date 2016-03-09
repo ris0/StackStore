@@ -6,27 +6,44 @@ app.controller('AdminCtrl', function ($scope, $log, allProducts, allUsers, Categ
     $scope.productIsSelected = false;
 	$scope.productToEdit = {};
 	$scope.categories = allCategories;
-
+    $scope.addProductForm = false;
 
     $scope.setProduct = function(product) {
-    	$scope.productToEdit._id = product._id;
+        console.log(product);
+        $scope.addProductForm = false;
     	$scope.productIsSelected = true;
-    	$scope.productToEdit.title = product.title;
-    	$scope.productToEdit.price = product.price;
-    	$scope.productToEdit.quantity = product.quantity;
-    	$scope.productToEdit.availability = product.availability;
-    	$scope.productToEdit.description = product.description;
-    	$scope.productToEdit.image = product.image;
+    	$scope.productToEdit = product;
     }
 
     $scope.submitEditedProduct = function(product) {
     	console.log(product);
     	ProductsFactory.updateProduct(product._id, product)
     	.then(function(res){
-    		console.log(res);
-    		console.log($scope.products);
-    		return res.data;
+    		$scope.productIsSelected = false;
     	})
+    }
+
+    $scope.showAddProductForm = function(){
+        $scope.productIsSelected = false;
+        $scope.addProductForm = true;
+        $scope.productToAdd = {};
+    }
+
+    $scope.submitNewProduct = function(product) {
+        console.log(product);
+        ProductsFactory.createProduct(product)
+        .then(function(res){
+            $scope.productToAdd = {};
+            $scope.addProductForm = false;
+        })
+    }
+
+    $scope.deleteProduct = function(productId) {
+        
+        ProductsFactory.deleteProduct(productId)
+        .then(function(res){
+            return res.data;
+        })
     }
 
 });

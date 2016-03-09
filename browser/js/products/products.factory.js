@@ -27,7 +27,10 @@ app.factory('ProductsFactory', function ($http) {
     // for admin // TODO: Do we need $log?
     ProductsFactory.createProduct = function (data) {
         return $http.post('/api/products', data)
-            .then(newProducts => newProducts.data)
+            .then(function(newProduct){
+                cached.push(newProduct.data);
+                return newProduct.data;
+            })
             .catch(function (err) {
                 if (err) console.error(err);
             });
@@ -52,7 +55,15 @@ app.factory('ProductsFactory', function ($http) {
     // delete
     ProductsFactory.deleteProduct = function (productId) {
         return $http.delete('/api/products/' + productId)
-            .then(deletedProduct => deletedProduct.statusText)
+            .then(function(res){
+                cached.forEach(function(product, i, arr){
+                    if(product._id === productId){
+                        console.log(arr);
+                        arr.splice(i, 1);
+                    }
+                })
+                return res.data;
+            })
             .catch(function (err) {
                 if (err) console.error(err);
             });
