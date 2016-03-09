@@ -5,6 +5,7 @@ app.controller('HomeCtrl', function ($scope, $log, ProductsFactory, CartFactory,
     $scope.products = allProducts;
     $scope.categories = categories;
     $scope.addToCart = CartFactory.addProduct;
+    $scope.addWishlistProduct = CartFactory.addWishlistProduct;
 
     $scope.activeCategories = categories;
 

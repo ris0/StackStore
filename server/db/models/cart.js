@@ -15,9 +15,10 @@ var schema = new mongoose.Schema({
             ref: 'Product'
         }
     }],
-    pending: {
-        type: Boolean,
-        default: true,
+    status: {
+        type: String,
+        enum: ['pending', 'completed', 'wishlist'],
+        default: 'pending',
         required: true
     },
     finalOrder: []
@@ -50,7 +51,7 @@ schema.virtual("totalPrice").get(function () {
 // this presave hook writes in the current product documents, setting it in stone for future reference
 schema.pre("save", function (next) {
     var self = this;
-    if (self.pending === false) {
+    if (self.status === 'completed') {
         Promise.all(self.contents.map(function (element) {
                 return Product.findById(element.product)
             }))

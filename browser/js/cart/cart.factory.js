@@ -23,6 +23,27 @@ app.factory('CartFactory', function ($http, LocalStorageFactory) {
         }
     };
 
+    CartFactory.getWishlist = function () {
+        return $http.get('/api/cart/wishlist')
+        .then(function (wishlist) {
+            return wishlist.data;
+        })
+        .catch(function (err) {
+            console.error(err);
+        });
+    }
+
+    CartFactory.createWishlist = function () {
+        return $http.post('/api/cart/wishlist')
+        .then(function (wishlist) {
+            console.log(wishlist.data);
+            return wishlist.data;
+        })
+        .catch(function (err) {
+            console.error(err);
+        });
+    }
+
     CartFactory.getPastCarts = function (data) {
         return $http.get('/api/cart/past', data)
             .then(carts => carts.data)
@@ -60,6 +81,14 @@ app.factory('CartFactory', function ($http, LocalStorageFactory) {
         }
     };
 
+    CartFactory.addWishlistProduct = function (productId, quantity, data) {
+            return $http.post('/api/cart/wishlist/' + productId + '/' + quantity, data)
+                .then(cart => cart.data)
+                .catch(function (err) {
+                    console.error(err);
+                });
+    };
+
     CartFactory.updateProduct = function (productId, quantity, data) {
         if (window.useLocalStorage) {
             return LocalStorageFactory.updateProduct(productId, quantity);
@@ -91,6 +120,14 @@ app.factory('CartFactory', function ($http, LocalStorageFactory) {
                     console.error(err);
                 });
         }
+    };
+
+    CartFactory.deleteWishlistItem = function (productId) {
+        return $http.delete('/api/cart/wishlist/' + productId)
+                .then(cart => cart.data)
+                .catch(function (err) {
+                    console.error(err);
+                });
     };
 
     CartFactory.checkout = function (cartId, bool) {

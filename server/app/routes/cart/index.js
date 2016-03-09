@@ -14,7 +14,7 @@ router.use('/', function (req, res, next) {
 
 // find the current cart, with porducts populated
 router.get('/current', Auth.assertAdminOrSelf, function (req, res, next) {
-    Cart.findOne({ user : req.user._id, pending : true })
+    Cart.findOne({ user : req.user._id, status : 'pending' })
     .populate('contents.product')
     .then(function (oneCart) {
         res.json(oneCart);
@@ -24,7 +24,7 @@ router.get('/current', Auth.assertAdminOrSelf, function (req, res, next) {
 
 // find the past orders
 router.get('/past', Auth.assertAdminOrSelf, function (req, res, next) {
-    Cart.findOne({ user : req.user._id, pending : false })
+    Cart.findOne({ user : req.user._id, status : 'completed' })
     .then(function (carts) {
         res.json(carts);
     })
@@ -40,6 +40,24 @@ router.get('/', Auth.assertAdmin, function (req, res, next) {
     .then(null, next);
 });
 
+router.get('/wishlist', Auth.assertAdminOrSelf, function (req, res, next) {
+    Cart.findOne({ user : req.user._id, status : 'wishlist' })
+    .populate('contents.product')
+    .then(function (wishlist) {
+        res.json(wishlist);
+    })
+    .then(null, next);
+});
+
+router.get('/wishlist/:wishlistId', function (req, res, next) {
+    Cart.findOne({ _id : req.params.wishlistId })
+    .populate('contents.product')
+    .then(function (wishlist) {
+        res.json(wishlist);
+    })
+    .then(null, next);
+});
+
 // ADMIN get card by cartId
 router.get('/:cartId', Auth.assertAdmin, function (req, res, next) {
     Cart.findById(req.params.cartId)
@@ -49,17 +67,16 @@ router.get('/:cartId', Auth.assertAdmin, function (req, res, next) {
     .then(null, next);
 });
 
-
 // creates a new cart for the active user
 router.post('/', Auth.assertAdminOrSelf, function (req, res, next) {
     var found = false;
 
-    Cart.find({ user : req.user._id})
+    Cart.find({ user : req.user._id })
     .then(function(cartsArr){
         cartsArr.forEach(function(cart){
-            if(cart.pending){
+            if(cart.status === 'pending'){
                 found = true;
-                console.log(cart.pending)
+                console.log(cart.status)
                 res.json(cart).end();
             }
         });
@@ -71,9 +88,29 @@ router.post('/', Auth.assertAdminOrSelf, function (req, res, next) {
     .then(null, next);
 });
 
+router.post('/wishlist', Auth.assertAdminOrSelf, function (req, res, next) {
+    var found = false;
+
+    Cart.find({ user : req.user._id })
+    .then(function(cartsArr){
+        cartsArr.forEach(function(cart){
+            if(cart.status === 'wishlist'){
+                found = true;
+                console.log(cart.status)
+                res.json(cart).end();
+            }
+        });
+        if(!found) return Cart.create({ user : req.user._id, status : 'wishlist' })
+    })
+    .then(function (createdCart) {
+        if(createdCart) res.status(201).json(createdCart);
+    })
+    .then(null, next);
+});
+
 // adds a product with quantity to the cart
 router.post('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
-    Cart.findOne({ user : req.user._id, pending : true })
+    Cart.findOne({ user : req.user._id, status : 'pending' })
     .then(function (foundCart) {
         var found = false;
         // if the product is already in there, update qty
@@ -98,22 +135,47 @@ router.post('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
     .then(null, next);
 });
 
-router.put('/pending/:cartId/:bool', Auth.assertAdminOrSelf, function (req, res, next) {
+router.post('/wishlist/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
+    Cart.findOne({ user : req.user._id, status : 'wishlist' })
+    .then(function (foundCart) {
+        var found = false;
+        // if the product is already in there, update qty
+        foundCart.contents.forEach(function (element) {
+            if (element.product == req.params.prodId) {
+                element.quantity += Number(req.params.qty);
+                found = true;
+            }
+        })
+        // else do normal
+        if (!found) {
+            foundCart.contents.push({
+                quantity: req.params.qty,
+                product: req.params.prodId
+            });
+        }
+        return foundCart.save();
+    })
+    .then(function (savedCart) {
+        res.json(savedCart);
+    })
+    .then(null, next);
+});
+
+router.put('/pending/:cartId/:status', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.findOne({ _id : req.params.cartId })
     .then(function (cart) {
-        if (req.params.bool === "false") cart.pending = false;
-        else if (req.params.bool === "true") cart.pending = true;
-        console.log(req.params, cart.pending);
+        cart.status = req.params.status;
+        console.log(req.params, cart.status);
         return cart.save()
     })
     .then(function (savedCart) {
         res.json(savedCart);
     })
-})
+});
 
 // updates a product with quantity to the cart
 router.put('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
-    Cart.findOne({ user : req.user._id, pending : true })
+    Cart.findOne({ user : req.user._id, status : 'pending' })
     .then(function (foundCart) {
         foundCart.contents.forEach(function (element, index, contents) {
             if (element.product.toString() === req.params.prodId.toString()) {
@@ -129,6 +191,7 @@ router.put('/:prodId/:qty', Auth.assertAdminOrSelf, function (req, res, next) {
     .then(null, next);
 });
 
+
 // deletes a product from the cart
 router.delete('/clear-cart/:userId', Auth.assertAdminOrSelf, function (req, res, next) {
     Cart.findOne({ user : req.params.userId })
@@ -142,8 +205,22 @@ router.delete('/clear-cart/:userId', Auth.assertAdminOrSelf, function (req, res,
     .then(null, next);
 });
 
+router.delete('/wishlist/:prodId', Auth.assertAdminOrSelf, function (req, res, next) {
+    Cart.findOne({ user : req.user._id, status : 'wishlist' })
+    .then(function (foundCart) {
+        foundCart.contents = foundCart.contents.filter(function (element) {
+            return element.product.toString() !== req.params.prodId.toString();
+        });
+        return foundCart.save();
+    })
+    .then(function (savedCart) {
+        res.status(200).json(savedCart);
+    })
+    .then(null, next);
+});
+
 router.delete('/:prodId', Auth.assertAdminOrSelf, function (req, res, next) {
-    Cart.findOne({ user : req.user._id, pending : true })
+    Cart.findOne({ user : req.user._id, status : 'pending' })
     .then(function (foundCart) {
         foundCart.contents = foundCart.contents.filter(function (element) {
             return element.product.toString() !== req.params.prodId.toString();
