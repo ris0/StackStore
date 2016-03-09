@@ -1,4 +1,4 @@
-app.controller('AdminCtrl', function ($scope, $log, allProducts, allUsers, CategoriesFactory, allCategories, ProductsFactory) {
+app.controller('AdminCtrl', function ($scope, $log, allProducts, allUsers, allCarts, CategoriesFactory, allCategories, ProductsFactory, UsersFactory, CartFactory) {
     $scope.products = allProducts;
     $scope.users = allUsers;
     $scope.productAvailability = [true,false];
@@ -7,6 +7,18 @@ app.controller('AdminCtrl', function ($scope, $log, allProducts, allUsers, Categ
 	$scope.categories = allCategories;
     $scope.addProductForm = false;
 
+    // users
+    $scope.userToEdit = {};
+    $scope.users = allUsers;
+    $scope.userIsSelected = false;
+    $scope.userIsAdmin= [true,false];
+
+    // carts
+    $scope.cartToEdit = {};
+    $scope.carts = allCarts;
+    $scope.cartIsSelected = false;
+
+    // <----  product  ---->
     $scope.setProduct = function(product) {
         console.log(product);
         $scope.addProductForm = false;
@@ -20,10 +32,66 @@ app.controller('AdminCtrl', function ($scope, $log, allProducts, allUsers, Categ
         })
         console.log(product);
     	ProductsFactory.updateProduct(product._id, product)
-    	.then(function(res){
-    		$scope.productIsSelected = false;
-    	})
-    }
+			.then(function(res){
+				console.log(res);
+				console.log($scope.products);
+				return res.data;
+			})
+            .then(function(res){
+                $scope.productIsSelected = false;
+            })
+    };
+
+	// <----  user  ---->
+	$scope.setUser = function(user) {
+		$scope.userIsSelected = true;
+		$scope.userToEdit._id = user._id;
+		$scope.userToEdit.email = user.email;
+		$scope.userToEdit.password = user.password;
+		$scope.userToEdit.isAdmin = user.isAdmin;
+		$scope.userToEdit = user;
+	};
+
+	$scope.submitEditedUser = function(user) {
+		UsersFactory.updateUser(user._id, user)
+			.then(user => user.data)
+	};
+
+	$scope.deleteUser = function(user) {
+		console.log(user);
+		UsersFactory.deleteUser(user._id)
+			.then(user => user.data)
+	};
+
+	// <---- orders ---->
+	$scope.setCart = function(cart) {
+		$scope.cartIsSelected = true;
+		$scope.cartToEdit._id = cart._id;
+		$scope.cartToEdit.contents.quantity = cart.contents.quantity;
+		$scope.cartToEdit.contents.product = cart.contents.product;
+		$scope.cartToEdit = cart;
+	};
+
+	$scope.submitEditedCart = function(cart) {
+
+	};
+
+	/*
+	 <div>
+	 <h3>Artists</h3>
+	 <div class="panel input-group">
+	 <span class="input-group-addon">Filter</span>
+	 <input type="text" class="form-control" placeholder="by name" ng-model="nameSearch">
+	 </div>
+	 <div class="list-group">
+	 <div class="list-group-item" ng-repeat="artist in artists | filter: { name: nameSearch }">
+	 <a ui-sref="artist({artistId: artist._id})">{{ artist.name }}</a>
+	 </div>
+	 </div>
+	 </div>
+
+	 */
+
 
     $scope.showAddProductForm = function(){
         $scope.productIsSelected = false;

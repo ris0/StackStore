@@ -36,6 +36,10 @@ app.config(function ($stateProvider) {
             allCategories: function (CategoriesFactory) {
                 return CategoriesFactory.getCategories();
             }
+
+            // user management: promote other use accounts to have admin status, delete a user, trigger password reset
+
+
         }
     });
 
@@ -46,7 +50,7 @@ app.config(function ($stateProvider) {
 
     $stateProvider.state('admin.carts', {
         url: '/carts',
-        templateUrl:'js/admin/templates/admin.users.html'
+        templateUrl:'js/admin/templates/admin.carts.html'
     });
 
     $stateProvider.state('admin.users', {

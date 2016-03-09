@@ -1,12 +1,17 @@
 app.factory('UsersFactory', function ($http) {
 
-    var UsersFactory = {};
+    var UsersFactory = {},
+        cached = [];
+
 
     // BUG possibility: do we need to send data payload
     // to authenticate the user as an admin?
     UsersFactory.getAllUsers = function () {
         return $http.get('/api/users')
-        .then(users => users.data)
+        .then(function (users) {
+            angular.copy(users.data, cached);
+            return cached;
+        })
         .catch(function(err) { console.error(err); });
     };
 
@@ -25,16 +30,28 @@ app.factory('UsersFactory', function ($http) {
 
     UsersFactory.updateUser = function (userId, data) {
         return $http.put('/api/users/' + userId, data)
-        .then(user => user.data)
-        .catch(function(err) { console.error(err); });
+            .then(function(newUser) {
+                cached.forEach(function(user) {
+                    if (user._id = newUser.data._id) {
+                        angular.extend(user, newUser.data);
+                    }
+                });
+                return newUser.data
+            })
+            .catch(function(err) { console.error(err); });
     };
 
     UsersFactory.deleteUser = function (userId) {
         return $http.delete('/api/users/' + userId)
-        .catch(function(err) { console.error(err); });
+                    .then(function (res) {
+                        cached.forEach(function (user, i, arr) {
+                            if(user._id === userId) { arr.splice(i, 1) }
+                        });
+                        return res.data;
+                    })
+                    .catch(function(err) { console.error(err); });
     };
 
     return UsersFactory;
 
 });
-
