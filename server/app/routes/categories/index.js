@@ -13,7 +13,7 @@ router.param('categoryId', function (req, res, next, categoryId) {
             _id: categoryId
         })
         .then(function (category) {
-            req.product = category;
+            req.category = category;
             next();
         })
         .then(null, function (err) {
@@ -39,6 +39,7 @@ router.post('/', Auth.assertAdmin, function (req, res, next) {
 });
 
 router.put('/:categoryId', Auth.assertAdmin, function (req, res, next) {
+    console.log(req.category)
     _.merge(req.category, req.body);
 
     req.category.save()
@@ -47,6 +48,7 @@ router.put('/:categoryId', Auth.assertAdmin, function (req, res, next) {
 });
 
 router.delete('/:categoryId', Auth.assertAdmin, function (req, res, next) {
+    console.log(req.category)
     req.category.remove()
         .then(function () {
             res.status(204).end();

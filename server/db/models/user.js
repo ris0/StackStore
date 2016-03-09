@@ -5,7 +5,8 @@ var _ = require('lodash');
 
 var userSchema = new mongoose.Schema({
     email: {
-        type: String
+        type: String,
+        unique: true
     },
     password: {
         type: String
@@ -49,6 +50,15 @@ var encryptPassword = function(plainText, salt) {
     return hash.digest('hex');
 };
 
+userSchema.pre('validate', function(next) {
+
+    if (this.google.id || this.facebook.id || (this.email && this.password)){
+        next();
+    }
+    next( new Error('Error: Must provide an email and/or password'));
+
+});
+
 userSchema.pre('save', function(next) {
 
     if (this.isModified('password')) {
@@ -58,6 +68,7 @@ userSchema.pre('save', function(next) {
     next();
 
 });
+
 
 userSchema.statics.generateSalt = generateSalt;
 userSchema.statics.encryptPassword = encryptPassword;
